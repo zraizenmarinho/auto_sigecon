@@ -1118,7 +1118,7 @@ eva_bolsa_mai_send.send_keys(str(eva['mai_ip_eva_2 Gratuidade Não Regimental'])
 
 eva_bolsa_mai_send.send_keys(Keys.ENTER)
 
-############################################################   Evasão Bolsa -Junho ###########################################################################################################
+################################################ Evasão Bolsa -Junho ############################################################################
 
 eva_bolsa_jun = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(9) > [id='5109'].indicador")))
 
@@ -3108,160 +3108,626 @@ eva_b_dez.send_keys(Keys.ENTER)
 
 ############################################################ Evasão - Não Gratui Janeiro ########################################################
 
-eva_n_jan = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(4) > [id='5069'].indicador")))
+eva_n_jan = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(4) > [id='5070'].indicador")))
 
-eva_b_jan.click()
+eva_n_jan.click()
 
-eva_b_jan_id = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.ID, "5070"
+eva_n_jan_id = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.ID, "5070"
 )))
 
-eva_b_popover = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CLASS_NAME, "popover-content"
+eva_n_popover = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CLASS_NAME, "popover-content"
 )))
 
-eva_b_jan_send = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]"
+eva_n_jan_send = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]"
 )))
 
-eva_b_jan_send.send_keys(str(eva_IPD['jan_ipd_eva_9 Pago por Pessoa Fisica ou Empresa']))
+eva_n_jan_send.send_keys(str(eva_IPD['jan_ipd_eva_9 Pago por Pessoa Fisica ou Empresa']))
 
 
 ############################################################ Evasão - Não Gratui Fevereiro ########################################################
 
-eva_n_fev = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(5) > [id='5069'].indicador")))
+eva_n_fev = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(5) > [id='5070'].indicador")))
 
-eva_b_fev.click()
+eva_n_fev.click()
 
-eva_b_fev_id = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.ID, "5070"
+eva_n_fev_id = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.ID, "5070"
 )))
 
-eva_b_popover = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CLASS_NAME, "popover-content"
+eva_n_popover = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CLASS_NAME, "popover-content"
 )))
 
-eva_b_fev_send = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]"
+eva_n_fev_send = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]"
 )))
 
-eva_b_fev_send.send_keys(str(eva_IPD['fev_ipd_eva_9 Pago por Pessoa Fisica ou Empresa']))
+eva_n_fev_send.send_keys(str(eva_IPD['fev_ipd_eva_9 Pago por Pessoa Fisica ou Empresa']))
 
 ############################################################ Evasão - Não Gratui Março ########################################################
 
-eva_n_mar = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(6) > [id='5069'].indicador")))
+eva_n_mar = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(6) > [id='5070'].indicador")))
 
-eva_b_mar.click()
+eva_n_mar.click()
 
-eva_b_mar_id = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.ID, "5070"
+eva_n_mar_id = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.ID, "5070"
 )))
 
-eva_b_popover = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CLASS_NAME, "popover-content"
+eva_n_popover = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CLASS_NAME, "popover-content"
 )))
 
-eva_b_mar_send = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]"
+eva_n_mar_send = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]"
 )))
 
-eva_b_mar_send.send_keys(str(eva_IPD['mar_ipd_eva_9 Pago por Pessoa Fisica ou Empresa']))
+eva_n_mar_send.send_keys(str(eva_IPD['mar_ipd_eva_9 Pago por Pessoa Fisica ou Empresa']))
 
 ############################################################ Evasão - Não Gratui Abril ########################################################
 
-eva_n_abr = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(7) > [id='5069'].indicador")))
+eva_n_abr = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(7) > [id='5070'].indicador")))
 
-eva_b_abr.click()
+eva_n_abr.click()
 
-eva_b_abr_id = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.ID, "5070"
+eva_n_abr_id = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.ID, "5070"
 )))
 
-eva_b_popover = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CLASS_NAME, "popover-content"
+eva_n_popover = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CLASS_NAME, "popover-content"
 )))
 
-eva_b_abr_send = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]"
+eva_n_abr_send = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]"
 )))
 
-eva_b_abr_send.send_keys(str(eva_IPD['abr_ipd_eva_9 Pago por Pessoa Fisica ou Empresa']))
+eva_n_abr_send.send_keys(str(eva_IPD['abr_ipd_eva_9 Pago por Pessoa Fisica ou Empresa']))
 
 ############################################################ Evasão - Não Gratui Maio ########################################################
 
-eva_n_mai = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(8) > [id='5069'].indicador")))
+eva_n_mai = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(8) > [id='5070'].indicador")))
 
-eva_b_mai.click()
+eva_n_mai.click()
 
-eva_b_mai_id = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.ID, "5070"
+eva_n_mai_id = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.ID, "5070"
 )))
 
-eva_b_popover = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CLASS_NAME, "popover-content"
+eva_n_popover = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CLASS_NAME, "popover-content"
 )))
 
-eva_b_mai_send = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]"
+eva_n_mai_send = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]"
 )))
 
-eva_b_mai_send.send_keys(str(eva_IPD['mai_ipd_eva_9 Pago por Pessoa Fisica ou Empresa']))
+eva_n_mai_send.send_keys(str(eva_IPD['mai_ipd_eva_9 Pago por Pessoa Fisica ou Empresa']))
 
 ############################################################ Evasão - Não Gratui Junho ########################################################
 
-eva_n_jun = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(9) > [id='5069'].indicador")))
+eva_n_jun = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(9) > [id='5070'].indicador")))
 
-eva_b_jun.click()
+eva_n_jun.click()
 
-eva_b_jun_id = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.ID, "5070"
+eva_n_jun_id = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.ID, "5070"
 )))
 
-eva_b_popover = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CLASS_NAME, "popover-content"
+eva_n_popover = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CLASS_NAME, "popover-content"
 )))
 
-eva_b_jun_send = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]"
+eva_n_jun_send = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]"
 )))
 
-eva_b_jun_send.send_keys(str(eva_IPD['jun_ipd_eva_9 Pago por Pessoa Fisica ou Empresa']))
+eva_n_jun_send.send_keys(str(eva_IPD['jun_ipd_eva_9 Pago por Pessoa Fisica ou Empresa']))
 
 ############################################################ Evasão - Não Gratui Julho ########################################################
 
-eva_n_jul = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(10) > [id='5069'].indicador")))
+eva_n_jul = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(10) > [id='5070'].indicador")))
 
-eva_b_jul.click()
+eva_n_jul.click()
 
-eva_b_jul_id = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.ID, "5070"
+eva_n_jul_id = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.ID, "5070"
 )))
 
-eva_b_popover = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CLASS_NAME, "popover-content"
+eva_n_popover = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CLASS_NAME, "popover-content"
 )))
 
-eva_b_jul_send = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]"
+eva_n_jul_send = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]"
 )))
 
-eva_b_jul_send.send_keys(str(eva_IPD['jul_ipd_eva_9 Pago por Pessoa Fisica ou Empresa']))
+eva_n_jul_send.send_keys(str(eva_IPD['jul_ipd_eva_9 Pago por Pessoa Fisica ou Empresa']))
 
 ############################################################ Evasão - Não Gratui Agosto ########################################################
 
-eva_n_ago = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(11) > [id='5069'].indicador")))
+eva_n_ago = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(11) > [id='5070'].indicador")))
 
-eva_b_ago.click()
+eva_n_ago.click()
 
-eva_b_ago_id = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.ID, "5070"
+eva_n_ago_id = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.ID, "5070"
 )))
 
-eva_b_popover = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CLASS_NAME, "popover-content"
+eva_n_popover = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CLASS_NAME, "popover-content"
 )))
 
-eva_b_ago_send = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]"
+eva_n_ago_send = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]"
 )))
 
-eva_b_ago_send.send_keys(str(eva_IPD['ago_ipd_eva_9 Pago por Pessoa Fisica ou Empresa']))
+eva_n_ago_send.send_keys(str(eva_IPD['ago_ipd_eva_9 Pago por Pessoa Fisica ou Empresa']))
 
 ############################################################ Evasão - Não Gratui Setembro ########################################################
 
-eva_n_set = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(12) > [id='5069'].indicador")))
+eva_n_set = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(12) > [id='5070'].indicador")))
 
-eva_b_set.click()
+eva_n_set.click()
 
-eva_b_set_id = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.ID, "5070"
+eva_n_set_id = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.ID, "5070"
 )))
 
-eva_b_popover = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CLASS_NAME, "popover-content"
+eva_n_popover = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CLASS_NAME, "popover-content"
 )))
 
-eva_b_ago_send = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]"
+eva_n_set_send = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]"
 )))
 
-eva_b_ago_send.send_keys(str(eva_IPD['ago_ipd_eva_9 Pago por Pessoa Fisica ou Empresa']))
+eva_n_set_send.send_keys(str(eva_IPD['set_ipd_eva_9 Pago por Pessoa Fisica ou Empresa']))
 
 ############################################################ Evasão - Não Gratui Outubro ########################################################
 
+eva_n_out = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(13) > [id='5070'].indicador")))
+
+eva_n_out.click()
+
+eva_n_out_id = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.ID, "5070"
+)))
+
+eva_n_popover = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CLASS_NAME, "popover-content"
+)))
+
+eva_n_out_send = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]"
+)))
+
+eva_n_out_send.send_keys(str(eva_IPD['out_ipd_eva_9 Pago por Pessoa Fisica ou Empresa']))  
+
+
 ############################################################ Evasão - Não Gratui Novembro ########################################################
 
-############################################################ Evasão - Não Gratui Dezembro ########################################################
+eva_n_nov = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(14) > [id='5070'].indicador")))
+
+eva_n_nov.click()
+
+eva_n_nov_id = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.ID, "5070"
+)))
+
+eva_n_popover = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CLASS_NAME, "popover-content"
+)))
+
+eva_n_nov_send = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]"
+)))
+
+eva_n_nov_send.send_keys(str(eva_IPD['nov_ipd_eva_9 Pago por Pessoa Fisica ou Empresa']))  
+
+############################################################ Evasão - Não Gratui Dezembro #######################################################
+
+eva_n_dez = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(15) > [id='5070'].indicador")))
+
+eva_n_dez.click()
+
+eva_n_dez_id = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.ID, "5070"
+)))
+
+eva_n_popover = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CLASS_NAME, "popover-content"
+)))
+
+eva_n_dez_send = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]"
+)))
+
+eva_n_dez_send.send_keys(str(eva_IPD['dez_ipd_eva_9 Pago por Pessoa Fisica ou Empresa'])) 
+
+############################################################ Hora Aluno - Bolsa Janeiro #######################################################
+
+ha_b_jan = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(4) > [id='5071'].indicador")))
+
+ha_b_jan.click()
+
+ha_b_jan_id = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.ID, "5071"
+)))
+
+ha_b_jan_popover = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CLASS_NAME, "popover-content"
+)))
+
+ha_b_jan_send = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]"
+)))
+
+ha_b_jan_send.send_keys(str(ha_IPD['jan_ipd_ha_2 Gratuidade Não Regimental'])) 
+
+############################################################ Hora Aluno - Bolsa Fevereiro #######################################################
+
+ha_b_fev = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(5) > [id='5071'].indicador")))
+
+ha_b_fev.click()
+
+ha_b_fev_id = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.ID, "5071"
+)))
+
+ha_b_fev_popover = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CLASS_NAME, "popover-content"
+)))
+
+ha_b_fev_send = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]"
+)))
+
+ha_b_fev_send.send_keys(str(ha_IPD['fev_ipd_ha_2 Gratuidade Não Regimental'])) 
+
+
+############################################################ Hora Aluno - Bolsa Março #######################################################
+
+ha_b_mar = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(6) > [id='5071'].indicador")))
+
+ha_b_mar.click()
+
+ha_b_mar_id = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.ID, "5071"
+)))
+
+ha_b_mar_popover = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CLASS_NAME, "popover-content"
+)))
+
+ha_b_mar_send = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]"
+)))
+
+ha_b_mar_send.send_keys(str(ha_IPD['mar_ipd_ha_2 Gratuidade Não Regimental'])) 
+
+############################################################ Hora Aluno - Bolsa Abril #######################################################
+
+ha_b_abr = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(7) > [id='5071'].indicador")))
+
+ha_b_abr.click()
+
+ha_b_abr_id = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.ID, "5071"
+)))
+
+ha_b_abr_popover = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CLASS_NAME, "popover-content"
+)))
+
+ha_b_abr_send = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]"
+)))
+
+ha_b_abr_send.send_keys(str(ha_IPD['abr_ipd_ha_2 Gratuidade Não Regimental'])) 
+
+############################################################ Hora Aluno - Bolsa Maio #######################################################
+
+ha_b_mai = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(8) > [id='5071'].indicador")))
+
+ha_b_mai.click()
+
+ha_b_mai_id = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.ID, "5071"
+)))
+
+ha_b_mai_popover = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CLASS_NAME, "popover-content"
+)))
+
+ha_b_mai_send = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]"
+)))
+
+ha_b_mai_send.send_keys(str(ha_IPD['mai_ipd_ha_2 Gratuidade Não Regimental'])) 
+
+############################################################ Hora Aluno - Bolsa Junho #######################################################
+
+ha_b_jun = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(9) > [id='5071'].indicador")))
+
+ha_b_jun.click()
+
+ha_b_jun_id = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.ID, "5071"
+)))
+
+ha_b_jun_popover = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CLASS_NAME, "popover-content"
+)))
+
+ha_b_jun_send = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]"
+)))
+
+ha_b_jun_send.send_keys(str(ha_IPD['jun_ipd_ha_2 Gratuidade Não Regimental'])) 
+
+
+############################################################ Hora Aluno - Bolsa Julho #######################################################
+
+ha_b_jul = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(10) > [id='5071'].indicador")))
+
+ha_b_jul.click()
+
+ha_b_jul_id = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.ID, "5071"
+)))
+
+ha_b_jul_popover = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CLASS_NAME, "popover-content"
+)))
+
+ha_b_jul_send = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]"
+)))
+
+ha_b_jul_send.send_keys(str(ha_IPD['jul_ipd_ha_2 Gratuidade Não Regimental'])) 
+
+
+############################################################ Hora Aluno - Bolsa Agosto #######################################################
+
+ha_b_ago = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(11) > [id='5071'].indicador")))
+
+ha_b_ago.click()
+
+ha_b_ago_id = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.ID, "5071"
+)))
+
+ha_b_ago_popover = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CLASS_NAME, "popover-content"
+)))
+
+ha_b_ago_send = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]"
+)))
+
+ha_b_ago_send.send_keys(str(ha_IPD['ago_ipd_ha_2 Gratuidade Não Regimental'])) 
+
+############################################################ Hora Aluno - Bolsa Setembro #######################################################
+
+ha_b_set = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(12) > [id='5071'].indicador")))
+
+ha_b_set.click()
+
+ha_b_set_id = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.ID, "5071"
+)))
+
+ha_b_set_popover = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CLASS_NAME, "popover-content"
+)))
+
+ha_b_set_send = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]"
+)))
+
+ha_b_set_send.send_keys(str(ha_IPD['set_ipd_ha_2 Gratuidade Não Regimental'])) 
+
+############################################################ Hora Aluno - Bolsa Outubro #######################################################
+
+ha_b_out = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(13) > [id='5071'].indicador")))
+
+ha_b_out.click()
+
+ha_b_out_id = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.ID, "5071"
+)))
+
+ha_b_out_popover = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CLASS_NAME, "popover-content"
+)))
+
+ha_b_out_send = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]"
+)))
+
+ha_b_out_send.send_keys(str(ha_IPD['out_ipd_ha_2 Gratuidade Não Regimental'])) 
+
+
+############################################################ Hora Aluno - Bolsa Novembro #######################################################
+
+ha_b_nov = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(14) > [id='5071'].indicador")))
+
+ha_b_nov.click()
+
+ha_b_nov_id = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.ID, "5071"
+)))
+
+ha_b_nov_popover = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CLASS_NAME, "popover-content"
+)))
+
+ha_b_nov_send = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]"
+)))
+
+ha_b_nov_send.send_keys(str(ha_IPD['nov_ipd_ha_2 Gratuidade Não Regimental'])) 
+
+############################################################ Hora Aluno - Bolsa Dezembro #######################################################
+
+ha_b_dez = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(15) > [id='5071'].indicador")))
+
+ha_b_dez.click()
+
+ha_b_dez_id = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.ID, "5071"
+)))
+
+ha_b_dez_popover = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CLASS_NAME, "popover-content"
+)))
+
+ha_b_dez_send = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]"
+)))
+
+ha_b_dez_send.send_keys(str(ha_IPD['dez_ipd_ha_2 Gratuidade Não Regimental'])) 
+
+############################################################ Hora Aluno - Nao Gratuita Janeiro #######################################################
+
+ha_n = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(4) > [id='5072'].indicador")))
+
+ha_n.click()
+
+ha_n_id = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.ID, "5072"
+)))
+
+ha_n_popover = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CLASS_NAME, "popover-content"
+)))
+
+ha_n_send = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]"
+)))
+
+ha_n_send.send_keys(str(ha_IPD['jan_ipd_ha_9 Pago por Pessoa Fisica ou Empresa'])) 
+
+############################################################ Hora Aluno - Nao Gratuita Fevereiro #######################################################
+
+ha_n = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(5) > [id='5072'].indicador")))
+
+ha_n.click()
+
+ha_n_id = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.ID, "5072"
+)))
+
+ha_n_popover = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CLASS_NAME, "popover-content"
+)))
+
+ha_n_send = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]"
+)))
+
+ha_n_send.send_keys(str(ha_IPD['fev_ipd_ha_9 Pago por Pessoa Fisica ou Empresa'])) 
+
+############################################################ Hora Aluno - Nao Gratuita Março #######################################################
+
+ha_n = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(6) > [id='5072'].indicador")))
+
+ha_n.click()
+
+ha_n_id = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.ID, "5072"
+)))
+
+ha_n_popover = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CLASS_NAME, "popover-content"
+)))
+
+ha_n_send = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]"
+)))
+
+ha_n_send.send_keys(str(ha_IPD['mar_ipd_ha_9 Pago por Pessoa Fisica ou Empresa'])) 
+
+############################################################ Hora Aluno - Nao Gratuita Abril #######################################################
+
+ha_n = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(7) > [id='5072'].indicador")))
+
+ha_n.click()
+
+ha_n_id = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.ID, "5072"
+)))
+
+ha_n_popover = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CLASS_NAME, "popover-content"
+)))
+
+ha_n_send = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]"
+)))
+
+ha_n_send.send_keys(str(ha_IPD['abr_ipd_ha_9 Pago por Pessoa Fisica ou Empresa'])) 
+
+
+############################################################ Hora Aluno - Nao Gratuita Maio #######################################################
+
+ha_n = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(8) > [id='5072'].indicador")))
+
+ha_n.click()
+
+ha_n_id = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.ID, "5072"
+)))
+
+ha_n_popover = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CLASS_NAME, "popover-content"
+)))
+
+ha_n_send = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]"
+)))
+
+ha_n_send.send_keys(str(ha_IPD['mai_ipd_ha_9 Pago por Pessoa Fisica ou Empresa'])) 
+
+
+############################################################ Hora Aluno - Nao Gratuita Junho #######################################################
+
+ha_n = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(9) > [id='5072'].indicador")))
+
+ha_n.click()
+
+ha_n_id = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.ID, "5072"
+)))
+
+ha_n_popover = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CLASS_NAME, "popover-content"
+)))
+
+ha_n_send = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]"
+)))
+
+ha_n_send.send_keys(str(ha_IPD['jun_ipd_ha_9 Pago por Pessoa Fisica ou Empresa'])) 
+
+############################################################ Hora Aluno - Nao Gratuita Julho #######################################################
+
+ha_n = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(10) > [id='5072'].indicador")))
+
+ha_n.click()
+
+ha_n_id = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.ID, "5072"
+)))
+
+ha_n_popover = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CLASS_NAME, "popover-content"
+)))
+
+ha_n_send = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]"
+)))
+
+ha_n_send.send_keys(str(ha_IPD['jul_ipd_ha_9 Pago por Pessoa Fisica ou Empresa'])) 
+
+############################################################ Hora Aluno - Nao Gratuita Agosto #######################################################
+
+ha_n = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(11) > [id='5072'].indicador")))
+
+ha_n.click()
+
+ha_n_id = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.ID, "5072"
+)))
+
+ha_n_popover = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CLASS_NAME, "popover-content"
+)))
+
+ha_n_send = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]"
+)))
+
+ha_n_send.send_keys(str(ha_IPD['ago_ipd_ha_9 Pago por Pessoa Fisica ou Empresa'])) 
+
+############################################################ Hora Aluno - Nao Gratuita Setembro #######################################################
+
+ha_n = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(12) > [id='5072'].indicador")))
+
+ha_n.click()
+
+ha_n_id = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.ID, "5072"
+)))
+
+ha_n_popover = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CLASS_NAME, "popover-content"
+)))
+
+ha_n_send = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]"
+)))
+
+ha_n_send.send_keys(str(ha_IPD['set_ipd_ha_9 Pago por Pessoa Fisica ou Empresa'])) 
+
+############################################################ Hora Aluno - Nao Gratuita Outubro #######################################################
+
+ha_n = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(13) > [id='5072'].indicador")))
+
+ha_n.click()
+
+ha_n_id = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.ID, "5072"
+)))
+
+ha_n_popover = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CLASS_NAME, "popover-content"
+)))
+
+ha_n_send = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]"
+)))
+
+ha_n_send.send_keys(str(ha_IPD['out_ipd_ha_9 Pago por Pessoa Fisica ou Empresa'])) 
+
+############################################################ Hora Aluno - Nao Gratuita Novembro #######################################################
+
+ha_n = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(14) > [id='5072'].indicador")))
+
+ha_n.click()
+
+ha_n_id = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.ID, "5072"
+)))
+
+ha_n_popover = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CLASS_NAME, "popover-content"
+)))
+
+ha_n_send = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]"
+)))
+
+ha_n_send.send_keys(str(ha_IPD['nov_ipd_ha_9 Pago por Pessoa Fisica ou Empresa'])) 
+
+############################################################ Hora Aluno - Nao Gratuita Dezembro #######################################################
+
+ha_n = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(15) > [id='5072'].indicador")))
+
+ha_n.click()
+
+ha_n_id = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.ID, "5072"
+)))
+
+ha_n_popover = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CLASS_NAME, "popover-content"
+)))
+
+ha_n_send = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]"
+)))
+
+ha_n_send.send_keys(str(ha_IPD['dez_ipd_ha_9 Pago por Pessoa Fisica ou Empresa'])) 
+
+#######################################################################################################################################################
+
+janela_atual = nav.current_window_handle
+
+nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030201/230?cd_centro_resp=30303020101&nm_unidade=SENAI%20TAGUATINGA&nm_centro_resp=APRENDIZAGEM%20INDUSTRIAL%20PRESENCIAL&id_grupo=2&ds_grupo=Aprendizagem%20Industrial&fase=Realiza%C3%A7%C3%A3o', '_self')")
