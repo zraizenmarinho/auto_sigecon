@@ -4190,27 +4190,183 @@ mat_c_popover = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((B
 mat_c_send = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]"
 )))
 
-mat_c_send.send_keys(str(con_AP['jan_ap_con_9 Pago por Pessoa Fisica ou Empresa'])) 
+mat_c_send.send_keys(str(con_AP['fev_ap_con_9 Pago por Pessoa Fisica ou Empresa']))
 
 ############################################################ Concluinte - Nao Gratuita Março #######################################################
 
+mat_c = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(6) > [id='5115'].indicador")))
+
+mat_c.click()
+
+mat_c_id = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.ID, "5115"
+)))
+
+mat_c_popover = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CLASS_NAME, "popover-content"
+)))
+
+mat_c_send = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]"
+)))
+
+mat_c_send.send_keys(str(con_AP['mar_ap_con_9 Pago por Pessoa Fisica ou Empresa']))
+
 ############################################################ Concluinte - Nao Gratuita Abril #######################################################
+
+mat_c = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(7) > [id='5115'].indicador")))
+
+mat_c.click()
+
+mat_c_id = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.ID, "5115"
+)))
+
+mat_c_popover = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CLASS_NAME, "popover-content"
+)))
+
+mat_c_send = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]"
+)))
+
+mat_c_send.send_keys(str(con_AP['abr_ap_con_9 Pago por Pessoa Fisica ou Empresa']))
 
 ############################################################ Concluinte - Nao Gratuita Maio #######################################################
 
+mat_c = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(8) > [id='5115'].indicador")))
+
+mat_c.click()
+
+mat_c_id = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.ID, "5115"
+)))
+
+mat_c_popover = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CLASS_NAME, "popover-content"
+)))
+
+mat_c_send = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]"
+)))
+
+mat_c_send.send_keys(str(con_AP['mai_ap_con_9 Pago por Pessoa Fisica ou Empresa']))
+
 ############################################################ Concluinte - Nao Gratuita Junho #######################################################
+
+mat_c = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(9) > [id='5115'].indicador")))
+
+mat_c.click()
+
+mat_c_id = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.ID, "5115"
+)))
+
+mat_c_popover = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CLASS_NAME, "popover-content"
+)))
+
+mat_c_send = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]"
+)))
+
+mat_c_send.send_keys(str(con_AP['jun_ap_con_9 Pago por Pessoa Fisica ou Empresa']))
 
 ############################################################ Concluinte - Nao Gratuita Julho #######################################################
 
+mat_c = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(10) > [id='5115'].indicador")))
+
+mat_c.click()
+
+mat_c_id = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.ID, "5115"
+)))
+
+mat_c_popover = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CLASS_NAME, "popover-content"
+)))
+
+mat_c_send = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]"
+)))
+
+mat_c_send.send_keys(str(con_AP['jul_ap_con_9 Pago por Pessoa Fisica ou Empresa']))
+
 ############################################################ Concluinte - Nao Gratuita Agosto #######################################################
+
+mat_c = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(11) > [id='5115'].indicador")))
+
+mat_c.click()
+
+mat_c_id = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.ID, "5115"
+)))
+
+mat_c_popover = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CLASS_NAME, "popover-content"
+)))
+
+mat_c_send = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]"
+)))
+
+mat_c_send.send_keys(str(con_AP['ago_ap_con_9 Pago por Pessoa Fisica ou Empresa']))
 
 ############################################################ Concluinte - Nao Gratuita Setembro #######################################################
 
+mat_c = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(12) > [id='5115'].indicador")))
+
+mat_c.click()
+
+mat_c_id = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.ID, "5115"
+)))
+
+mat_c_popover = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CLASS_NAME, "popover-content"
+)))
+
+mat_c_send = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]"
+)))
+
+mat_c_send.send_keys(str(con_AP['set_ap_con_9 Pago por Pessoa Fisica ou Empresa']))
+
 ############################################################ Concluinte - Nao Gratuita Outubro #######################################################
+
+mat_c = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(13) > [id='5115'].indicador")))
+
+mat_c.click()
+
+mat_c_id = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.ID, "5115"
+)))
+
+mat_c_popover = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CLASS_NAME, "popover-content"
+)))
+
+mat_c_send = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]"
+)))
+
+mat_c_send.send_keys(str(con_AP['out_ap_con_9 Pago por Pessoa Fisica ou Empresa']))
+
 
 ############################################################ Concluinte - Nao Gratuita Novembro #######################################################
 
+mat_c = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(14) > [id='5115'].indicador")))
+
+mat_c.click()
+
+mat_c_id = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.ID, "5115"
+)))
+
+mat_c_popover = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CLASS_NAME, "popover-content"
+)))
+
+mat_c_send = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]"
+)))
+
+mat_c_send.send_keys(str(con_AP['nov_ap_con_9 Pago por Pessoa Fisica ou Empresa']))
+
+
 ############################################################ Concluinte - Nao Gratuita Dezembro #######################################################
+
+mat_c = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(15) > [id='5115'].indicador")))
+
+mat_c.click()
+
+mat_c_id = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.ID, "5115"
+)))
+
+mat_c_popover = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CLASS_NAME, "popover-content"
+)))
+
+mat_c_send = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]"
+)))
+
+mat_c_send.send_keys(str(con_AP['dez_ap_con_9 Pago por Pessoa Fisica ou Empresa']))
+
+
+
+
 
 
 
