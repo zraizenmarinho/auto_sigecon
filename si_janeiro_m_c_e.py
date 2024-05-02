@@ -36,7 +36,7 @@ def obter_matriculas_por_tipo_jan(file_path):
 
     return {
             "jan_ip_mat_regi": jan_ip_mat_regi,
-            "jan_ip_mat_bolsa": jan_ip_mat_bolsa,
+            "jan_ip_mat_bolsa": jan_ip,
             "jan_ip_mat_convenio": jan_ip_mat_convenio,
             "jan_ip_mat_n_gratuita": jan_ip_mat_n_gratuita
     

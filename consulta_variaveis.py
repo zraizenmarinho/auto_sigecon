@@ -11,13 +11,13 @@ con_AP = obter_concluintes_AP_TAG('si_jan.xlsx')
 eva_AP = obter_evasao_AP_TAG('si_jan.xlsx')
 
 
-print(eva_AP)
+print(ha_AP)
 
 
 
 #Matricula JANEIRO
 
-{'jan_ip_mat_regi': 598, 'jan_ip_mat_bolsa': 0, 'jan_ip_mat_convenio': 0, 'jan_ip_mat_n_gratuita': 3}
+"{'jan_ip_mat_regi': 598, 'jan_ip_mat_bolsa': 0, 'jan_ip_mat_convenio': 0, 'jan_ip_mat_n_gratuita': 3}"
 
 
 #MATRICULA MESES
@@ -28,7 +28,7 @@ print(eva_AP)
 
 #HORA ALUNO
 
-{'jan_ipd_ha_1 Gratuidade Regimental': 8440, 'jan_ipd_ha_2 Gratuidade Não Regimental': 0, 'jan_ipd_ha_3 Convênio': 0, 'jan_ipd_ha_9 Pago por Pessoa Fisica ou Empresa': 0, 'fev_ipd_ha_1 Gratuidade Regimental': 16568, 'fev_ipd_ha_2 Gratuidade Não Regimental': 0, 'fev_ipd_ha_3 Convênio': 0, 'fev_ipd_ha_9 Pago por Pessoa Fisica ou Empresa': 0, 'mar_ipd_ha_1 Gratuidade Regimental': 17624, 'mar_ipd_ha_2 Gratuidade Não Regimental': 0, 'mar_ipd_ha_3 Convênio': 0, 'mar_ipd_ha_9 Pago por Pessoa Fisica ou Empresa': 0, 'abr_ipd_ha_1 Gratuidade Regimental': 0, 'abr_ipd_ha_2 Gratuidade Não Regimental': 0, 'abr_ipd_ha_3 Convênio': 0, 'abr_ipd_ha_9 Pago por Pessoa Fisica ou Empresa': 0, 'mai_ipd_ha_1 Gratuidade Regimental': 0, 'mai_ipd_ha_2 Gratuidade Não Regimental': 0, 'mai_ipd_ha_3 Convênio': 0, 'mai_ipd_ha_9 Pago por Pessoa Fisica ou Empresa': 0, 'jun_ipd_ha_1 Gratuidade Regimental': 0, 'jun_ipd_ha_2 Gratuidade Não Regimental': 0, 'jun_ipd_ha_3 Convênio': 0, 'jun_ipd_ha_9 Pago por Pessoa Fisica ou Empresa': 0, 'jul_ipd_ha_1 Gratuidade Regimental': 0, 'jul_ipd_ha_2 Gratuidade Não Regimental': 0, 'jul_ipd_ha_3 Convênio': 0, 'jul_ipd_ha_9 Pago por Pessoa Fisica ou Empresa': 0, 'ago_ipd_ha_1 Gratuidade Regimental': 0, 'ago_ipd_ha_2 Gratuidade Não Regimental': 0, 'ago_ipd_ha_3 Convênio': 0, 'ago_ipd_ha_9 Pago por Pessoa Fisica ou Empresa': 0, 'set_ipd_ha_1 Gratuidade Regimental': 0, 'set_ipd_ha_2 Gratuidade Não Regimental': 0, 'set_ipd_ha_3 Convênio': 0, 'set_ipd_ha_9 Pago por Pessoa Fisica ou Empresa': 0, 'out_ipd_ha_1 Gratuidade Regimental': 0, 'out_ipd_ha_2 Gratuidade Não Regimental': 0, 'out_ipd_ha_3 Convênio': 0, 'out_ipd_ha_9 Pago por Pessoa Fisica ou Empresa': 0, 'nov_ipd_ha_1 Gratuidade Regimental': 0, 'nov_ipd_ha_2 Gratuidade Não Regimental': 0, 'nov_ipd_ha_3 Convênio': 0, 'nov_ipd_ha_9 Pago por Pessoa Fisica ou Empresa': 0, 'dez_ipd_ha_1 Gratuidade Regimental': 0, 'dez_ipd_ha_2 Gratuidade Não Regimental': 0, 'dez_ipd_ha_3 Convênio': 0, 'dez_ipd_ha_9 Pago por Pessoa Fisica ou Empresa': 0}
+{'jan_ap_ha_1 Gratuidade Regimental': 8440, 'jan_ap_ha_2 Gratuidade Não Regimental': 0, 'jan_ap_ha_3 Convênio': 0, 'jan_ap_ha_9 Pago por Pessoa Fisica ou Empresa': 0, 'fev_ap_ha_1 Gratuidade Regimental': 16568, 'fev_ap_ha_2 Gratuidade Não Regimental': 0, 'fev_ap_ha_3 Convênio': 0, 'fev_ap_ha_9 Pago por Pessoa Fisica ou Empresa': 0, 'mar_ap_ha_1 Gratuidade Regimental': 17624, 'mar_ap_ha_2 Gratuidade Não Regimental': 0, 'mar_ap_ha_3 Convênio': 0, 'mar_ap_ha_9 Pago por Pessoa Fisica ou Empresa': 0, 'abr_ap_ha_1 Gratuidade Regimental': 0, 'abr_ap_ha_2 Gratuidade Não Regimental': 0, 'abr_ap_ha_3 Convênio': 0, 'abr_ap_ha_9 Pago por Pessoa Fisica ou Empresa': 0, 'mai_ap_ha_1 Gratuidade Regimental': 0, 'mai_ap_ha_2 Gratuidade Não Regimental': 0, 'mai_ap_ha_3 Convênio': 0, 'mai_ap_ha_9 Pago por Pessoa Fisica ou Empresa': 0, 'jun_ap_ha_1 Gratuidade Regimental': 0, 'jun_ap_ha_2 Gratuidade Não Regimental': 0, 'jun_ap_ha_3 Convênio': 0, 'jun_ap_ha_9 Pago por Pessoa Fisica ou Empresa': 0, 'jul_ap_ha_1 Gratuidade Regimental': 0, 'jul_ap_ha_2 Gratuidade Não Regimental': 0, 'jul_ap_ha_3 Convênio': 0, 'jul_ap_ha_9 Pago por Pessoa Fisica ou Empresa': 0, 'ago_ap_ha_1 Gratuidade Regimental': 0, 'ago_ap_ha_2 Gratuidade Não Regimental': 0, 'ago_ap_ha_3 Convênio': 0, 'ago_ap_ha_9 Pago por Pessoa Fisica ou Empresa': 0, 'set_ap_ha_1 Gratuidade Regimental': 0, 'set_ap_ha_2 Gratuidade Não Regimental': 0, 'set_ap_ha_3 Convênio': 0, 'set_ap_ha_9 Pago por Pessoa Fisica ou Empresa': 0, 'out_ap_ha_1 Gratuidade Regimental': 0, 'out_ap_ha_2 Gratuidade Não Regimental': 0, 'out_ap_ha_3 Convênio': 0, 'out_ap_ha_9 Pago por Pessoa Fisica ou Empresa': 0, 'nov_ap_ha_1 Gratuidade Regimental': 0, 'nov_ap_ha_2 Gratuidade Não Regimental': 0, 'nov_ap_ha_3 Convênio': 0, 'nov_ap_ha_9 Pago por Pessoa Fisica ou Empresa': 0, 'dez_ap_ha_1 Gratuidade Regimental': 0, 'dez_ap_ha_2 Gratuidade Não Regimental': 0, 'dez_ap_ha_3 Convênio': 0, 'dez_ap_ha_9 Pago por Pessoa Fisica ou Empresa': 0}
 
 
 #CONCLUINTES
