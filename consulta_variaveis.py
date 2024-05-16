@@ -1,4 +1,5 @@
 
+
 from si_janeiro_m_c_e import obter_matriculas_QP_TAG_jan #
 from si_janeiro_m_c_e import obter_matriculas_QP_TAG #
 from si_janeiro import obter_hora_QP_TAG
@@ -88,3 +89,17 @@ iterar_sobre_meses(nav)
 
 
 from web_page_elements import WebPageElements
+
+
+#Janeiro
+#Fevereiro
+#Marco
+#Abril
+#Maio
+#Junho
+#Julho
+#Agosto
+#Setembro
+#Outubro
+#Novembro
+#Dezembro
