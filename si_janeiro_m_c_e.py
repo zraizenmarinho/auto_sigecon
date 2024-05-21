@@ -1,7 +1,6 @@
 import pandas as pd
 import openpyxl
 import numpy as np
-import si_janeiro
 import pandas as pd
 
 # SENAI TAGUATINGA INICIAÇÃO PROFISSIONAL PRESENCIAl #################################################################
