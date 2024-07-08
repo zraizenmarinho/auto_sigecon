@@ -1,272 +1,81 @@
 import pandas as pd
-import openpyxl
-import numpy as np
-import pandas as pd
+import dask.dataframe as dd
 
-# SENAI TAGUATINGA INICIAÇÃO PROFISSIONAL PRESENCIAl #################################################################
-
-def obter_matriculas_por_tipo_jan(file_path):
-    class MatriculasPorTipoFinanciamento:
-        def __init__(self, file_path):
-            self.data = pd.read_excel(file_path)
-        
-        def contar_matriculas_jan(self, unidade, modalidade, tipo_acao, mes_rela, mes_referencia, anos_referencia, tipo_financiamento):
-            filtro_uni = self.data['UNIDADE_ATENDIMENTO'] == unidade
-            filtro_mod = self.data['MODALIDADE'] == modalidade
-            filtro_tipo = self.data['TIPO_ACAO'] == tipo_acao
-            filtro_mes_rel = self.data['MES_REFERENCIA'].astype(str).isin([mes_rela])
-            filtro_mes = self.data['DT_ENTRADA_MÊS'].astype(str).isin(mes_referencia)
-            filtro_ano = self.data['DT_ENTRADA_ANO'].astype(str).isin(anos_referencia)
-            filtro_finan = self.data['TIPO_FINANCIAMENTO'] == tipo_financiamento
-            
-            base_filtrada = self.data[filtro_uni & filtro_mod & filtro_tipo & filtro_mes_rel & filtro_mes & filtro_ano & filtro_finan]
-
-            return len(base_filtrada)
+class MatriculasPorTipoFinanciamentoJan:
+    def __init__(self, file_path):
+        pandas_df = pd.read_excel(file_path)
+        self.data = dd.from_pandas(pandas_df, npartitions=1)
     
-    matriculas_por_tipo = MatriculasPorTipoFinanciamento(file_path)
+    def contar_matriculas_jan(self, unidade, modalidade, tipo_acao, mes_rela, mes_referencia, anos_referencia, tipo_financiamento):
+        filtro_uni = self.data['UNIDADE_ATENDIMENTO'] == unidade
+        filtro_mod = self.data['MODALIDADE'] == modalidade
+        filtro_tipo = self.data['TIPO_ACAO'] == tipo_acao
+        filtro_mes_rel = self.data['MES_REFERENCIA'].astype(str).isin([mes_rela])
+        filtro_mes = self.data['DT_ENTRADA_MÊS'].astype(str).isin(mes_referencia)
+        filtro_ano = self.data['DT_ENTRADA_ANO'].astype(str).isin(anos_referencia)
+        filtro_finan = self.data['TIPO_FINANCIAMENTO'] == tipo_financiamento
+        
+        base_filtrada = self.data[filtro_uni & filtro_mod & filtro_tipo & filtro_mes_rel & filtro_mes & filtro_ano & filtro_finan].compute()
 
-    #Janeiro Ajustar o mes de referencia do relatorio atual
+        return len(base_filtrada)
 
-    jan_ip_mat_regi = matriculas_por_tipo.contar_matriculas_jan('1117376 SENAI Taguatinga', '5 Iniciação Profissional', '1 Presencial', '12024', ['1','2','3','4','5','6','7','8','9','10','11','12'], ['2016','2017','2018','2019','2020','2021','2022','2023','2024'], '1 Gratuidade Regimental')
-    jan_ip_mat_bolsa = matriculas_por_tipo.contar_matriculas_jan('1117376 SENAI Taguatinga', '5 Iniciação Profissional', '1 Presencial','12024', ['1','2','3','4','5','6','7','8','9','10','11','12'], ['2016','2017','2018','2019','2020','2021','2022','2023','2024'], '2 Gratuidade Não Regimental')
-    jan_ip_mat_convenio = matriculas_por_tipo.contar_matriculas_jan('1117376 SENAI Taguatinga', '5 Iniciação Profissional', '1 Presencial','12024', ['1','2','3','4','5','6','7','8','9','10','11','12'], ['2016','2017','2018','2019','2020','2021','2022','2023','2024'], '3 Convênio')
-    jan_ip_mat_n_gratuita = matriculas_por_tipo.contar_matriculas_jan('1117376 SENAI Taguatinga', '5 Iniciação Profissional', '1 Presencial','12024', ['1','2','3','4','5','6','7','8','9','10','11','12'], ['2016','2017','2018','2019','2020','2021','2022','2023','2024'], '9 Pago por Pessoa Fisica ou Empresa')
+def obter_matriculas_por_tipo_jan(file_path, unidade ,modalidade, tipo_acao):
+    matriculas_por_tipo = MatriculasPorTipoFinanciamentoJan(file_path)
 
+    mes_rela = '12024'
+    mes_referencia = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']
+    anos_referencia = ['2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024']
+    
+    jan_mat_regi = matriculas_por_tipo.contar_matriculas_jan(unidade, modalidade, tipo_acao, mes_rela, mes_referencia, anos_referencia, '1 Gratuidade Regimental')
+    jan_mat_bolsa = matriculas_por_tipo.contar_matriculas_jan(unidade, modalidade, tipo_acao, mes_rela, mes_referencia, anos_referencia, '2 Gratuidade Não Regimental')
+    jan_mat_convenio = matriculas_por_tipo.contar_matriculas_jan(unidade, modalidade, tipo_acao, mes_rela, mes_referencia, anos_referencia, '3 Convênio')
+    jan_mat_n_gratuita = matriculas_por_tipo.contar_matriculas_jan(unidade, modalidade, tipo_acao, mes_rela, mes_referencia, anos_referencia, '9 Pago por Pessoa Fisica ou Empresa')
 
     return {
-            "jan_ip_mat_regi": jan_ip_mat_regi,
-            "jan_ip_mat_bolsa": jan_ip_mat_bolsa,
-            "jan_ip_mat_convenio": jan_ip_mat_convenio,
-            "jan_ip_mat_n_gratuita": jan_ip_mat_n_gratuita
-    
+        "jan_mat_regi": jan_mat_regi,
+        "jan_mat_bolsa": jan_mat_bolsa,
+        "jan_mat_convenio": jan_mat_convenio,
+        "jan_mat_n_gratuita": jan_mat_n_gratuita
     }
 
-def obter_matriculas_por_tipo(file_path):
+
+tag_iniciacao_presencial = obter_matriculas_por_tipo_jan('si_jan.xlsx', '1117376 SENAI Taguatinga', '5 Iniciação Profissional', '1 Presencial')
+tag_iniciacao_distancia = obter_matriculas_por_tipo_jan('si_jan.xlsx','1117376 SENAI Taguatinga','5 Iniciação Profissional', '2 A distância')
+tag_aprendizagem_presencial = obter_matriculas_por_tipo_jan('si_jan.xlsx','1117376 SENAI Taguatinga','11 Aprendizagem Industrial básica', '1 Presencial')
+tag_qualificacao_presencial = obter_matriculas_por_tipo_jan('si_jan.xlsx','1117376 SENAI Taguatinga','21 Qualificação Profissional', '1 Presencial')
+tag_aprendizagem_distancia = obter_matriculas_por_tipo_jan('si_jan.xlsx','1117376 SENAI Taguatinga','11 Aprendizagem Industrial básica', '2 A distância')
+tag_qualificacao_distancia = obter_matriculas_por_tipo_jan('si_jan.xlsx','1117376 SENAI Taguatinga','21 Qualificação Profissional', '2 A distância')
+tag_aperfeicoamento_presencial = obter_matriculas_por_tipo_jan('si_jan.xlsx','1117376 SENAI Taguatinga','58 Aperfeiçoamento/Especialização Profissional', '1 Presencial')
+tag_aperfeicoamento_distancia = obter_matriculas_por_tipo_jan('si_jan.xlsx','1117376 SENAI Taguatinga','58 Aperfeiçoamento/Especialização Profissional', '2 A distância')
+tag_qualificacao_iti_presencial = obter_matriculas_por_tipo_jan('si_jan.xlsx','1117376 SENAI Taguatinga','22 Qualificação Profissional - Itinerário V Ensino Médio', '1 Presencial')
+tag_aprendizagem_tec = obter_matriculas_por_tipo_jan('si_jan.xlsx','1117376 SENAI Taguatinga','15 Aprendizagem Industrial Técnica de Nível Médio', '1 Presencial')
+tag_tecnico_presencial = obter_matriculas_por_tipo_jan('si_jan.xlsx','1117376 SENAI Taguatinga','31 Técnico de Nível Médio', '1 Presencial')
+tag_tecnico_distancia = obter_matriculas_por_tipo_jan('si_jan.xlsx','1117376 SENAI Taguatinga','31 Técnico de Nível Médio', '2 A distância')
+tag_tecnico_iti_presencial = obter_matriculas_por_tipo_jan('si_jan.xlsx','1117376 SENAI Taguatinga','32 Técnico de Nível Médio - Itinerário V Ensino Médio', '1 Presencial')
+
+
+def obter_matriculas(file_path, unidade, modalidade, tipo_acao, chave_prefixo):
     class MatriculasPorTipoFinanciamento:
         def __init__(self, file_path):
-            self.data = pd.read_excel(file_path)
+            pandas_df = pd.read_excel(file_path)
+            self.data = dd.from_pandas(pandas_df, npartitions=1)
         
         def contar_matriculas(self, unidade, modalidade, tipo_acao, mes_rela, mes_referencia, anos_referencia, tipo_financiamento):
-            filtro_uni = self.data['UNIDADE_ATENDIMENTO'] == unidade
-            filtro_mod = self.data['MODALIDADE'] == modalidade
-            filtro_tipo = self.data['TIPO_ACAO'] == tipo_acao
-            filtro_mes_rel = self.data['MES_REFERENCIA'].astype(str).isin([mes_rela])
-            filtro_mes = self.data['DT_ENTRADA_MÊS'].astype(str).isin([mes_referencia])
-            filtro_ano = self.data['DT_ENTRADA_ANO'].astype(str).isin([anos_referencia])
-            filtro_finan = self.data['TIPO_FINANCIAMENTO'] == tipo_financiamento
+            filtros = (
+                (self.data['UNIDADE_ATENDIMENTO'] == unidade) &
+                (self.data['MODALIDADE'] == modalidade) &
+                (self.data['TIPO_ACAO'] == tipo_acao) &
+                (self.data['MES_REFERENCIA'].astype(str).isin([mes_rela])) &
+                (self.data['DT_ENTRADA_MÊS'].astype(str).isin([mes_referencia])) &
+                (self.data['DT_ENTRADA_ANO'].astype(str).isin([anos_referencia])) &
+                (self.data['TIPO_FINANCIAMENTO'] == tipo_financiamento)
+            )
 
-            base_filtrada = self.data[filtro_uni & filtro_mod & filtro_tipo & filtro_mes_rel & filtro_mes & filtro_ano & filtro_finan]
-
-            #tipo_de_dados = base_filtrada.dtypes 
-
-            #print(tipo_de_dados)
-
-            return  len(base_filtrada)
-        
-            
-        
-    matriculas_por_tipo_g = MatriculasPorTipoFinanciamento(file_path)
-
-    meses = {
-        'fev': '2',
-        'mar': '3',
-        'abr': '4',
-        'mai': '5',
-        'jun': '6',
-        'jul': '7',
-        'ago': '8',
-        'set': '9',
-        'out': '10',
-        'nov': '11',
-        'dez': '12'
-    }
-    
-    resultados_mat = {}
-    
-    for mes_atual, mes_referencia in meses.items():
-        for tipo_financiamento in ['1 Gratuidade Regimental', '2 Gratuidade Não Regimental', '3 Convênio', '9 Pago por Pessoa Fisica ou Empresa']:
-            chave_resultado = f"{mes_atual}_ip_mat_{tipo_financiamento}"
-            resultados_mat[chave_resultado] = matriculas_por_tipo_g.contar_matriculas('1117376 SENAI Taguatinga', '5 Iniciação Profissional', '1 Presencial', '32024', mes_referencia,'2024', tipo_financiamento)
-            
-    
-    return resultados_mat
-
-
-def obter_concluintes_por_tipo(file_path):
-    class MatriculasPorTipoFinanciamento:
-        def __init__(self, file_path):
-            self.data = pd.read_excel(file_path)
-        
-        def contar_concluintes(self, unidade, modalidade, tipo_acao, mes_rela, mes_referencia, anos_referencia, tipo_financiamento,tipo_situacao):
-            filtro_uni = self.data['UNIDADE_ATENDIMENTO'] == unidade
-            filtro_mod = self.data['MODALIDADE'] == modalidade
-            filtro_tipo = self.data['TIPO_ACAO'] == tipo_acao
-            filtro_mes_rel = self.data['MES_REFERENCIA'].astype(str).isin([mes_rela])
-            filtro_mes = self.data['DT_ENTRADA_MÊS'].astype(str).isin([mes_referencia])
-            filtro_ano = self.data['DT_ENTRADA_ANO'].astype(str).isin([anos_referencia])
-            filtro_finan = self.data['TIPO_FINANCIAMENTO'] == tipo_financiamento
-            filtro_situa = self.data['SITUACAO_MATRICULA'] == tipo_situacao
-
-            base_filtrada = self.data[filtro_uni & filtro_mod & filtro_tipo & filtro_mes_rel & filtro_mes & filtro_ano & filtro_finan & filtro_situa]
-
-            #tipo_de_dados = base_filtrada.dtypes 
-
-            #print(tipo_de_dados)
-
-            return  len(base_filtrada)
-        
-            
-        
-    concluintes_por_tipo = MatriculasPorTipoFinanciamento(file_path)
-
-    meses = {
-
-        'jan': '1',
-        'fev': '2',
-        'mar': '3',
-        'abr': '4',
-        'mai': '5',
-        'jun': '6',
-        'jul': '7',
-        'ago': '8',
-        'set': '9',
-        'out': '10',
-        'nov': '11',
-        'dez': '12'
-    }
-    
-    resultados_conc = {}
-    
-    for mes_atual, mes_referencia in meses.items():
-        for tipo_financiamento in ['1 Gratuidade Regimental', '2 Gratuidade Não Regimental', '3 Convênio', '9 Pago por Pessoa Fisica ou Empresa']:
-            chave_resultado = f"{mes_atual}_ip_con_{tipo_financiamento}"
-            resultados_conc[chave_resultado] = concluintes_por_tipo.contar_concluintes('1117376 SENAI Taguatinga', '5 Iniciação Profissional', '1 Presencial', '32024', mes_referencia,'2024', tipo_financiamento,'2 Concluída')
-            
-    
-    return resultados_conc
-
-
-def obter_evasao_por_tipo(file_path):
-    class MatriculasPorTipoFinanciamento:
-        def __init__(self, file_path):
-            self.data = pd.read_excel(file_path)
-        
-        def contar_evadidos(self, unidade, modalidade, tipo_acao, mes_rela, mes_referencia, anos_referencia, tipo_financiamento,tipo_situacao):
-            filtro_uni = self.data['UNIDADE_ATENDIMENTO'] == unidade
-            filtro_mod = self.data['MODALIDADE'] == modalidade
-            filtro_tipo = self.data['TIPO_ACAO'] == tipo_acao
-            filtro_mes_rel = self.data['MES_REFERENCIA'].astype(str).isin([mes_rela])
-            filtro_mes = self.data['DT_ENTRADA_MÊS'].astype(str).isin([mes_referencia])
-            filtro_ano = self.data['DT_ENTRADA_ANO'].astype(str).isin([anos_referencia])
-            filtro_finan = self.data['TIPO_FINANCIAMENTO'] == tipo_financiamento
-            filtro_situa = self.data['SITUACAO_MATRICULA'] == tipo_situacao
-
-            base_filtrada = self.data[filtro_uni & filtro_mod & filtro_tipo & filtro_mes_rel & filtro_mes & filtro_ano & filtro_finan & filtro_situa]
-
-            #tipo_de_dados = base_filtrada.dtypes 
-
-            #print(tipo_de_dados)
-
-            return  len(base_filtrada)
-        
-            
-        
-    evadidos_por_tipo = MatriculasPorTipoFinanciamento(file_path)
-
-    meses = {
-        'jan': '1',
-        'fev': '2',
-        'mar': '3',
-        'abr': '4',
-        'mai': '5',
-        'jun': '6',
-        'jul': '7',
-        'ago': '8',
-        'set': '9',
-        'out': '10',
-        'nov': '11',
-        'dez': '12'
-    }
-    
-    resultados_eva = {}
-    
-    for mes_atual, mes_referencia in meses.items():
-        for tipo_financiamento in ['1 Gratuidade Regimental', '2 Gratuidade Não Regimental', '3 Convênio', '9 Pago por Pessoa Fisica ou Empresa']:
-            chave_resultado = f"{mes_atual}_ip_eva_{tipo_financiamento}"
-            resultados_eva[chave_resultado] = evadidos_por_tipo.contar_evadidos('1117376 SENAI Taguatinga', '5 Iniciação Profissional', '1 Presencial', '32024', mes_referencia,'2024', tipo_financiamento, '4 Evadida')
-            
-    
-    return resultados_eva
-
-
-#########################################################################################################################################################
-#########################################################################################################################################################
-
-
-# SENAI TAGUATINGA INICIAÇÃO PROFISSIONAL A DISTANCIA ################################################################
-
-def obter_matriculas_IPD_TAG_jan(file_path):
-    class MatriculasPorTipoFinanciamento:
-        def __init__(self, file_path):
-            self.data = pd.read_excel(file_path)
-        
-        def contar_matriculas_jan(self, unidade, modalidade, tipo_acao, mes_rela, mes_referencia, anos_referencia, tipo_financiamento):
-            filtro_uni = self.data['UNIDADE_ATENDIMENTO'] == unidade
-            filtro_mod = self.data['MODALIDADE'] == modalidade
-            filtro_tipo = self.data['TIPO_ACAO'] == tipo_acao
-            filtro_mes_rel = self.data['MES_REFERENCIA'].astype(str).isin([mes_rela])
-            filtro_mes = self.data['DT_ENTRADA_MÊS'].astype(str).isin(mes_referencia)
-            filtro_ano = self.data['DT_ENTRADA_ANO'].astype(str).isin(anos_referencia)
-            filtro_finan = self.data['TIPO_FINANCIAMENTO'] == tipo_financiamento
-            
-            base_filtrada = self.data[filtro_uni & filtro_mod & filtro_tipo & filtro_mes_rel & filtro_mes & filtro_ano & filtro_finan]
-
+            base_filtrada = self.data[filtros].compute()
             return len(base_filtrada)
-    
+        
     matriculas_por_tipo = MatriculasPorTipoFinanciamento(file_path)
 
-    #Janeiro Ajustar o mes de referencia do relatorio atual
-
-    jan_ip_mat_regi = matriculas_por_tipo.contar_matriculas_jan('1117376 SENAI Taguatinga', '5 Iniciação Profissional', '2 A distância', '12024', ['1','2','3','4','5','6','7','8','9','10','11','12'], ['2016','2017','2018','2019','2020','2021','2022','2023','2024'], '1 Gratuidade Regimental')
-    jan_ip_mat_bolsa = matriculas_por_tipo.contar_matriculas_jan('1117376 SENAI Taguatinga', '5 Iniciação Profissional', '2 A distância','12024', ['1','2','3','4','5','6','7','8','9','10','11','12'], ['2016','2017','2018','2019','2020','2021','2022','2023','2024'], '2 Gratuidade Não Regimental')
-    jan_ip_mat_convenio = matriculas_por_tipo.contar_matriculas_jan('1117376 SENAI Taguatinga', '5 Iniciação Profissional', '2 A distância','12024', ['1','2','3','4','5','6','7','8','9','10','11','12'], ['2016','2017','2018','2019','2020','2021','2022','2023','2024'], '3 Convênio')
-    jan_ip_mat_n_gratuita = matriculas_por_tipo.contar_matriculas_jan('1117376 SENAI Taguatinga', '5 Iniciação Profissional', '2 A distância','12024', ['1','2','3','4','5','6','7','8','9','10','11','12'], ['2016','2017','2018','2019','2020','2021','2022','2023','2024'], '9 Pago por Pessoa Fisica ou Empresa')
-
-
-    return {
-            "jan_ipd_mat_regi": jan_ip_mat_regi,
-            "jan_ipd_mat_bolsa": jan_ip_mat_bolsa,
-            "jan_ipd_mat_convenio": jan_ip_mat_convenio,
-            "jan_ipd_mat_n_gratuita": jan_ip_mat_n_gratuita
-    
-    }
-
-def obter_matriculas_IPD_TAG(file_path):
-    class MatriculasPorTipoFinanciamento:
-        def __init__(self, file_path):
-            self.data = pd.read_excel(file_path)
-        
-        def contar_matriculas(self, unidade, modalidade, tipo_acao, mes_rela, mes_referencia, anos_referencia, tipo_financiamento):
-            filtro_uni = self.data['UNIDADE_ATENDIMENTO'] == unidade
-            filtro_mod = self.data['MODALIDADE'] == modalidade
-            filtro_tipo = self.data['TIPO_ACAO'] == tipo_acao
-            filtro_mes_rel = self.data['MES_REFERENCIA'].astype(str).isin([mes_rela])
-            filtro_mes = self.data['DT_ENTRADA_MÊS'].astype(str).isin([mes_referencia])
-            filtro_ano = self.data['DT_ENTRADA_ANO'].astype(str).isin([anos_referencia])
-            filtro_finan = self.data['TIPO_FINANCIAMENTO'] == tipo_financiamento
-
-            base_filtrada = self.data[filtro_uni & filtro_mod & filtro_tipo & filtro_mes_rel & filtro_mes & filtro_ano & filtro_finan]
-
-            #tipo_de_dados = base_filtrada.dtypes 
-
-            #print(tipo_de_dados)
-
-            return  len(base_filtrada)
-        
-            
-        
-    matriculas_por_tipo_g = MatriculasPorTipoFinanciamento(file_path)
-
     meses = {
         'fev': '2',
         'mar': '3',
@@ -285,42 +94,78 @@ def obter_matriculas_IPD_TAG(file_path):
     
     for mes_atual, mes_referencia in meses.items():
         for tipo_financiamento in ['1 Gratuidade Regimental', '2 Gratuidade Não Regimental', '3 Convênio', '9 Pago por Pessoa Fisica ou Empresa']:
-            chave_resultado = f"{mes_atual}_ipd_mat_{tipo_financiamento}"
-            resultados_mat[chave_resultado] = matriculas_por_tipo_g.contar_matriculas('1117376 SENAI Taguatinga', '5 Iniciação Profissional', '2 A distância', '32024', mes_referencia,'2024', tipo_financiamento)
-            
+            chave_resultado = f"{mes_atual}_{chave_prefixo}_{tipo_financiamento}"
+            resultados_mat[chave_resultado] = matriculas_por_tipo.contar_matriculas(
+                unidade, modalidade, tipo_acao, '32024', mes_referencia, '2024', tipo_financiamento
+            )
     
     return resultados_mat
 
+def obter_matriculas_iniciacao_presencial_tag(file_path):
+    return obter_matriculas(file_path, '1117376 SENAI Taguatinga', '5 Iniciação Profissional', '1 Presencial', 'inicia_presen_mat')
 
-def obter_concluintes_IPD_TAG(file_path):
-    class MatriculasPorTipoFinanciamento:
+def obter_matriculas_iniciacao_distancia_tag(file_path):
+    return obter_matriculas(file_path, '1117376 SENAI Taguatinga', '5 Iniciação Profissional', '2 A distância', 'inicia_distan_mat')
+
+def obter_matriculas_aprendizagem_presencial_tag(file_path):
+    return obter_matriculas(file_path, '1117376 SENAI Taguatinga', '11 Aprendizagem Industrial básica', '1 Presencial', 'aprendi_presen_mat')
+
+def obter_matriculas_qualificacao_presencial_tag(file_path):
+    return obter_matriculas(file_path, '1117376 SENAI Taguatinga', '21 Qualificação Profissional', '1 Presencial', 'qualifi_presen_mat')
+
+def obter_matriculas_aprendizagem_distancia_tag(file_path):
+    return obter_matriculas(file_path, '1117376 SENAI Taguatinga', '11 Aprendizagem Industrial básica', '2 A distância', 'aprendi_distan_mat')
+
+def obter_matriculas_qualificacao_distancia_tag(file_path):
+    return obter_matriculas(file_path, '1117376 SENAI Taguatinga', '21 Qualificação Profissional', '2 A distância', 'qualifi_distan_mat')
+
+def obter_matriculas_aperfeicoamento_presencial_tag(file_path):
+    return obter_matriculas(file_path, '1117376 SENAI Taguatinga', '58 Aperfeiçoamento/Especialização Profissional', '1 Presencial', 'aperfei_presen_mat')
+
+def obter_matriculas_aperfeicoamento_distancia_tag(file_path):
+    return obter_matriculas(file_path, '1117376 SENAI Taguatinga', '58 Aperfeiçoamento/Especialização Profissional', '2 A distância', 'aperfei_distan_mat')
+
+def obter_matriculas_qualificacao_itine_presencial_tag(file_path):
+    return obter_matriculas(file_path, '1117376 SENAI Taguatinga', '22 Qualificação Profissional - Itinerário V Ensino Médio', '1 Presencial', 'qualifi_iti_presen_mat')
+
+def obter_matriculas_aprendizagem_tecnica_presencial_tag(file_path):
+    return obter_matriculas(file_path, '1117376 SENAI Taguatinga', '15 Aprendizagem Industrial Técnica de Nível Médio', '1 Presencial', 'aprendi_tec_presen_mat')
+
+def obter_matriculas_tecnico_presencial_tag(file_path):
+    return obter_matriculas(file_path, '1117376 SENAI Taguatinga', '31 Técnico de Nível Médio', '1 Presencial', 'tecni_presen_mat')
+
+def obter_matriculas_tecnico_distancia_tag(file_path):
+    return obter_matriculas(file_path, '1117376 SENAI Taguatinga', '31 Técnico de Nível Médio', '2 A distância', 'tecni_distan_mat')
+
+def obter_matriculas_tecnico_iti_presencial_tag(file_path):
+    return obter_matriculas(file_path, '1117376 SENAI Taguatinga', '31 Técnico de Nível Médio', '1 Presencial', 'tecni_iti_presen_mat')
+
+
+
+def obter_concluintes(file_path, unidade, modalidade, tipo_acao, chave_prefixo):
+    class ConcluintesPorTipoFinanciamento:
         def __init__(self, file_path):
-            self.data = pd.read_excel(file_path)
+            pandas_df = pd.read_excel(file_path)
+            self.data = dd.from_pandas(pandas_df, npartitions=1)
         
         def contar_concluintes(self, unidade, modalidade, tipo_acao, mes_rela, mes_referencia, anos_referencia, tipo_financiamento,tipo_situacao):
-            filtro_uni = self.data['UNIDADE_ATENDIMENTO'] == unidade
-            filtro_mod = self.data['MODALIDADE'] == modalidade
-            filtro_tipo = self.data['TIPO_ACAO'] == tipo_acao
-            filtro_mes_rel = self.data['MES_REFERENCIA'].astype(str).isin([mes_rela])
-            filtro_mes = self.data['DT_ENTRADA_MÊS'].astype(str).isin([mes_referencia])
-            filtro_ano = self.data['DT_ENTRADA_ANO'].astype(str).isin([anos_referencia])
-            filtro_finan = self.data['TIPO_FINANCIAMENTO'] == tipo_financiamento
-            filtro_situa = self.data['SITUACAO_MATRICULA'] == tipo_situacao
+            filtros = (
+                (self.data['UNIDADE_ATENDIMENTO'] == unidade) &
+                (self.data['MODALIDADE'] == modalidade) &
+                (self.data['TIPO_ACAO'] == tipo_acao) &
+                (self.data['MES_REFERENCIA'].astype(str).isin([mes_rela])) &
+                (self.data['DT_ENTRADA_MÊS'].astype(str).isin([mes_referencia])) &
+                (self.data['DT_ENTRADA_ANO'].astype(str).isin([anos_referencia])) &
+                (self.data['TIPO_FINANCIAMENTO'] == tipo_financiamento) &
+                (self.data['SITUACAO_MATRICULA'] == tipo_situacao)
+            )
 
-            base_filtrada = self.data[filtro_uni & filtro_mod & filtro_tipo & filtro_mes_rel & filtro_mes & filtro_ano & filtro_finan & filtro_situa]
-
-            #tipo_de_dados = base_filtrada.dtypes 
-
-            #print(tipo_de_dados)
-
-            return  len(base_filtrada)
+            base_filtrada = self.data[filtros].compute()
+            return len(base_filtrada)
         
-            
-        
-    concluintes_por_tipo = MatriculasPorTipoFinanciamento(file_path)
+    concluintes_por_tipo = ConcluintesPorTipoFinanciamento(file_path)
 
     meses = {
-
         'jan': '1',
         'fev': '2',
         'mar': '3',
@@ -335,43 +180,80 @@ def obter_concluintes_IPD_TAG(file_path):
         'dez': '12'
     }
     
-    resultados_conc = {}
+    resultados_con = {}
     
     for mes_atual, mes_referencia in meses.items():
         for tipo_financiamento in ['1 Gratuidade Regimental', '2 Gratuidade Não Regimental', '3 Convênio', '9 Pago por Pessoa Fisica ou Empresa']:
-            chave_resultado = f"{mes_atual}_ipd_con_{tipo_financiamento}"
-            resultados_conc[chave_resultado] = concluintes_por_tipo.contar_concluintes('1117376 SENAI Taguatinga', '5 Iniciação Profissional', '2 A distância', '32024', mes_referencia,'2024', tipo_financiamento,'2 Concluída')
-            
+            chave_resultado = f"{mes_atual}_{chave_prefixo}_{tipo_financiamento}"
+            resultados_con[chave_resultado] = concluintes_por_tipo.contar_concluintes(
+                unidade, modalidade, tipo_acao, '32024', mes_referencia, '2024', tipo_financiamento, '2 Concluída'
+            )
     
-    return resultados_conc
+    return resultados_con
+
+def obter_concluintes_iniciacao_presencial_tag(file_path):
+    return obter_concluintes(file_path, '1117376 SENAI Taguatinga', '5 Iniciação Profissional', '1 Presencial', 'inicia_presen_con')
+
+def obter_concluintes_iniciacao_distancia_tag(file_path):
+    return obter_concluintes(file_path, '1117376 SENAI Taguatinga', '5 Iniciação Profissional', '2 A distância', 'inicia_distan_con')
+
+def obter_concluintes_aprendizagem_presencial_tag(file_path):
+    return obter_concluintes(file_path, '1117376 SENAI Taguatinga', '11 Aprendizagem Industrial básica', '1 Presencial', 'aprendi_presen_con')
+
+def obter_concluintes_qualificacao_presencial_tag(file_path):
+    return obter_concluintes(file_path, '1117376 SENAI Taguatinga', '21 Qualificação Profissional', '1 Presencial', 'qualifi_presen_con')
+
+def obter_concluintes_aprendizagem_distancia_tag(file_path):
+    return obter_concluintes(file_path, '1117376 SENAI Taguatinga', '11 Aprendizagem Industrial básica', '2 A distância', 'aprendi_distan_con')
+
+def obter_concluintes_qualificacao_distancia_tag(file_path):
+    return obter_concluintes(file_path, '1117376 SENAI Taguatinga', '21 Qualificação Profissional', '2 A distância', 'qualifi_distan_con')
+
+def obter_concluintes_aperfeicoamento_presencial_tag(file_path):
+    return obter_concluintes(file_path, '1117376 SENAI Taguatinga', '58 Aperfeiçoamento/Especialização Profissional', '1 Presencial', 'aperfei_presen_con')
+
+def obter_concluintes_aperfeicoamento_distancia_tag(file_path):
+    return obter_concluintes(file_path, '1117376 SENAI Taguatinga', '58 Aperfeiçoamento/Especialização Profissional', '2 A distância', 'aperfei_distan_con')
+
+def obter_concluintes_qualificacao_itine_presencial_tag(file_path):
+    return obter_concluintes(file_path, '1117376 SENAI Taguatinga', '22 Qualificação Profissional - Itinerário V Ensino Médio', '1 Presencial', 'qualifi_iti_presen_con')
+
+def obter_concluintes_aprendizagem_tecnica_presencial_tag(file_path):
+    return obter_concluintes(file_path, '1117376 SENAI Taguatinga', '15 Aprendizagem Industrial Técnica de Nível Médio', '1 Presencial', 'aprendi_tec_presen_con')
+
+def obter_concluintes_tecnico_presencial_tag(file_path):
+    return obter_concluintes(file_path, '1117376 SENAI Taguatinga', '31 Técnico de Nível Médio', '1 Presencial', 'tecni_presen_con')
+
+def obter_concluintes_tecnico_distancia_tag(file_path):
+    return obter_concluintes(file_path, '1117376 SENAI Taguatinga', '31 Técnico de Nível Médio', '2 A distância', 'tecni_distan_con')
+
+def obter_concluintes_tecnico_iti_presencial_tag(file_path):
+    return obter_concluintes(file_path, '1117376 SENAI Taguatinga', '31 Técnico de Nível Médio', '1 Presencial', 'tecni_iti_presen_con')
 
 
-def  obter_evasao_IPD_TAG(file_path):
-    class MatriculasPorTipoFinanciamento:
+
+def obter_evadidos(file_path, unidade, modalidade, tipo_acao, chave_prefixo):
+    class EvadidosPorTipoFinanciamento:
         def __init__(self, file_path):
-            self.data = pd.read_excel(file_path)
+            pandas_df = pd.read_excel(file_path)
+            self.data = dd.from_pandas(pandas_df, npartitions=1)
         
         def contar_evadidos(self, unidade, modalidade, tipo_acao, mes_rela, mes_referencia, anos_referencia, tipo_financiamento,tipo_situacao):
-            filtro_uni = self.data['UNIDADE_ATENDIMENTO'] == unidade
-            filtro_mod = self.data['MODALIDADE'] == modalidade
-            filtro_tipo = self.data['TIPO_ACAO'] == tipo_acao
-            filtro_mes_rel = self.data['MES_REFERENCIA'].astype(str).isin([mes_rela])
-            filtro_mes = self.data['DT_ENTRADA_MÊS'].astype(str).isin([mes_referencia])
-            filtro_ano = self.data['DT_ENTRADA_ANO'].astype(str).isin([anos_referencia])
-            filtro_finan = self.data['TIPO_FINANCIAMENTO'] == tipo_financiamento
-            filtro_situa = self.data['SITUACAO_MATRICULA'] == tipo_situacao
+            filtros = (
+                (self.data['UNIDADE_ATENDIMENTO'] == unidade) &
+                (self.data['MODALIDADE'] == modalidade) &
+                (self.data['TIPO_ACAO'] == tipo_acao) &
+                (self.data['MES_REFERENCIA'].astype(str).isin([mes_rela])) &
+                (self.data['DT_ENTRADA_MÊS'].astype(str).isin([mes_referencia])) &
+                (self.data['DT_ENTRADA_ANO'].astype(str).isin([anos_referencia])) &
+                (self.data['TIPO_FINANCIAMENTO'] == tipo_financiamento) &
+                (self.data['SITUACAO_MATRICULA'] == tipo_situacao)
+            )
 
-            base_filtrada = self.data[filtro_uni & filtro_mod & filtro_tipo & filtro_mes_rel & filtro_mes & filtro_ano & filtro_finan & filtro_situa]
-
-            #tipo_de_dados = base_filtrada.dtypes 
-
-            #print(tipo_de_dados)
-
-            return  len(base_filtrada)
+            base_filtrada = self.data[filtros].compute()
+            return len(base_filtrada)
         
-            
-        
-    evadidos_por_tipo = MatriculasPorTipoFinanciamento(file_path)
+    evadidos_por_tipo = EvadidosPorTipoFinanciamento(file_path)
 
     meses = {
         'jan': '1',
@@ -392,440 +274,48 @@ def  obter_evasao_IPD_TAG(file_path):
     
     for mes_atual, mes_referencia in meses.items():
         for tipo_financiamento in ['1 Gratuidade Regimental', '2 Gratuidade Não Regimental', '3 Convênio', '9 Pago por Pessoa Fisica ou Empresa']:
-            chave_resultado = f"{mes_atual}_ipd_eva_{tipo_financiamento}"
-            resultados_eva[chave_resultado] = evadidos_por_tipo.contar_evadidos('1117376 SENAI Taguatinga', '5 Iniciação Profissional', '2 A distância', '32024', mes_referencia,'2024', tipo_financiamento, '4 Evadida')
-            
+            chave_resultado = f"{mes_atual}_{chave_prefixo}_{tipo_financiamento}"
+            resultados_eva[chave_resultado] = evadidos_por_tipo.contar_evadidos(
+                unidade, modalidade, tipo_acao, '32024', mes_referencia, '2024', tipo_financiamento, '4 Evadida'
+            )
     
     return resultados_eva
 
+def obter_evadidos_iniciacao_presencial_tag(file_path):
+    return obter_evadidos(file_path, '1117376 SENAI Taguatinga', '5 Iniciação Profissional', '1 Presencial', 'inicia_presen_eva')
 
-# SENAI TAGUATINGA APRENDIZAGEM INDUSTRIAL PRESENCIAL ################################################################
+def obter_evadidos_iniciacao_distancia_tag(file_path):
+    return obter_evadidos(file_path, '1117376 SENAI Taguatinga', '5 Iniciação Profissional', '2 A distância', 'inicia_distan_eva')
 
+def obter_evadidos_aprendizagem_presencial_tag(file_path):
+    return obter_evadidos(file_path, '1117376 SENAI Taguatinga', '11 Aprendizagem Industrial básica', '1 Presencial', 'aprendi_presen_eva')
 
-def obter_matriculas_AP_TAG_jan(file_path):
-    class MatriculasPorTipoFinanciamento:
-        def __init__(self, file_path):
-            self.data = pd.read_excel(file_path)
-        
-        def contar_matriculas_jan(self, unidade, modalidade, tipo_acao, mes_rela, mes_referencia, anos_referencia, tipo_financiamento):
-            filtro_uni = self.data['UNIDADE_ATENDIMENTO'] == unidade
-            filtro_mod = self.data['MODALIDADE'] == modalidade
-            filtro_tipo = self.data['TIPO_ACAO'] == tipo_acao
-            filtro_mes_rel = self.data['MES_REFERENCIA'].astype(str).isin([mes_rela])
-            filtro_mes = self.data['DT_ENTRADA_MÊS'].astype(str).isin(mes_referencia)
-            filtro_ano = self.data['DT_ENTRADA_ANO'].astype(str).isin(anos_referencia)
-            filtro_finan = self.data['TIPO_FINANCIAMENTO'] == tipo_financiamento
-            
-            base_filtrada = self.data[filtro_uni & filtro_mod & filtro_tipo & filtro_mes_rel & filtro_mes & filtro_ano & filtro_finan]
+def obter_evadidos_qualificacao_presencial_tag(file_path):
+    return obter_evadidos(file_path, '1117376 SENAI Taguatinga', '21 Qualificação Profissional', '1 Presencial', 'qualifi_presen_eva')
 
-            return len(base_filtrada)
-    
-    matriculas_por_tipo = MatriculasPorTipoFinanciamento(file_path)
+def obter_evadidos_aprendizagem_distancia_tag(file_path):
+    return obter_evadidos(file_path, '1117376 SENAI Taguatinga', '11 Aprendizagem Industrial básica', '2 A distância', 'aprendi_distan_eva')
 
-    #Janeiro Ajustar o mes de referencia do relatorio atual
+def obter_evadidos_qualificacao_distancia_tag(file_path):
+    return obter_evadidos(file_path, '1117376 SENAI Taguatinga', '21 Qualificação Profissional', '2 A distância', 'qualifi_distan_eva')
 
-    jan_ap_mat_regi = matriculas_por_tipo.contar_matriculas_jan('1117376 SENAI Taguatinga', '11 Aprendizagem Industrial básica', '1 Presencial', '12024', ['1','2','3','4','5','6','7','8','9','10','11','12'], ['2016','2017','2018','2019','2020','2021','2022','2023','2024'], '1 Gratuidade Regimental')
-    jan_ap_mat_bolsa = matriculas_por_tipo.contar_matriculas_jan('1117376 SENAI Taguatinga', '11 Aprendizagem Industrial básica', '1 Presencial','12024', ['1','2','3','4','5','6','7','8','9','10','11','12'], ['2016','2017','2018','2019','2020','2021','2022','2023','2024'], '2 Gratuidade Não Regimental')
-    jan_ap_mat_convenio = matriculas_por_tipo.contar_matriculas_jan('1117376 SENAI Taguatinga', '11 Aprendizagem Industrial básica', '1 Presencial','12024', ['1','2','3','4','5','6','7','8','9','10','11','12'], ['2016','2017','2018','2019','2020','2021','2022','2023','2024'], '3 Convênio')
-    jan_ap_mat_n_gratuita = matriculas_por_tipo.contar_matriculas_jan('1117376 SENAI Taguatinga', '11 Aprendizagem Industrial básica', '1 Presencial','12024', ['1','2','3','4','5','6','7','8','9','10','11','12'], ['2016','2017','2018','2019','2020','2021','2022','2023','2024'], '9 Pago por Pessoa Fisica ou Empresa')
+def obter_evadidos_aperfeicoamento_presencial_tag(file_path):
+    return obter_evadidos(file_path, '1117376 SENAI Taguatinga', '58 Aperfeiçoamento/Especialização Profissional', '1 Presencial', 'aperfei_presen_eva')
 
+def obter_evadidos_aperfeicoamento_distancia_tag(file_path):
+    return obter_evadidos(file_path, '1117376 SENAI Taguatinga', '58 Aperfeiçoamento/Especialização Profissional', '2 A distância', 'aperfei_distan_eva')
 
-    return {
-            "jan_ip_mat_regi": jan_ap_mat_regi,
-            "jan_ip_mat_bolsa": jan_ap_mat_bolsa,
-            "jan_ip_mat_convenio": jan_ap_mat_convenio,
-            "jan_ip_mat_n_gratuita": jan_ap_mat_n_gratuita
-    
-    }
+def obter_evadidos_qualificacao_itine_presencial_tag(file_path):
+    return obter_evadidos(file_path, '1117376 SENAI Taguatinga', '22 Qualificação Profissional - Itinerário V Ensino Médio', '1 Presencial', 'qualifi_iti_presen_eva')
 
-def obter_matriculas_AP_TAG(file_path):
-    class MatriculasPorTipoFinanciamento:
-        def __init__(self, file_path):
-            self.data = pd.read_excel(file_path)
-        
-        def contar_matriculas(self, unidade, modalidade, tipo_acao, mes_rela, mes_referencia, anos_referencia, tipo_financiamento):
-            filtro_uni = self.data['UNIDADE_ATENDIMENTO'] == unidade
-            filtro_mod = self.data['MODALIDADE'] == modalidade
-            filtro_tipo = self.data['TIPO_ACAO'] == tipo_acao
-            filtro_mes_rel = self.data['MES_REFERENCIA'].astype(str).isin([mes_rela])
-            filtro_mes = self.data['DT_ENTRADA_MÊS'].astype(str).isin([mes_referencia])
-            filtro_ano = self.data['DT_ENTRADA_ANO'].astype(str).isin([anos_referencia])
-            filtro_finan = self.data['TIPO_FINANCIAMENTO'] == tipo_financiamento
+def obter_evadidos_aprendizagem_tecnica_presencial_tag(file_path):
+    return obter_evadidos(file_path, '1117376 SENAI Taguatinga', '15 Aprendizagem Industrial Técnica de Nível Médio', '1 Presencial', 'aprendi_tec_presen_eva')
 
-            base_filtrada = self.data[filtro_uni & filtro_mod & filtro_tipo & filtro_mes_rel & filtro_mes & filtro_ano & filtro_finan]
+def obter_evadidos_tecnico_presencial_tag(file_path):
+    return obter_evadidos(file_path, '1117376 SENAI Taguatinga', '31 Técnico de Nível Médio', '1 Presencial', 'tecni_presen_eva')
 
-            #tipo_de_dados = base_filtrada.dtypes 
+def obter_evadidos_tecnico_distancia_tag(file_path):
+    return obter_evadidos(file_path, '1117376 SENAI Taguatinga', '31 Técnico de Nível Médio', '2 A distância', 'tecni_distan_eva')
 
-            #print(tipo_de_dados)
-
-            return  len(base_filtrada)
-        
-            
-        
-    matriculas_por_tipo_g = MatriculasPorTipoFinanciamento(file_path)
-
-    meses = {
-        'fev': '2',
-        'mar': '3',
-        'abr': '4',
-        'mai': '5',
-        'jun': '6',
-        'jul': '7',
-        'ago': '8',
-        'set': '9',
-        'out': '10',
-        'nov': '11',
-        'dez': '12'
-    }
-    
-    resultados_mat = {}
-    
-    for mes_atual, mes_referencia in meses.items():
-        for tipo_financiamento in ['1 Gratuidade Regimental', '2 Gratuidade Não Regimental', '3 Convênio', '9 Pago por Pessoa Fisica ou Empresa']:
-            chave_resultado = f"{mes_atual}_ap_mat_{tipo_financiamento}"
-            resultados_mat[chave_resultado] = matriculas_por_tipo_g.contar_matriculas('1117376 SENAI Taguatinga', '11 Aprendizagem Industrial básica', '1 Presencial', '32024', mes_referencia,'2024', tipo_financiamento)
-            
-    
-    return resultados_mat
-
-def obter_concluintes_AP_TAG(file_path):
-    class MatriculasPorTipoFinanciamento:
-        def __init__(self, file_path):
-            self.data = pd.read_excel(file_path)
-        
-        def contar_concluintes(self, unidade, modalidade, tipo_acao, mes_rela, mes_referencia, anos_referencia, tipo_financiamento,tipo_situacao):
-            filtro_uni = self.data['UNIDADE_ATENDIMENTO'] == unidade
-            filtro_mod = self.data['MODALIDADE'] == modalidade
-            filtro_tipo = self.data['TIPO_ACAO'] == tipo_acao
-            filtro_mes_rel = self.data['MES_REFERENCIA'].astype(str).isin([mes_rela])
-            filtro_mes = self.data['DT_ENTRADA_MÊS'].astype(str).isin([mes_referencia])
-            filtro_ano = self.data['DT_ENTRADA_ANO'].astype(str).isin([anos_referencia])
-            filtro_finan = self.data['TIPO_FINANCIAMENTO'] == tipo_financiamento
-            filtro_situa = self.data['SITUACAO_MATRICULA'] == tipo_situacao
-
-            base_filtrada = self.data[filtro_uni & filtro_mod & filtro_tipo & filtro_mes_rel & filtro_mes & filtro_ano & filtro_finan & filtro_situa]
-
-            #tipo_de_dados = base_filtrada.dtypes 
-
-            #print(tipo_de_dados)
-
-            return  len(base_filtrada)
-        
-            
-        
-    concluintes_por_tipo = MatriculasPorTipoFinanciamento(file_path)
-
-    meses = {
-
-        'jan': '1',
-        'fev': '2',
-        'mar': '3',
-        'abr': '4',
-        'mai': '5',
-        'jun': '6',
-        'jul': '7',
-        'ago': '8',
-        'set': '9',
-        'out': '10',
-        'nov': '11',
-        'dez': '12'
-    }
-    
-    resultados_conc = {}
-    
-    for mes_atual, mes_referencia in meses.items():
-        for tipo_financiamento in ['1 Gratuidade Regimental', '2 Gratuidade Não Regimental', '3 Convênio', '9 Pago por Pessoa Fisica ou Empresa']:
-            chave_resultado = f"{mes_atual}_ap_con_{tipo_financiamento}"
-            resultados_conc[chave_resultado] = concluintes_por_tipo.contar_concluintes('1117376 SENAI Taguatinga', '11 Aprendizagem Industrial básica', '1 Presencial', '32024', mes_referencia,'2024', tipo_financiamento,'2 Concluída')
-            
-    
-    return resultados_conc
-
-def obter_evasao_AP_TAG(file_path):
-    class MatriculasPorTipoFinanciamento:
-        def __init__(self, file_path):
-            self.data = pd.read_excel(file_path)
-        
-        def contar_evadidos(self, unidade, modalidade, tipo_acao, mes_rela, mes_referencia, anos_referencia, tipo_financiamento,tipo_situacao):
-            filtro_uni = self.data['UNIDADE_ATENDIMENTO'] == unidade
-            filtro_mod = self.data['MODALIDADE'] == modalidade
-            filtro_tipo = self.data['TIPO_ACAO'] == tipo_acao
-            filtro_mes_rel = self.data['MES_REFERENCIA'].astype(str).isin([mes_rela])
-            filtro_mes = self.data['DT_ENTRADA_MÊS'].astype(str).isin([mes_referencia])
-            filtro_ano = self.data['DT_ENTRADA_ANO'].astype(str).isin([anos_referencia])
-            filtro_finan = self.data['TIPO_FINANCIAMENTO'] == tipo_financiamento
-            filtro_situa = self.data['SITUACAO_MATRICULA'] == tipo_situacao
-
-            base_filtrada = self.data[filtro_uni & filtro_mod & filtro_tipo & filtro_mes_rel & filtro_mes & filtro_ano & filtro_finan & filtro_situa]
-
-            #tipo_de_dados = base_filtrada.dtypes 
-
-            #print(tipo_de_dados)
-
-            return  len(base_filtrada)
-        
-            
-        
-    evadidos_por_tipo = MatriculasPorTipoFinanciamento(file_path)
-
-    meses = {
-        'jan': '1',
-        'fev': '2',
-        'mar': '3',
-        'abr': '4',
-        'mai': '5',
-        'jun': '6',
-        'jul': '7',
-        'ago': '8',
-        'set': '9',
-        'out': '10',
-        'nov': '11',
-        'dez': '12'
-    }
-    
-    resultados_eva = {}
-    
-    for mes_atual, mes_referencia in meses.items():
-        for tipo_financiamento in ['1 Gratuidade Regimental', '2 Gratuidade Não Regimental', '3 Convênio', '9 Pago por Pessoa Fisica ou Empresa']:
-            chave_resultado = f"{mes_atual}_ap_eva_{tipo_financiamento}"
-            resultados_eva[chave_resultado] = evadidos_por_tipo.contar_evadidos('1117376 SENAI Taguatinga', '11 Aprendizagem Industrial básica', '1 Presencial', '32024', mes_referencia,'2024', tipo_financiamento, '4 Evadida')
-            
-    
-    return resultados_eva
-
-
-# SENAI TAGUATINGA QUALIFICAÇÃO PROFISSIONAL PRESENCIAL ################################################################
-
-
-def obter_matriculas_QP_TAG_jan(file_path):
-    class MatriculasPorTipoFinanciamento:
-        def __init__(self, file_path):
-            self.data = pd.read_excel(file_path)
-
-        def contar_matriculas_jan(self, unidade, modalidade, tipo_acao, mes_rela, mes_referencia, anos_referencia,
-                                  tipo_financiamento):
-            filtro_uni = self.data['UNIDADE_ATENDIMENTO'] == unidade
-            filtro_mod = self.data['MODALIDADE'] == modalidade
-            filtro_tipo = self.data['TIPO_ACAO'] == tipo_acao
-            filtro_mes_rel = self.data['MES_REFERENCIA'].astype(str).isin([mes_rela])
-            filtro_mes = self.data['DT_ENTRADA_MÊS'].astype(str).isin(mes_referencia)
-            filtro_ano = self.data['DT_ENTRADA_ANO'].astype(str).isin(anos_referencia)
-            filtro_finan = self.data['TIPO_FINANCIAMENTO'] == tipo_financiamento
-
-            base_filtrada = self.data[
-                filtro_uni & filtro_mod & filtro_tipo & filtro_mes_rel & filtro_mes & filtro_ano & filtro_finan]
-
-            return len(base_filtrada)
-
-    matriculas_por_tipo = MatriculasPorTipoFinanciamento(file_path)
-
-    # Janeiro Ajustar o mes de referencia do relatorio atual
-
-    jan_qp_mat_regi = matriculas_por_tipo.contar_matriculas_jan('1117376 SENAI Taguatinga',
-                                                                '21 Qualificação Profissional', '1 Presencial',
-                                                                '12024',
-                                                                ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
-                                                                 '11', '12'],
-                                                                ['2016', '2017', '2018', '2019', '2020', '2021', '2022',
-                                                                 '2023', '2024'], '1 Gratuidade Regimental')
-    jan_qp_mat_bolsa = matriculas_por_tipo.contar_matriculas_jan('1117376 SENAI Taguatinga',
-                                                                 '21 Qualificação Profissional', '1 Presencial',
-                                                                 '12024',
-                                                                 ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
-                                                                  '11', '12'],
-                                                                 ['2016', '2017', '2018', '2019', '2020', '2021',
-                                                                  '2022', '2023', '2024'],
-                                                                 '2 Gratuidade Não Regimental')
-    jan_qp_mat_convenio = matriculas_por_tipo.contar_matriculas_jan('1117376 SENAI Taguatinga',
-                                                                    '21 Qualificação Profissional', '1 Presencial',
-                                                                    '12024',
-                                                                    ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
-                                                                     '11', '12'],
-                                                                    ['2016', '2017', '2018', '2019', '2020', '2021',
-                                                                     '2022', '2023', '2024'], '3 Convênio')
-    jan_qp_mat_n_gratuita = matriculas_por_tipo.contar_matriculas_jan('1117376 SENAI Taguatinga',
-                                                                      '21 Qualificação Profissional',
-                                                                      '1 Presencial', '12024',
-                                                                      ['1', '2', '3', '4', '5', '6', '7', '8', '9',
-                                                                       '10', '11', '12'],
-                                                                      ['2016', '2017', '2018', '2019', '2020', '2021',
-                                                                       '2022', '2023', '2024'],
-                                                                      '9 Pago por Pessoa Fisica ou Empresa')
-
-    return {
-        "jan_qp_mat_regi": jan_qp_mat_regi,
-        "jan_qp_mat_bolsa": jan_qp_mat_bolsa,
-        "jan_qp_mat_convenio": jan_qp_mat_convenio,
-        "jan_qp_mat_n_gratuita": jan_qp_mat_n_gratuita
-
-    }
-
-
-def obter_matriculas_QP_TAG(file_path):
-    class MatriculasPorTipoFinanciamento:
-        def __init__(self, file_path):
-            self.data = pd.read_excel(file_path)
-
-        def contar_matriculas(self, unidade, modalidade, tipo_acao, mes_rela, mes_referencia, anos_referencia,
-                              tipo_financiamento):
-            filtro_uni = self.data['UNIDADE_ATENDIMENTO'] == unidade
-            filtro_mod = self.data['MODALIDADE'] == modalidade
-            filtro_tipo = self.data['TIPO_ACAO'] == tipo_acao
-            filtro_mes_rel = self.data['MES_REFERENCIA'].astype(str).isin([mes_rela])
-            filtro_mes = self.data['DT_ENTRADA_MÊS'].astype(str).isin([mes_referencia])
-            filtro_ano = self.data['DT_ENTRADA_ANO'].astype(str).isin([anos_referencia])
-            filtro_finan = self.data['TIPO_FINANCIAMENTO'] == tipo_financiamento
-
-            base_filtrada = self.data[
-                filtro_uni & filtro_mod & filtro_tipo & filtro_mes_rel & filtro_mes & filtro_ano & filtro_finan]
-
-            # tipo_de_dados = base_filtrada.dtypes
-
-            # print(tipo_de_dados)
-
-            return len(base_filtrada)
-
-    matriculas_por_tipo_g = MatriculasPorTipoFinanciamento(file_path)
-
-    meses = {
-        'fev': '2',
-        'mar': '3',
-        'abr': '4',
-        'mai': '5',
-        'jun': '6',
-        'jul': '7',
-        'ago': '8',
-        'set': '9',
-        'out': '10',
-        'nov': '11',
-        'dez': '12'
-    }
-
-    resultados_mat = {}
-
-    for mes_atual, mes_referencia in meses.items():
-        for tipo_financiamento in ['1 Gratuidade Regimental', '2 Gratuidade Não Regimental', '3 Convênio',
-                                   '9 Pago por Pessoa Fisica ou Empresa']:
-            chave_resultado = f"{mes_atual}_qp_mat_{tipo_financiamento}"
-            resultados_mat[chave_resultado] = matriculas_por_tipo_g.contar_matriculas('1117376 SENAI Taguatinga',
-                                                                                      '21 Qualificação Profissional',
-                                                                                      '1 Presencial', '32024',
-                                                                                      mes_referencia, '2024',
-                                                                                      tipo_financiamento)
-
-    return resultados_mat
-
-
-def obter_concluintes_QP_TAG(file_path):
-    class MatriculasPorTipoFinanciamento:
-        def __init__(self, file_path):
-            self.data = pd.read_excel(file_path)
-
-        def contar_concluintes(self, unidade, modalidade, tipo_acao, mes_rela, mes_referencia, anos_referencia,
-                               tipo_financiamento, tipo_situacao):
-            filtro_uni = self.data['UNIDADE_ATENDIMENTO'] == unidade
-            filtro_mod = self.data['MODALIDADE'] == modalidade
-            filtro_tipo = self.data['TIPO_ACAO'] == tipo_acao
-            filtro_mes_rel = self.data['MES_REFERENCIA'].astype(str).isin([mes_rela])
-            filtro_mes = self.data['DT_ENTRADA_MÊS'].astype(str).isin([mes_referencia])
-            filtro_ano = self.data['DT_ENTRADA_ANO'].astype(str).isin([anos_referencia])
-            filtro_finan = self.data['TIPO_FINANCIAMENTO'] == tipo_financiamento
-            filtro_situa = self.data['SITUACAO_MATRICULA'] == tipo_situacao
-
-            base_filtrada = self.data[
-                filtro_uni & filtro_mod & filtro_tipo & filtro_mes_rel & filtro_mes & filtro_ano & filtro_finan & filtro_situa]
-
-            # tipo_de_dados = base_filtrada.dtypes
-
-            # print(tipo_de_dados)
-
-            return len(base_filtrada)
-
-    concluintes_por_tipo = MatriculasPorTipoFinanciamento(file_path)
-
-    meses = {
-
-        'jan': '1',
-        'fev': '2',
-        'mar': '3',
-        'abr': '4',
-        'mai': '5',
-        'jun': '6',
-        'jul': '7',
-        'ago': '8',
-        'set': '9',
-        'out': '10',
-        'nov': '11',
-        'dez': '12'
-    }
-
-    resultados_conc = {}
-
-    for mes_atual, mes_referencia in meses.items():
-        for tipo_financiamento in ['1 Gratuidade Regimental', '2 Gratuidade Não Regimental', '3 Convênio',
-                                   '9 Pago por Pessoa Fisica ou Empresa']:
-            chave_resultado = f"{mes_atual}_qp_con_{tipo_financiamento}"
-            resultados_conc[chave_resultado] = concluintes_por_tipo.contar_concluintes('1117376 SENAI Taguatinga',
-                                                                                       '21 Qualificação Profissional',
-                                                                                       '1 Presencial', '32024',
-                                                                                       mes_referencia, '2024',
-                                                                                       tipo_financiamento,
-                                                                                       '2 Concluída')
-
-    return resultados_conc
-
-
-def obter_evasao_QP_TAG(file_path):
-    class MatriculasPorTipoFinanciamento:
-        def __init__(self, file_path):
-            self.data = pd.read_excel(file_path)
-
-        def contar_evadidos(self, unidade, modalidade, tipo_acao, mes_rela, mes_referencia, anos_referencia,
-                            tipo_financiamento, tipo_situacao):
-            filtro_uni = self.data['UNIDADE_ATENDIMENTO'] == unidade
-            filtro_mod = self.data['MODALIDADE'] == modalidade
-            filtro_tipo = self.data['TIPO_ACAO'] == tipo_acao
-            filtro_mes_rel = self.data['MES_REFERENCIA'].astype(str).isin([mes_rela])
-            filtro_mes = self.data['DT_ENTRADA_MÊS'].astype(str).isin([mes_referencia])
-            filtro_ano = self.data['DT_ENTRADA_ANO'].astype(str).isin([anos_referencia])
-            filtro_finan = self.data['TIPO_FINANCIAMENTO'] == tipo_financiamento
-            filtro_situa = self.data['SITUACAO_MATRICULA'] == tipo_situacao
-
-            base_filtrada = self.data[
-                filtro_uni & filtro_mod & filtro_tipo & filtro_mes_rel & filtro_mes & filtro_ano & filtro_finan & filtro_situa]
-
-            # tipo_de_dados = base_filtrada.dtypes
-
-            # print(tipo_de_dados)
-
-            return len(base_filtrada)
-
-    evadidos_por_tipo = MatriculasPorTipoFinanciamento(file_path)
-
-    meses = {
-        'jan': '1',
-        'fev': '2',
-        'mar': '3',
-        'abr': '4',
-        'mai': '5',
-        'jun': '6',
-        'jul': '7',
-        'ago': '8',
-        'set': '9',
-        'out': '10',
-        'nov': '11',
-        'dez': '12'
-    }
-
-    resultados_eva = {}
-
-    for mes_atual, mes_referencia in meses.items():
-        for tipo_financiamento in ['1 Gratuidade Regimental', '2 Gratuidade Não Regimental', '3 Convênio',
-                                   '9 Pago por Pessoa Fisica ou Empresa']:
-            chave_resultado = f"{mes_atual}_qp_eva_{tipo_financiamento}"
-            resultados_eva[chave_resultado] = evadidos_por_tipo.contar_evadidos('1117376 SENAI Taguatinga',
-                                                                                '21 Qualificação Profissional',
-                                                                                '1 Presencial', '32024', mes_referencia,
-                                                                                '2024', tipo_financiamento, '4 Evadida')
-
-    return resultados_eva
+def obter_evadidos_tecnico_iti_presencial_tag(file_path):
+    return obter_evadidos(file_path, '1117376 SENAI Taguatinga', '31 Técnico de Nível Médio', '1 Presencial', 'tecni_iti_presen_eva')
