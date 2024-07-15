@@ -75,13 +75,13 @@ nav.get(url)
 # Elemento Usuario
 e_usuario = WebDriverWait(nav, 5).until(
     EC.visibility_of_element_located((By.XPATH, '//*[@id="UserName"]')))
-usuario = "matheus.reck"
+usuario = ""
 e_usuario.send_keys(usuario)
 
 # Elemento Senha
 e_senha = WebDriverWait(nav, 5).until(
     EC.visibility_of_element_located((By.XPATH, '//*[@id="Password"]')))
-senha = "Ps4159753!"
+senha = ""
 e_senha.send_keys(senha)
 
 # Elemento Ano
