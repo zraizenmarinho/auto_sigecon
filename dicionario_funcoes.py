@@ -1,65 +1,64 @@
 meses = [
-    ("jan", "jan_11 Aprendizagem Industrial básica_1 Presencial_ha_1 Gratuidade Regimental")
-    ("fev", "fev_11 Aprendizagem Industrial básica_1 Presencial_ha_1 Gratuidade Regimental"),
-    ("mar", "mar_11 Aprendizagem Industrial básica_1 Presencial_ha_1 Gratuidade Regimental"),
-    ("abr", "abr_11 Aprendizagem Industrial básica_1 Presencial_ha_1 Gratuidade Regimental"),
-    ("mai", "mai_11 Aprendizagem Industrial básica_1 Presencial_ha_1 Gratuidade Regimental"),
-    ("jun", "jun_11 Aprendizagem Industrial básica_1 Presencial_ha_1 Gratuidade Regimental"),
-    ("jul", "jul_11 Aprendizagem Industrial básica_1 Presencial_ha_1 Gratuidade Regimental"),
-    ("ago", "ago_11 Aprendizagem Industrial básica_1 Presencial_ha_1 Gratuidade Regimental"),
-    ("set", "set_11 Aprendizagem Industrial básica_1 Presencial_ha_1 Gratuidade Regimental"),
-    ("out", "out_11 Aprendizagem Industrial básica_1 Presencial_ha_1 Gratuidade Regimental"),
-    ("nov", "nov_11 Aprendizagem Industrial básica_1 Presencial_ha_1 Gratuidade Regimental"),
-    ("dez", "dez_11 Aprendizagem Industrial básica_1 Presencial_ha_1 Gratuidade Regimental")
+    ("fev", "fev_qualifi_presen_mat_1 Gratuidade Regimental"),
+    ("mar", "mar_qualifi_presen_mat_1 Gratuidade Regimental"),
+    ("abr", "abr_qualifi_presen_mat_1 Gratuidade Regimental"),
+    ("mai", "mai_qualifi_presen_mat_1 Gratuidade Regimental"),
+    ("jun", "jun_qualifi_presen_mat_1 Gratuidade Regimental"),
+    ("jul", "jul_qualifi_presen_mat_1 Gratuidade Regimental"),
+    ("ago", "ago_qualifi_presen_mat_1 Gratuidade Regimental"),
+    ("set", "set_qualifi_presen_mat_1 Gratuidade Regimental"),
+    ("out", "out_qualifi_presen_mat_1 Gratuidade Regimental"),
+    ("nov", "nov_qualifi_presen_mat_1 Gratuidade Regimental"),
+    ("dez", "dez_qualifi_presen_mat_1 Gratuidade Regimental")
 ]
 
 
 
-# Matricula Janeiro
-from si_janeiro_m_c_e import (
-    #tag_iniciacao_presencial,
-    #tag_iniciacao_distancia,
-    #tag_aprendizagem_presencial,
-    #tag_qualificacao_presencial,
-    #tag_aprendizagem_distancia,
-    #tag_qualificacao_distancia,
-    #tag_aperfeicoamento_presencial,
-    tag_aperfeicoamento_distancia,
-    tag_qualificacao_iti_presencial,
-    tag_aprendizagem_tec,
-    tag_tecnico_presencial,
-    tag_tecnico_distancia,
-    tag_tecnico_iti_presencial
-)
+ipd_bolsa_mat_jan = WebDriverWait(nav, 10).until(
+    EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(4) > [id='5073'].indicador")))
 
-dados = {
-    'iniciacao': {
-        'presencial': obter_dados_por_tipo('iniciacao', 'presencial', arquivo),
-        'distancia': obter_dados_por_tipo('iniciacao', 'distancia', arquivo)
-    },
-    'aprendizagem': {
-        'presencial': obter_dados_por_tipo('aprendizagem', 'presencial', arquivo),
-        'distancia': obter_dados_por_tipo('aprendizagem', 'distancia', arquivo)
-    },
-    'qualificacao': {
-        'presencial': obter_dados_por_tipo('qualificacao', 'presencial', arquivo),
-        'distancia': obter_dados_por_tipo('qualificacao', 'distancia', arquivo)
-    },
-    'aperfeicoamento': {
-        'presencial': obter_dados_por_tipo('aperfeicoamento', 'presencial', arquivo),
-        'distancia': obter_dados_por_tipo('aperfeicoamento', 'distancia', arquivo)
-    },
-    'qualificacao_iti': {
-        'presencial': obter_dados_por_tipo('qualificacao_iti', 'presencial', arquivo)
-    },
-    'aprendizagem_tec': {
-        'presencial': obter_dados_por_tipo('aprendizagem_tec', 'presencial', arquivo)
-    },
-    'tecnico_nm': {
-        'presencial': obter_dados_por_tipo('tecnico_nm', 'presencial', arquivo),
-        'distancia': obter_dados_por_tipo('tecnico_nm', 'distancia', arquivo)
-    },
-    'tecnico_nm_iti': {
-        'presencial': obter_dados_por_tipo('tecnico_nm_iti', 'presencial', arquivo),
-    }
-}
+ipd_bolsa_mat_jan.click()
+
+ipd_bolsa_mat_jan = WebDriverWait(nav, 15).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]")))
+
+ipd_bolsa_mat_jan.send_keys(tag_iniciacao_distancia['jan_mat_bolsa'])
+
+ipd_bolsa_mat_jan.send_keys(Keys.ENTER)
+
+nav.refresh()
+
+meses = [
+    ("fev", "fev_inicia_distan_mat_2 Gratuidade Não Regimental"),
+    ("mar", "mar_inicia_distan_mat_2 Gratuidade Não Regimental"),
+    ("abr", "abr_inicia_distan_mat_2 Gratuidade Não Regimental"),
+    ("mai", "mai_inicia_distan_mat_2 Gratuidade Não Regimental"),
+    ("jun", "jun_inicia_distan_mat_2 Gratuidade Não Regimental"),
+    ("jul", "jul_inicia_distan_mat_2 Gratuidade Não Regimental"),
+    ("ago", "ago_inicia_distan_mat_2 Gratuidade Não Regimental"),
+    ("set", "set_inicia_distan_mat_2 Gratuidade Não Regimental"),
+    ("out", "out_inicia_distan_mat_2 Gratuidade Não Regimental"),
+    ("nov", "nov_inicia_distan_mat_2 Gratuidade Não Regimental"),
+    ("dez", "dez_inicia_distan_mat_2 Gratuidade Não Regimental")
+]
+
+
+for i, (mes, campo_dado) in enumerate(meses):
+    # Clicando na célula correspondente ao mês
+    mat_ipd_bolsa_mes = WebDriverWait(nav, 10).until(
+        EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({5 + i}) > [id='5073'].indicador"))
+    )
+    mat_ipd_bolsa_mes.click()
+
+    mat_ipd_bolsa_mes = WebDriverWait(nav, 15).until(
+        EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]"))
+    )
+
+    # Montando a chave correta para acessar os dados
+    chave_dado = f"{mes}_inicia_distan_mat_2 Gratuidade Não Regimental"
+    
+    # Acessando os dados de matrículas
+    mat_iniciacao_distancia_bolsa = dados['iniciacao']['distancia']['matriculas'].get(chave_dado, 0)
+
+    mat_ipd_bolsa_mes.send_keys(str(mat_iniciacao_distancia_bolsa))
+    mat_ipd_bolsa_mes.send_keys(Keys.ENTER)
+
