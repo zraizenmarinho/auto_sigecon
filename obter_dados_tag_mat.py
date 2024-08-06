@@ -43,7 +43,7 @@ def obter_matriculas(file_path, unidade, modalidade, tipo_acao, chave_prefixo):
         for tipo_financiamento in ['1 Gratuidade Regimental', '2 Gratuidade Não Regimental', '3 Convênio', '9 Pago por Pessoa Fisica ou Empresa']:
             chave_resultado = f"{mes_atual}_{chave_prefixo}_{tipo_financiamento}"
             resultados_mat[chave_resultado] = matriculas_por_tipo.contar_matriculas(
-                unidade, modalidade, tipo_acao, '52024', mes_referencia, '2024', tipo_financiamento
+                unidade, modalidade, tipo_acao, '62024', mes_referencia, '2024', tipo_financiamento
             )
     
     return resultados_mat

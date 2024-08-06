@@ -1,8 +1,8 @@
 
 from mat_tag import tag_iniciacao_presencial
 
-from obter_dados_tag_mat import obter_matriculas_qualificacao_presencial_tag
-mat_qualificacao_presencial = obter_matriculas_qualificacao_presencial_tag('si_jan.xlsx')
+from obter_dados_tag_mat import obter_matriculas_aperfeicoamento_distancia_tag
+mat = obter_matriculas_aperfeicoamento_distancia_tag('si_jan.xlsx')
 
 
 #Matricula Janeiro
@@ -11,24 +11,13 @@ mat_qualificacao_presencial = obter_matriculas_qualificacao_presencial_tag('si_j
 
 
 #Matricula Fevereiro
-print(mat_qualificacao_presencial)
+print(mat)
 
-{'fev_qualifi_presen_mat_1 Gratuidade Regimental': 74, 'fev_qualifi_presen_mat_2 Gratuidade Não Regimental': 0, 'fev_qualifi_presen_mat_3 Convênio': 0, 'fev_qualifi_presen_mat_9 Pago por Pessoa Fisica ou Empresa': 115, 'mar_qualifi_presen_mat_1 Gratuidade Regimental': 306, 'mar_qualifi_presen_mat_2 Gratuidade Não Regimental': 1, 'mar_qualifi_presen_mat_3 Convênio': 0, 'mar_qualifi_presen_mat_9 Pago por Pessoa Fisica ou Empresa': 1437, 'abr_qualifi_presen_mat_1 Gratuidade Regimental': 0, 'abr_qualifi_presen_mat_2 Gratuidade Não Regimental': 0, 'abr_qualifi_presen_mat_3 Convênio': 0, 'abr_qualifi_presen_mat_9 Pago por Pessoa Fisica ou Empresa': 0, 'mai_qualifi_presen_mat_1 Gratuidade Regimental': 0, 'mai_qualifi_presen_mat_2 Gratuidade Não Regimental': 0, 
-'mai_qualifi_presen_mat_3 Convênio': 0, 'mai_qualifi_presen_mat_9 Pago por Pessoa Fisica ou Empresa': 0, 'jun_qualifi_presen_mat_1 Gratuidade Regimental': 0, 'jun_qualifi_presen_mat_2 Gratuidade Não Regimental': 0, 'jun_qualifi_presen_mat_3 Convênio': 0, 'jun_qualifi_presen_mat_9 Pago por Pessoa Fisica ou Empresa': 0, 'jul_qualifi_presen_mat_1 Gratuidade Regimental': 0, 'jul_qualifi_presen_mat_2 Gratuidade Não Regimental': 0, 'jul_qualifi_presen_mat_3 Convênio': 0, 'jul_qualifi_presen_mat_9 Pago por Pessoa Fisica ou Empresa': 0, 'ago_qualifi_presen_mat_1 Gratuidade Regimental': 0, 'ago_qualifi_presen_mat_2 Gratuidade Não Regimental': 0, 'ago_qualifi_presen_mat_3 Convênio': 0, 'ago_qualifi_presen_mat_9 Pago por Pessoa Fisica ou Empresa': 0, 'set_qualifi_presen_mat_1 Gratuidade Regimental': 0, 'set_qualifi_presen_mat_2 Gratuidade Não Regimental': 0, 'set_qualifi_presen_mat_3 Convênio': 0, 'set_qualifi_presen_mat_9 Pago por Pessoa Fisica ou Empresa': 0, 'out_qualifi_presen_mat_1 Gratuidade Regimental': 0, 'out_qualifi_presen_mat_2 Gratuidade Não Regimental': 0, 'out_qualifi_presen_mat_3 Convênio': 0, 'out_qualifi_presen_mat_9 Pago por Pessoa Fisica ou Empresa': 0, 'nov_qualifi_presen_mat_1 Gratuidade Regimental': 0, 'nov_qualifi_presen_mat_2 Gratuidade Não Regimental': 0, 'nov_qualifi_presen_mat_3 Convênio': 0, 'nov_qualifi_presen_mat_9 Pago por Pessoa Fisica ou Empresa': 0, 'dez_qualifi_presen_mat_1 Gratuidade Regimental': 0, 'dez_qualifi_presen_mat_2 Gratuidade Não Regimental': 0, 'dez_qualifi_presen_mat_3 Convênio': 0, 'dez_qualifi_presen_mat_9 Pago por Pessoa Fisica ou Empresa': 0}
+{
 
-#Concluinte
+'fev_aperfei_distan_mat_1 Gratuidade Regimental': 0, 'fev_aperfei_distan_mat_2 Gratuidade Não Regimental': 0, 'fev_aperfei_distan_mat_3 Convênio': 0, 
+'fev_aperfei_distan_mat_9 Pago por Pessoa Fisica ou Empresa': 0, 
 
-#print(con_aprendizagem_presencial)
-
-
-
-#Evasao
-
-#print(eva_aprendizagem_presencial)
-
-
-
-#Hora aluno
-
-#print(hora_aprendizagem_presencial)
-
+}
+ 
+ 

@@ -609,7 +609,7 @@ quali_ng_mat_jan.click()
 
 quali_ng_mat_jan = WebDriverWait(nav, 15).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]")))
 
-quali_ng_mat_jan.send_keys(tag_qualificacao_presencial['jan_mat_bolsa'])
+quali_ng_mat_jan.send_keys(tag_qualificacao_presencial['jan_mat_n_gratuita'])
 
 quali_ng_mat_jan.send_keys(Keys.ENTER)
 
@@ -660,7 +660,7 @@ quali_regime_mat_jan.click()
 
 quali_regime_mat_jan = WebDriverWait(nav, 15).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]")))
 
-quali_regime_mat_jan.send_keys(tag_qualificacao_presencial['jan_mat_bolsa'])
+quali_regime_mat_jan.send_keys(tag_qualificacao_presencial['jan_mat_regi'])
 
 quali_regime_mat_jan.send_keys(Keys.ENTER)
 
@@ -701,3 +701,489 @@ for i, (mes, campo_dado) in enumerate(meses):
 
     quali_regime_mat_mat.send_keys(str(mat_qualificacao_presencial_regimental))
     quali_regime_mat_mat.send_keys(Keys.ENTER)
+
+
+# SENAI TAGUATINGA - 30303020301 - APRENDIZAGEM INDUSTRIAL A DISTANCIA - REGIMENTAL
+
+
+janela_atual = nav.current_window_handle
+
+
+nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030201/232?cd_centro_resp=30303020301&nm_unidade=SENAI%20TAGUATINGA&nm_centro_resp=APRENDIZAGEM%20INDUSTRIAL%20A%20DISTANCIA&id_grupo=2&ds_grupo=Aprendizagem%20Industrial&fase=Realiza%C3%A7%C3%A3o', '_self')")
+
+
+apre_regime_semi_mat_jan = WebDriverWait(nav, 10).until(
+    EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(4) > [id='5138'].indicador")))
+
+apre_regime_semi_mat_jan.click()
+
+apre_regime_semi_mat_jan = WebDriverWait(nav, 15).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]")))
+
+apre_regime_semi_mat_jan.send_keys(tag_aprendizagem_distancia['jan_mat_regi'])
+
+apre_regime_semi_mat_jan.send_keys(Keys.ENTER)
+
+nav.refresh()
+
+meses = [
+    ("fev", "fev_aprendi_presen_mat_1 Gratuidade Regimental"),
+    ("mar", "mar_aprendi_presen_mat_1 Gratuidade Regimental"),
+    ("abr", "abr_aprendi_presen_mat_1 Gratuidade Regimental"),
+    ("mai", "mai_aprendi_presen_mat_1 Gratuidade Regimental"),
+    ("jun", "jun_aprendi_presen_mat_1 Gratuidade Regimental"),
+    ("jul", "jul_aprendi_presen_mat_1 Gratuidade Regimental"),
+    ("ago", "ago_aprendi_presen_mat_1 Gratuidade Regimental"),
+    ("set", "set_aprendi_presen_mat_1 Gratuidade Regimental"),
+    ("out", "out_aprendi_presen_mat_1 Gratuidade Regimental"),
+    ("nov", "nov_aprendi_presen_mat_1 Gratuidade Regimental"),
+    ("dez", "dez_aprendi_presen_mat_1 Gratuidade Regimental")
+]
+
+
+apre_regime_semi_mat = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(4) > [id='5138'].indicador")))
+apre_regime_semi_mat.click()
+
+
+for i, (mes, campo_dado) in enumerate(meses):
+
+    apre_regime_semi_mat = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({5 + i}) > [id='5138'].indicador")))
+    apre_regime_semi_mat.click()
+
+   
+    apre_regime_semi_mat = WebDriverWait(nav, 15).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]")))
+
+ 
+    chave_dado = f"{mes}_aprendi_presen_mat_1 Gratuidade Regimental"
+    
+    
+    mat_aprendizagem_distancia_regimental = dados['aprendizagem']['distancia']['matriculas'].get(chave_dado, 0)
+
+    apre_regime_semi_mat.send_keys(str(mat_aprendizagem_distancia_regimental))
+    apre_regime_semi_mat.send_keys(Keys.ENTER)
+
+
+# SENAI TAGUATINGA - 30303020401 - QUALIFICACAO PROFISSIONAL SEMIPRESENCIAL - BOLSA
+
+
+janela_atual = nav.current_window_handle
+
+
+nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030201/223?cd_centro_resp=30303020401&nm_unidade=SENAI%20TAGUATINGA&nm_centro_resp=QUALIFICACAO%20PROFISSIONAL%20SEMIPRESENCIAL&id_grupo=3&ds_grupo=Qualifica%C3%A7%C3%A3o%20Industrial&fase=Realiza%C3%A7%C3%A3o', '_self')")
+
+
+qualifi_semi_bolsa_mat_jan = WebDriverWait(nav, 10).until(
+    EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(4) > [id='5138'].indicador")))
+
+qualifi_semi_bolsa_mat_jan.click()
+
+qualifi_semi_bolsa_mat_jan = WebDriverWait(nav, 15).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]")))
+
+qualifi_semi_bolsa_mat_jan.send_keys(tag_qualificacao_distancia['jan_mat_bolsa'])
+
+qualifi_semi_bolsa_mat_jan.send_keys(Keys.ENTER)
+
+nav.refresh()
+
+meses = [
+    ("fev", "fev_qualifi_distan_mat_2 Gratuidade Não Regimental"),
+    ("mar", "mar_qualifi_distan_mat_2 Gratuidade Não Regimental"),
+    ("abr", "abr_qualifi_distan_mat_2 Gratuidade Não Regimental"),
+    ("mai", "mai_qualifi_distan_mat_2 Gratuidade Não Regimental"),
+    ("jun", "jun_qualifi_distan_mat_2 Gratuidade Não Regimental"),
+    ("jul", "jul_qualifi_distan_mat_2 Gratuidade Não Regimental"),
+    ("ago", "ago_qualifi_distan_mat_2 Gratuidade Não Regimental"),
+    ("set", "set_qualifi_distan_mat_2 Gratuidade Não Regimental"),
+    ("out", "out_qualifi_distan_mat_2 Gratuidade Não Regimental"),
+    ("nov", "nov_qualifi_distan_mat_2 Gratuidade Não Regimental"),
+    ("dez", "dez_qualifi_distan_mat_2 Gratuidade Não Regimental")
+]
+
+
+qualifi_semi_bolsa_mat = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(4) > [id='5138'].indicador")))
+qualifi_semi_bolsa_mat.click()
+
+
+for i, (mes, campo_dado) in enumerate(meses):
+
+    qualifi_semi_bolsa_mat = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({5 + i}) > [id='5138'].indicador")))
+    qualifi_semi_bolsa_mat.click()
+
+   
+    qualifi_semi_bolsa_mat = WebDriverWait(nav, 15).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]")))
+
+ 
+    chave_dado = f"{mes}_qualifi_distan_mat_2 Gratuidade Não Regimental"
+    
+    
+    mat_qualifica_semi_bolsa = dados['qualificacao']['distancia']['matriculas'].get(chave_dado, 0)
+
+    qualifi_semi_bolsa_mat.send_keys(str(mat_qualifica_semi_bolsa))
+    qualifi_semi_bolsa_mat.send_keys(Keys.ENTER)
+
+# SENAI TAGUATINGA - 30303020401 - QUALIFICACAO PROFISSIONAL SEMIPRESENCIAL - NAO GRATUITA
+
+qualifi_semi_ng_mat_jan = WebDriverWait(nav, 10).until(
+    EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(4) > [id='5057'].indicador")))
+
+qualifi_semi_ng_mat_jan.click()
+
+qualifi_semi_ng_mat_jan = WebDriverWait(nav, 15).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]")))
+
+qualifi_semi_ng_mat_jan.send_keys(tag_qualificacao_distancia['jan_mat_n_gratuita'])
+
+qualifi_semi_ng_mat_jan.send_keys(Keys.ENTER)
+
+nav.refresh()
+
+meses = [
+    ("fev", "fev_qualifi_distan_mat_9 Pago por Pessoa Fisica ou Empresa"),
+    ("mar", "mar_qualifi_distan_mat_9 Pago por Pessoa Fisica ou Empresa"),
+    ("abr", "abr_qualifi_distan_mat_9 Pago por Pessoa Fisica ou Empresa"),
+    ("mai", "mai_qualifi_distan_mat_9 Pago por Pessoa Fisica ou Empresa"),
+    ("jun", "jun_qualifi_distan_mat_9 Pago por Pessoa Fisica ou Empresa"),
+    ("jul", "jul_qualifi_distan_mat_9 Pago por Pessoa Fisica ou Empresa"),
+    ("ago", "ago_qualifi_distan_mat_9 Pago por Pessoa Fisica ou Empresa"),
+    ("set", "set_qualifi_distan_mat_9 Pago por Pessoa Fisica ou Empresa"),
+    ("out", "out_qualifi_distan_mat_9 Pago por Pessoa Fisica ou Empresa"),
+    ("nov", "nov_qualifi_distan_mat_9 Pago por Pessoa Fisica ou Empresa"),
+    ("dez", "dez_qualifi_distan_mat_9 Pago por Pessoa Fisica ou Empresa")
+]
+
+
+qualifi_semi_ng_mat = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(4) > [id='5138'].indicador")))
+qualifi_semi_ng_mat.click()
+
+
+for i, (mes, campo_dado) in enumerate(meses):
+
+    qualifi_semi_ng_mat = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({5 + i}) > [id='5138'].indicador")))
+    qualifi_semi_ng_mat.click()
+
+   
+    qualifi_semi_ng_mat = WebDriverWait(nav, 15).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]")))
+
+ 
+    chave_dado = f"{mes}_qualifi_distan_mat_9 Pago por Pessoa Fisica ou Empresa"
+    
+    
+    mat_qualifica_semi_ng = dados['qualificacao']['distancia']['matriculas'].get(chave_dado, 0)
+
+    qualifi_semi_ng_mat.send_keys(str(mat_qualifica_semi_ng))
+    qualifi_semi_ng_mat.send_keys(Keys.ENTER)
+
+# SENAI TAGUATINGA - 30303020401 - QUALIFICACAO PROFISSIONAL SEMIPRESENCIAL - REGIMENTAL
+
+qualifi_semi_regimental_mat_jan = WebDriverWait(nav, 10).until(
+    EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(4) > [id='5058'].indicador")))
+
+qualifi_semi_regimental_mat_jan.click()
+
+qualifi_semi_regimental_mat_jan = WebDriverWait(nav, 15).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]")))
+
+qualifi_semi_regimental_mat_jan.send_keys(tag_qualificacao_distancia['jan_mat_regi'])
+
+qualifi_semi_regimental_mat_jan.send_keys(Keys.ENTER)
+
+nav.refresh()
+
+meses = [
+    ("fev", "fev_qualifi_distan_mat_1 Gratuidade Regimental"),
+    ("mar", "mar_qualifi_distan_mat_1 Gratuidade Regimental"),
+    ("abr", "abr_qualifi_distan_mat_1 Gratuidade Regimental"),
+    ("mai", "mai_qualifi_distan_mat_1 Gratuidade Regimental"),
+    ("jun", "jun_qualifi_distan_mat_1 Gratuidade Regimental"),
+    ("jul", "jul_qualifi_distan_mat_1 Gratuidade Regimental"),
+    ("ago", "ago_qualifi_distan_mat_1 Gratuidade Regimental"),
+    ("set", "set_qualifi_distan_mat_1 Gratuidade Regimental"),
+    ("out", "out_qualifi_distan_mat_1 Gratuidade Regimental"),
+    ("nov", "nov_qualifi_distan_mat_1 Gratuidade Regimental"),
+    ("dez", "dez_qualifi_distan_mat_1 Gratuidade Regimental")
+]
+
+qualifi_semi_regimental_mat = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(4) > [id='5058'].indicador")))
+qualifi_semi_regimental_mat.click()
+
+
+for i, (mes, campo_dado) in enumerate(meses):
+
+    qualifi_semi_regimental_mat = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({5 + i}) > [id='5058'].indicador")))
+    qualifi_semi_regimental_mat.click()
+
+   
+    qualifi_semi_regimental_mat = WebDriverWait(nav, 15).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]")))
+
+ 
+    chave_dado = f"{mes}_qualifi_distan_mat_1 Gratuidade Regimental"
+    
+    
+    mat_qualifica_semi_regimental = dados['qualificacao']['distancia']['matriculas'].get(chave_dado, 0)
+
+    qualifi_semi_regimental_mat.send_keys(str(mat_qualifica_semi_regimental))
+    qualifi_semi_regimental_mat.send_keys(Keys.ENTER)
+    
+# SENAI TAGUATINGA - 30303020501 - APERF/ESPECIALIZ PROFISSIONAL PRESENCIAL - BOLSA
+
+janela_atual = nav.current_window_handle
+
+nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030201/227?cd_centro_resp=30303020501&nm_unidade=SENAI%20TAGUATINGA&nm_centro_resp=APERF%2FESPECIALIZ%20PROFISSIONAL%20PRESENCIAL&id_grupo=5&ds_grupo=Aperfei%C3%A7oamento%20Profissional&fase=Realiza%C3%A7%C3%A3o', '_self')")
+
+
+aper_prese_bolsa_mat_jan = WebDriverWait(nav, 10).until(
+    EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(4) > [id='5092'].indicador")))
+
+aper_prese_bolsa_mat_jan.click()
+
+aper_prese_bolsa_mat_jan = WebDriverWait(nav, 15).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]")))
+
+aper_prese_bolsa_mat_jan.send_keys(tag_aperfeicoamento_presencial['jan_mat_bolsa'])
+
+aper_prese_bolsa_mat_jan.send_keys(Keys.ENTER)
+
+nav.refresh()
+
+meses = [
+    ("fev", "fev_aperfei_presen_mat_2 Gratuidade Não Regimental"),
+    ("mar", "mar_aperfei_presen_mat_2 Gratuidade Não Regimental"),
+    ("abr", "abr_aperfei_presen_mat_2 Gratuidade Não Regimental"),
+    ("mai", "mai_aperfei_presen_mat_2 Gratuidade Não Regimental"),
+    ("jun", "jun_aperfei_presen_mat_2 Gratuidade Não Regimental"),
+    ("jul", "jul_aperfei_presen_mat_2 Gratuidade Não Regimental"),
+    ("ago", "ago_aperfei_presen_mat_2 Gratuidade Não Regimental"),
+    ("set", "set_aperfei_presen_mat_2 Gratuidade Não Regimental"),
+    ("out", "out_aperfei_presen_mat_2 Gratuidade Não Regimental"),
+    ("nov", "nov_aperfei_presen_mat_2 Gratuidade Não Regimental"),
+    ("dez", "dez_aperfei_presen_mat_2 Gratuidade Não Regimental")
+]
+
+
+aper_prese_bolsa_mat = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(4) > [id='5092'].indicador")))
+aper_prese_bolsa_mat.click()
+
+
+for i, (mes, campo_dado) in enumerate(meses):
+
+    aper_prese_bolsa_mat = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({5 + i}) > [id='5092'].indicador")))
+    aper_prese_bolsa_mat.click()
+
+   
+    aper_prese_bolsa_mat = WebDriverWait(nav, 15).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]")))
+
+ 
+    chave_dado = f"{mes}_aperfei_presen_mat_2 Gratuidade Não Regimental"
+    
+    
+    mat_aper_prese_bolsa = dados['aperfeicoamento']['presencial']['matriculas'].get(chave_dado, 0)
+
+    aper_prese_bolsa_mat.send_keys(str(mat_aper_prese_bolsa))
+    aper_prese_bolsa_mat.send_keys(Keys.ENTER)
+
+
+# SENAI TAGUATINGA - 30303020501 - APERF/ESPECIALIZ PROFISSIONAL PRESENCIAL - NAO GRATUITA
+
+
+aper_prese_ng_mat_jan = WebDriverWait(nav, 10).until(
+    EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(4) > [id='5093'].indicador")))
+
+aper_prese_ng_mat_jan.click()
+
+aper_prese_ng_mat_jan = WebDriverWait(nav, 15).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]")))
+
+aper_prese_ng_mat_jan.send_keys(tag_aperfeicoamento_presencial['jan_mat_n_gratuita'])
+
+aper_prese_ng_mat_jan.send_keys(Keys.ENTER)
+
+nav.refresh()
+
+meses = [
+    ("fev", "fev_aperfei_presen_mat_9 Pago por Pessoa Fisica ou Empresa"),
+    ("mar", "mar_aperfei_presen_mat_9 Pago por Pessoa Fisica ou Empresa"),
+    ("abr", "abr_aperfei_presen_mat_9 Pago por Pessoa Fisica ou Empresa"),
+    ("mai", "mai_aperfei_presen_mat_9 Pago por Pessoa Fisica ou Empresa"),
+    ("jun", "jun_aperfei_presen_mat_9 Pago por Pessoa Fisica ou Empresa"),
+    ("jul", "jul_aperfei_presen_mat_9 Pago por Pessoa Fisica ou Empresa"),
+    ("ago", "ago_aperfei_presen_mat_9 Pago por Pessoa Fisica ou Empresa"),
+    ("set", "set_aperfei_presen_mat_9 Pago por Pessoa Fisica ou Empresa"),
+    ("out", "out_aperfei_presen_mat_9 Pago por Pessoa Fisica ou Empresa"),
+    ("nov", "nov_aperfei_presen_mat_9 Pago por Pessoa Fisica ou Empresa"),
+    ("dez", "dez_aperfei_presen_mat_9 Pago por Pessoa Fisica ou Empresa")
+]
+
+
+aper_prese_ng_mat = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(4) > [id='5093'].indicador")))
+aper_prese_ng_mat.click()
+
+
+for i, (mes, campo_dado) in enumerate(meses):
+
+    aper_prese_ng_mat = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({5 + i}) > [id='5093'].indicador")))
+    aper_prese_ng_mat.click()
+
+   
+    aper_prese_ng_mat = WebDriverWait(nav, 15).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]")))
+
+ 
+    chave_dado = f"{mes}_aperfei_presen_mat_9 Pago por Pessoa Fisica ou Empresa"
+    
+    
+    mat_aper_prese_ng = dados['aperfeicoamento']['presencial']['matriculas'].get(chave_dado, 0)
+
+    aper_prese_ng_mat.send_keys(str(mat_aper_prese_ng))
+    aper_prese_ng_mat.send_keys(Keys.ENTER)
+
+
+# SENAI TAGUATINGA - 30303020501 - APERF/ESPECIALIZ PROFISSIONAL PRESENCIAL - REGIMENTAL
+
+
+aper_prese_regimental_mat_jan = WebDriverWait(nav, 10).until(
+    EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(4) > [id='5094'].indicador")))
+
+aper_prese_regimental_mat_jan.click()
+
+aper_prese_regimental_mat_jan = WebDriverWait(nav, 15).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]")))
+
+aper_prese_regimental_mat_jan.send_keys(tag_aperfeicoamento_presencial['jan_mat_regi'])
+
+aper_prese_regimental_mat_jan.send_keys(Keys.ENTER)
+
+nav.refresh()
+
+meses = [
+    ("fev", "fev_aperfei_presen_mat_1 Gratuidade Regimental"),
+    ("mar", "mar_aperfei_presen_mat_1 Gratuidade Regimental"),
+    ("abr", "abr_aperfei_presen_mat_1 Gratuidade Regimental"),
+    ("mai", "mai_aperfei_presen_mat_1 Gratuidade Regimental"),
+    ("jun", "jun_aperfei_presen_mat_1 Gratuidade Regimental"),
+    ("jul", "jul_aperfei_presen_mat_1 Gratuidade Regimental"),
+    ("ago", "ago_aperfei_presen_mat_1 Gratuidade Regimental"),
+    ("set", "set_aperfei_presen_mat_1 Gratuidade Regimental"),
+    ("out", "out_aperfei_presen_mat_1 Gratuidade Regimental"),
+    ("nov", "nov_aperfei_presen_mat_1 Gratuidade Regimental"),
+    ("dez", "dez_aperfei_presen_mat_1 Gratuidade Regimental")
+]
+
+aper_prese_regimental_mat = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(4) > [id='5094'].indicador")))
+aper_prese_regimental_mat.click()
+
+
+for i, (mes, campo_dado) in enumerate(meses):
+
+    aper_prese_regimental_mat = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({5 + i}) > [id='5094'].indicador")))
+    aper_prese_regimental_mat.click()
+
+   
+    aper_prese_regimental_mat = WebDriverWait(nav, 15).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]")))
+
+ 
+    chave_dado = f"{mes}_aperfei_presen_mat_1 Gratuidade Regimental"
+    
+    
+    mat_aper_prese_regimental = dados['aperfeicoamento']['presencial']['matriculas'].get(chave_dado, 0)
+
+    aper_prese_regimental_mat.send_keys(str(mat_aper_prese_regimental))
+    aper_prese_regimental_mat.send_keys(Keys.ENTER)
+
+
+# SENAI TAGUATINGA - 30303020501 - APERF/ESPECIALIZ PROFISSIONAL PRESENCIAL - CONVENIO
+
+aper_prese_convenio_mat_jan = WebDriverWait(nav, 10).until(
+    EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(4) > [id='5098'].indicador")))
+
+aper_prese_convenio_mat_jan.click()
+
+aper_prese_convenio_mat_jan = WebDriverWait(nav, 15).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]")))
+
+aper_prese_convenio_mat_jan.send_keys(tag_aperfeicoamento_presencial['jan_mat_convenio'])
+
+aper_prese_convenio_mat_jan.send_keys(Keys.ENTER)
+
+nav.refresh()
+
+meses = [
+    ("fev", "fev_aperfei_presen_mat_3 Convênio"),
+    ("mar", "mar_aperfei_presen_mat_3 Convênio"),
+    ("abr", "abr_aperfei_presen_mat_3 Convênio"),
+    ("mai", "mai_aperfei_presen_mat_3 Convênio"),
+    ("jun", "jun_aperfei_presen_mat_3 Convênio"),
+    ("jul", "jul_aperfei_presen_mat_3 Convênio"),
+    ("ago", "ago_aperfei_presen_mat_3 Convênio"),
+    ("set", "set_aperfei_presen_mat_3 Convênio"),
+    ("out", "out_aperfei_presen_mat_3 Convênio"),
+    ("nov", "nov_aperfei_presen_mat_3 Convênio"),
+    ("dez", "dez_aperfei_presen_mat_3 Convênio")
+]
+
+aper_prese_convenio_mat = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(4) > [id='5098'].indicador")))
+aper_prese_convenio_mat.click()
+
+
+for i, (mes, campo_dado) in enumerate(meses):
+
+    aper_prese_convenio_mat = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({5 + i}) > [id='5098'].indicador")))
+    aper_prese_convenio_mat.click()
+
+   
+    aper_prese_convenio_mat = WebDriverWait(nav, 15).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]")))
+
+ 
+    chave_dado = f"{mes}_aperfei_presen_mat_3 Convênio"
+    
+    
+    mat_aper_prese_convenio = dados['aperfeicoamento']['presencial']['matriculas'].get(chave_dado, 0)
+
+    aper_prese_convenio_mat.send_keys(str(mat_aper_prese_convenio))
+    aper_prese_convenio_mat.send_keys(Keys.ENTER)
+    
+# SENAI TAGUATINGA - 30303020601 - APERF/ESPECIALI PROFISSIONAL A DISTANCIA BOLSA
+
+nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030201/231?cd_centro_resp=30303020601&nm_unidade=SENAI%20TAGUATINGA&nm_centro_resp=APERF%2FESPECIALI%20PROFISSIONAL%20A%20DISTANCIA&id_grupo=5&ds_grupo=Aperfei%C3%A7oamento%20Profissional&fase=Realiza%C3%A7%C3%A3o', '_self')")
+
+
+aper_distan_bolsa_mat_jan = WebDriverWait(nav, 10).until(
+    EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(4) > [id='5132'].indicador")))
+
+aper_distan_bolsa_mat_jan.click()
+
+aper_distan_bolsa_mat_jan = WebDriverWait(nav, 15).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]")))
+
+aper_distan_bolsa_mat_jan.send_keys(tag_aperfeicoamento_distancia['jan_mat_bolsa'])
+
+aper_distan_bolsa_mat_jan.send_keys(Keys.ENTER)
+
+nav.refresh()
+
+meses = [
+    ("fev", "fev_aperfei_distan_mat_2 Gratuidade Não Regimental"),
+    ("mar", "mar_aperfei_distan_mat_2 Gratuidade Não Regimental"),
+    ("abr", "abr_aperfei_distan_mat_2 Gratuidade Não Regimental"),
+    ("mai", "mai_aperfei_distan_mat_2 Gratuidade Não Regimental"),
+    ("jun", "jun_aperfei_distan_mat_2 Gratuidade Não Regimental"),
+    ("jul", "jul_aperfei_distan_mat_2 Gratuidade Não Regimental"),
+    ("ago", "ago_aperfei_distan_mat_2 Gratuidade Não Regimental"),
+    ("set", "set_aperfei_distan_mat_2 Gratuidade Não Regimental"),
+    ("out", "out_aperfei_distan_mat_2 Gratuidade Não Regimental"),
+    ("nov", "nov_aperfei_distan_mat_2 Gratuidade Não Regimental"),
+    ("dez", "dez_aperfei_distan_mat_2 Gratuidade Não Regimental")
+]
+
+aper_dista_bolsa_mat = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(4) > [id='5132'].indicador")))
+aper_dista_bolsa_mat.click()
+
+
+for i, (mes, campo_dado) in enumerate(meses):
+
+    aper_dista_bolsa_mat = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({5 + i}) > [id='5132'].indicador")))
+    aper_dista_bolsa_mat.click()
+
+   
+    aper_dista_bolsa_mat = WebDriverWait(nav, 15).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]")))
+
+ 
+    chave_dado = f"{mes}_aperfei_distan_mat_2 Gratuidade Não Regimental"
+    
+    
+    mat_aper_distan_bolsa = dados['aperfeicoamento']['distancia']['matriculas'].get(chave_dado, 0)
+
+    aper_dista_bolsa_mat.send_keys(str(mat_aper_distan_bolsa))
+    aper_dista_bolsa_mat.send_keys(Keys.ENTER)
+
+# SENAI TAGUATINGA - 30303020601 - APERF/ESPECIALI PROFISSIONAL A DISTANCIA BOLSA
