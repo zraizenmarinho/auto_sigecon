@@ -4,10 +4,11 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.action_chains import ActionChains
-from selenium.common.exceptions import TimeoutException
-from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.firefox.service import Service
+from webdriver_manager.firefox import GeckoDriverManager
+
+
 
 from obter_dados_tag_mat import obter_dados_por_tipo
 
@@ -89,9 +90,10 @@ dados = {
 
 # Navevagção para a pagina
 
-url = 'http://sn-iis-02/SIGECON20/'
+service = Service(GeckoDriverManager().install())
+nav = webdriver.Firefox(service=service)
 
-nav = webdriver.Firefox()
+url = 'http://sn-iis-02/SIGECON20/'
 
 nav.get(url)
 
@@ -1697,7 +1699,7 @@ for i, (mes, campo_dado) in enumerate(meses):
 
     tec_presencial_regimental_mat.send_keys(str(mat_tec_presencial_regimental))
     tec_presencial_regimental_mat.send_keys(Keys.ENTER)
-    
+
 
 # SENAI TAGUATINGA - 30303040201 - TECNICO DE NIVEL MEDIO PRESENCIAL - BOLSA   
 
