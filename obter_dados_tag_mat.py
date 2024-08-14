@@ -1,6 +1,8 @@
 import pandas as pd
 import dask.dataframe as dd
 
+arquivo = 'si_jan.xlsx'
+
 def obter_matriculas(file_path, unidade, modalidade, tipo_acao, chave_prefixo):
     class MatriculasPorTipoFinanciamento:
         def __init__(self, file_path):
@@ -85,7 +87,7 @@ def obter_matriculas_tecnico_distancia_tag(file_path):
     return obter_matriculas(file_path, '1117376 SENAI Taguatinga', '31 Técnico de Nível Médio', '2 A distância', 'tecni_distan_mat')
 
 def obter_matriculas_tecnico_iti_presencial_tag(file_path):
-    return obter_matriculas(file_path, '1117376 SENAI Taguatinga', '31 Técnico de Nível Médio', '1 Presencial', 'tecni_iti_presen_mat')
+    return obter_matriculas(file_path, '1117376 SENAI Taguatinga', '32 Técnico de Nível Médio - Itinerário V Ensino Médio', '1 Presencial', 'tecni_iti_presen_mat')
 
 funcoes_mat = {
     
@@ -111,4 +113,3 @@ def obter_dados_por_tipo(categoria, tipo, arquivo):
     return {
         'matriculas': funcoes_mat['matriculas'][chave](arquivo), 
     }
-

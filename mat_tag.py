@@ -1,6 +1,8 @@
 import pandas as pd
 import dask.dataframe as dd
 
+arquivo = 'si_jan.xlsx'
+
 class MatriculasPorTipoFinanciamentoJan:
     def __init__(self, file_path):
         pandas_df = pd.read_excel(file_path)
@@ -52,5 +54,4 @@ tag_aprendizagem_tec = obter_matriculas_por_tipo_jan('si_jan.xlsx','1117376 SENA
 tag_tecnico_presencial = obter_matriculas_por_tipo_jan('si_jan.xlsx','1117376 SENAI Taguatinga','31 Técnico de Nível Médio', '1 Presencial')
 tag_tecnico_distancia = obter_matriculas_por_tipo_jan('si_jan.xlsx','1117376 SENAI Taguatinga','31 Técnico de Nível Médio', '2 A distância')
 tag_tecnico_iti_presencial = obter_matriculas_por_tipo_jan('si_jan.xlsx','1117376 SENAI Taguatinga','32 Técnico de Nível Médio - Itinerário V Ensino Médio', '1 Presencial')
-
 
