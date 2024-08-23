@@ -1766,7 +1766,6 @@ for i, (mes, campo_dado) in enumerate(meses):
     tec_presencial_regimental_mat.send_keys(str(mat_tec_presencial_regimental))
     tec_presencial_regimental_mat.send_keys(Keys.ENTER)
 
-
 # SENAI TAGUATINGA - 30303040201 - TECNICO DE NIVEL MEDIO PRESENCIAL - BOLSA   
 
 tec_presencial_bolsa_mat_jan = WebDriverWait(nav, 10).until(
@@ -1994,22 +1993,16 @@ for i, (mes, campo_dado) in enumerate(meses):
 
 # SENAI TAGUATINGA - 30303040501 - TECN DE NIV MED ITINERARIOS PRESENCIAL BOLSA
 
-from selenium import webdriver
-
 janela_atual = nav.current_window_handle
-
-# Abrir a nova página em uma nova aba
 
 nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030201/228?cd_centro_resp=30303040501&nm_unidade=SENAI%20TAGUATINGA&nm_centro_resp=TECN%20DE%20NIV%20MED%20ITINERARIOS%20PRESENCIAL&id_grupo=4&ds_grupo=T%C3%A9cnico%20de%20N%C3%ADvel%20M%C3%A9dio&fase=Realiza%C3%A7%C3%A3o')")
 
-# Alternar para a nova janela
 nav.switch_to.window(nav.window_handles[-1])
 
-# Fechar a janela anterior
 nav.switch_to.window(janela_atual)
 nav.close()
 
-# Voltar para a nova janela, que é agora a única aberta
+
 nav.switch_to.window(nav.window_handles[0])
 
 nav.refresh()
@@ -2111,3 +2104,4 @@ for i, (mes, campo_dado) in enumerate(meses):
 
     tec_iti_presencial_regimental_mat.send_keys(str(mat_tec_iti_presencial_regimental))
     tec_iti_presencial_regimental_mat.send_keys(Keys.ENTER)
+
