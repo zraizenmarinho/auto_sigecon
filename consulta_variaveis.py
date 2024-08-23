@@ -1,6 +1,6 @@
 
-from obter_dados_tag_con import obter_concluintes_iniciacao_presencial_tag
-mat = obter_concluintes_iniciacao_presencial_tag('si_jan.xlsx')
+from obter_dados_tag_eva import obter_evadidos_iniciacao_presencial_tag
+mat = obter_evadidos_iniciacao_presencial_tag('si_jan.xlsx')
 
 
 #Matricula 
