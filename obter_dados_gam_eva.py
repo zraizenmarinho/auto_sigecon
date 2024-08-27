@@ -53,43 +53,43 @@ def obter_evadidos(file_path, unidade, modalidade, tipo_acao, chave_prefixo):
     return resultados_eva
 
 def obter_evadidos_iniciacao_presencial_tag(file_path):
-    return obter_evadidos(file_path, '1117376 SENAI Taguatinga', '5 Iniciação Profissional', '1 Presencial', 'inicia_presen_eva')
+    return obter_evadidos(file_path, '1117374 SENAI Gama', '5 Iniciação Profissional', '1 Presencial', 'inicia_presen_eva')
 
 def obter_evadidos_iniciacao_distancia_tag(file_path):
-    return obter_evadidos(file_path, '1117376 SENAI Taguatinga', '5 Iniciação Profissional', '2 A distância', 'inicia_distan_eva')
+    return obter_evadidos(file_path, '1117374 SENAI Gama', '5 Iniciação Profissional', '2 A distância', 'inicia_distan_eva')
 
 def obter_evadidos_aprendizagem_presencial_tag(file_path):
-    return obter_evadidos(file_path, '1117376 SENAI Taguatinga', '11 Aprendizagem Industrial básica', '1 Presencial', 'aprendi_presen_eva')
+    return obter_evadidos(file_path, '1117374 SENAI Gama', '11 Aprendizagem Industrial básica', '1 Presencial', 'aprendi_presen_eva')
 
 def obter_evadidos_qualificacao_presencial_tag(file_path):
-    return obter_evadidos(file_path, '1117376 SENAI Taguatinga', '21 Qualificação Profissional', '1 Presencial', 'qualifi_presen_eva')
+    return obter_evadidos(file_path, '1117374 SENAI Gama', '21 Qualificação Profissional', '1 Presencial', 'qualifi_presen_eva')
 
 def obter_evadidos_aprendizagem_distancia_tag(file_path):
-    return obter_evadidos(file_path, '1117376 SENAI Taguatinga', '11 Aprendizagem Industrial básica', '2 A distância', 'aprendi_distan_eva')
+    return obter_evadidos(file_path, '1117374 SENAI Gama', '11 Aprendizagem Industrial básica', '2 A distância', 'aprendi_distan_eva')
 
 def obter_evadidos_qualificacao_distancia_tag(file_path):
-    return obter_evadidos(file_path, '1117376 SENAI Taguatinga', '21 Qualificação Profissional', '2 A distância', 'qualifi_distan_eva')
+    return obter_evadidos(file_path, '1117374 SENAI Gama', '21 Qualificação Profissional', '2 A distância', 'qualifi_distan_eva')
 
 def obter_evadidos_aperfeicoamento_presencial_tag(file_path):
-    return obter_evadidos(file_path, '1117376 SENAI Taguatinga', '58 Aperfeiçoamento/Especialização Profissional', '1 Presencial', 'aperfei_presen_eva')
+    return obter_evadidos(file_path, '1117374 SENAI Gama', '58 Aperfeiçoamento/Especialização Profissional', '1 Presencial', 'aperfei_presen_eva')
 
 def obter_evadidos_aperfeicoamento_distancia_tag(file_path):
-    return obter_evadidos(file_path, '1117376 SENAI Taguatinga', '58 Aperfeiçoamento/Especialização Profissional', '2 A distância', 'aperfei_distan_eva')
+    return obter_evadidos(file_path, '1117374 SENAI Gama', '58 Aperfeiçoamento/Especialização Profissional', '2 A distância', 'aperfei_distan_eva')
 
 def obter_evadidos_qualificacao_itine_presencial_tag(file_path):
-    return obter_evadidos(file_path, '1117376 SENAI Taguatinga', '22 Qualificação Profissional - Itinerário V Ensino Médio', '1 Presencial', 'qualifi_iti_presen_eva')
+    return obter_evadidos(file_path, '1117374 SENAI Gama', '22 Qualificação Profissional - Itinerário V Ensino Médio', '1 Presencial', 'qualifi_iti_presen_eva')
 
 def obter_evadidos_aprendizagem_tecnica_presencial_tag(file_path):
-    return obter_evadidos(file_path, '1117376 SENAI Taguatinga', '15 Aprendizagem Industrial Técnica de Nível Médio', '1 Presencial', 'aprendi_tec_presen_eva')
+    return obter_evadidos(file_path, '1117374 SENAI Gama', '15 Aprendizagem Industrial Técnica de Nível Médio', '1 Presencial', 'aprendi_tec_presen_eva')
 
 def obter_evadidos_tecnico_presencial_tag(file_path):
-    return obter_evadidos(file_path, '1117376 SENAI Taguatinga', '31 Técnico de Nível Médio', '1 Presencial', 'tecni_presen_eva')
+    return obter_evadidos(file_path, '1117374 SENAI Gama', '31 Técnico de Nível Médio', '1 Presencial', 'tecni_presen_eva')
 
 def obter_evadidos_tecnico_distancia_tag(file_path):
-    return obter_evadidos(file_path, '1117376 SENAI Taguatinga', '31 Técnico de Nível Médio', '2 A distância', 'tecni_distan_eva')
+    return obter_evadidos(file_path, '1117374 SENAI Gama', '31 Técnico de Nível Médio', '2 A distância', 'tecni_distan_eva')
 
 def obter_evadidos_tecnico_iti_presencial_tag(file_path):
-    return obter_evadidos(file_path, '1117376 SENAI Taguatinga', '32 Técnico de Nível Médio - Itinerário V Ensino Médio', '1 Presencial', 'tecni_iti_presen_eva')
+    return obter_evadidos(file_path, '1117374 SENAI Gama', '32 Técnico de Nível Médio - Itinerário V Ensino Médio', '1 Presencial', 'tecni_iti_presen_eva')
 
 funcoes_eva = {
     

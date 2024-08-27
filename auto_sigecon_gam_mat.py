@@ -125,36 +125,7 @@ e_entrar = WebDriverWait(nav, 5).until(EC.visibility_of_element_located(
     (By.XPATH, '/html/body/div[1]/div/div[1]/div/div[2]/form/fieldset/div[6]/input')))
 e_entrar.click()
 
-#################################################################   Elemento unidade SENAI TAGUATINGA ###################################################################################
-
-e_uni_tag1 = WebDriverWait(nav, 15).until(EC.visibility_of_element_located(
-    (By.PARTIAL_LINK_TEXT, 'Senai Taguatinga')))
-e_uni_tag1.click()
-
-################################################################   Elemento CR INICIACAO PROFISSIONAL PRESENCIAL ########################################################################
-
-e_cr_inici_prese = WebDriverWait(nav, 5).until(EC.visibility_of_element_located(
-    (By.PARTIAL_LINK_TEXT, 'INICIACAO PROFISSIONAL PRESENCIAL')))
-e_cr_inici_prese.click()
-
-################################################################   Elemento FICHA DE PRODUÇÃO ############################################################################################
-
-e_ficha_prod = WebDriverWait(nav, 15).until(EC.visibility_of_element_located(
-    (By.LINK_TEXT, 'Produção')))
-
-nav.execute_script("arguments[0].scrollIntoView(true);", e_ficha_prod)
-
-nav.execute_script("arguments[0].click();", e_ficha_prod)
-
-################################################################   Elemento GRUPO DE META ###############################################################################################
-
-e_grupo_meta = WebDriverWait(nav, 30).until(EC.visibility_of_element_located(
-    (By.XPATH, "//a[@href='/SIGECON20/Metas/MetasTipo/309/2024/0902030201/229?cd_centro_resp=30303010101&nm_unidade=SENAI%20TAGUATINGA&nm_centro_resp=INICIACAO%20PROFISSIONAL%20PRESENCIAL&id_grupo=1&ds_grupo=Inicia%C3%A7%C3%A3o%20Profissional&fase=Realiza%C3%A7%C3%A3o']"
-)))
-
-nav.execute_script("arguments[0].scrollIntoView(true);", e_grupo_meta)
-
-e_grupo_meta.click()
+nav.refresh()
 
 # SENAI TAGUATINGA - 30303010101 - INICIACAO PROFISSIONAL PRESENCIAL 
 
