@@ -6,24 +6,24 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 
-from obter_dados_tag_mat import obter_dados_por_tipo
+from obter_dados_gam_mat import obter_dados_por_tipo
 
 arquivo = 'si_jan.xlsx'
 
-from mat_tag import (
-    tag_iniciacao_presencial,
-    tag_iniciacao_distancia,
-    tag_aprendizagem_presencial,
-    tag_qualificacao_presencial,
-    tag_aprendizagem_distancia,
-    tag_qualificacao_distancia,
-    tag_aperfeicoamento_presencial,
-    tag_aperfeicoamento_distancia,
-    tag_qualificacao_iti_presencial,
-    tag_aprendizagem_tec,
-    tag_tecnico_presencial,
-    tag_tecnico_distancia,
-    tag_tecnico_iti_presencial
+from mat_gam import (
+    gam_iniciacao_presencial,
+    gam_iniciacao_distancia,
+    gam_aprendizagem_presencial,
+    gam_qualificacao_presencial,
+    gam_aprendizagem_distancia,
+    gam_qualificacao_distancia,
+    gam_aperfeicoamento_presencial,
+    gam_aperfeicoamento_distancia,
+    gam_qualificacao_iti_presencial,
+    gam_aprendizagem_tec,
+    gam_tecnico_presencial,
+    gam_tecnico_distancia,
+    gam_tecnico_iti_presencial
 )
 
 dados = {
@@ -84,7 +84,7 @@ dados = {
     }
 }
 
-# Navevagção para a pagina
+# Navhagção para a pagina
 
 url = 'http://sn-iis-02/SIGECON20/'
 
@@ -125,20 +125,51 @@ e_entrar = WebDriverWait(nav, 5).until(EC.visibility_of_element_located(
     (By.XPATH, '/html/body/div[1]/div/div[1]/div/div[2]/form/fieldset/div[6]/input')))
 e_entrar.click()
 
-nav.refresh()
+#################################################################   Elemento unidade SENAI TAGUATINGA ###################################################################################
 
-# SENAI TAGUATINGA - 30303010101 - INICIACAO PROFISSIONAL PRESENCIAL 
+e_uni_tag1 = WebDriverWait(nav, 15).until(EC.visibility_of_element_located(
+    (By.PARTIAL_LINK_TEXT, 'Senai Gama')))
+e_uni_tag1.click()
+
+################################################################   Elemento CR INICIACAO PROFISSIONAL PRESENCIAL ########################################################################
+
+e_cr_inici_prese = WebDriverWait(nav, 5).until(EC.visibility_of_element_located(
+    (By.PARTIAL_LINK_TEXT, 'INICIACAO PROFISSIONAL PRESENCIAL')))
+e_cr_inici_prese.click()
+
+################################################################   Elemento FICHA DE PRODUÇÃO ############################################################################################
+
+e_ficha_prod = WebDriverWait(nav, 15).until(EC.visibility_of_element_located(
+    (By.LINK_TEXT, 'Produção')))
+
+nav.execute_script("arguments[0].scrollIntoView(true);", e_ficha_prod)
+
+nav.execute_script("arguments[0].click();", e_ficha_prod)
+
+################################################################   Elemento GRUPO DE META ###############################################################################################
+
+e_grupo_meta = WebDriverWait(nav, 30).until(EC.visibility_of_element_located(
+    (By.XPATH, "//a[@href='/SIGECON20/Metas/MetasTipo/309/2024/0902030202/211?cd_centro_resp=30303010101&nm_unidade=SENAI%20GAMA&nm_centro_resp=INICIACAO%20PROFISSIONAL%20PRESENCIAL&id_grupo=1&ds_grupo=Inicia%C3%A7%C3%A3o%20Profissional&fase=Realiza%C3%A7%C3%A3o']"
+)))
+
+nav.execute_script("arguments[0].scrollIntoView(true);", e_grupo_meta)
+
+e_grupo_meta.click()
+
+# SENAI GAMA - 30303010101 - INICIACAO PROFISSIONAL PRESENCIAL 
 
 ################################################################   MATRICULA BOLSA ####################################################################################################
 
-em_bolsa_click = WebDriverWait(nav, 10).until(
-    EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(4) > [id='5113'].indicador")))
+nav.refresh()
+
+em_bolsa_click = WebDriverWait(nav, 20).until(
+    EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(4) > [id='4921'].indicador")))
 
 em_bolsa_click.click()
 
 em_bolsa_s = WebDriverWait(nav, 15).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]")))
 
-em_bolsa_s.send_keys(tag_iniciacao_presencial['jan_mat_bolsa'])
+em_bolsa_s.send_keys(gam_iniciacao_presencial['jan_mat_bolsa'])
 
 em_bolsa_s.send_keys(Keys.ENTER)
 
@@ -159,15 +190,10 @@ meses = [
 ]
 
 
-em_bolsa_click = WebDriverWait(nav, 10).until(
-    EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(4) > [id='5113'].indicador"))
-)
-em_bolsa_click.click()
-
 for i, (mes, campo_dado) in enumerate(meses):
    
     mat_bolsa_mes = WebDriverWait(nav, 10).until(
-        EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({5 + i}) > [id='5113'].indicador"))
+        EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({5 + i}) > [id='4921'].indicador"))
     )
     mat_bolsa_mes.click()
 
@@ -192,7 +218,7 @@ mem_ng_click.click()
 
 em_ng_s = WebDriverWait(nav, 15).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]")))
 
-em_ng_s.send_keys(tag_iniciacao_presencial['jan_mat_n_gratuita'])
+em_ng_s.send_keys(gam_iniciacao_presencial['jan_mat_n_gratuita'])
 
 em_ng_s.send_keys(Keys.ENTER)
 
@@ -240,9 +266,9 @@ for i, (mes, campo_dado) in enumerate(meses):
 
 janela_atual = nav.current_window_handle
 
-nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030201/225?cd_centro_resp=30303010201&nm_unidade=SENAI%20TAGUATINGA&nm_centro_resp=INICIACAO%20PROFISSIONAL%20A%20DISTANCIA&id_grupo=1&ds_grupo=Inicia%C3%A7%C3%A3o%20Profissional&fase=Realiza%C3%A7%C3%A3o', '_self')")
+nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030201/225?cd_centro_resp=30303010201&nm_unidade=SENAI%20gamUATINGA&nm_centro_resp=INICIACAO%20PROFISSIONAL%20A%20DISTANCIA&id_grupo=1&ds_grupo=Inicia%C3%A7%C3%A3o%20Profissional&fase=Realiza%C3%A7%C3%A3o', '_self')")
 
-# SENAI TAGUATINGA - 30303010201 - INICIACAO PROFISSIONAL A DISTANCIA MATRICULA BOLSA ##################################################################################################
+# SENAI gamUATINGA - 30303010201 - INICIACAO PROFISSIONAL A DISTANCIA MATRICULA BOLSA ##################################################################################################
 
 ipd_bolsa_mat_jan = WebDriverWait(nav, 10).until(
     EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(4) > [id='5073'].indicador")))
@@ -251,7 +277,7 @@ ipd_bolsa_mat_jan.click()
 
 ipd_bolsa_mat_jan = WebDriverWait(nav, 15).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]")))
 
-ipd_bolsa_mat_jan.send_keys(tag_iniciacao_distancia['jan_mat_bolsa'])
+ipd_bolsa_mat_jan.send_keys(gam_iniciacao_distancia['jan_mat_bolsa'])
 
 ipd_bolsa_mat_jan.send_keys(Keys.ENTER)
 
@@ -291,7 +317,7 @@ for i, (mes, campo_dado) in enumerate(meses):
     mat_ipd_bolsa_mes.send_keys(Keys.ENTER)
 
 
-# SENAI TAGUATINGA - 30303010201 - INICIACAO PROFISSIONAL A DISTANCIA MATRICULA NAO GRATUITA
+# SENAI gamUATINGA - 30303010201 - INICIACAO PROFISSIONAL A DISTANCIA MATRICULA NAO GRATUITA
 
 ipd_ng_mat_jan = WebDriverWait(nav, 10).until(
     EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(4) > [id='5074'].indicador")))
@@ -300,7 +326,7 @@ ipd_ng_mat_jan.click()
 
 ipd_ng_mat_jan = WebDriverWait(nav, 15).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]")))
 
-ipd_ng_mat_jan.send_keys(tag_iniciacao_distancia['jan_mat_n_gratuita'])
+ipd_ng_mat_jan.send_keys(gam_iniciacao_distancia['jan_mat_n_gratuita'])
 
 ipd_ng_mat_jan.send_keys(Keys.ENTER)
 
@@ -352,7 +378,7 @@ from selenium import webdriver
 
 janela_atual = nav.current_window_handle
 
-nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030201/230?cd_centro_resp=30303020101&nm_unidade=SENAI%20TAGUATINGA&nm_centro_resp=APRENDIZAGEM%20INDUSTRIAL%20PRESENCIAL&id_grupo=2&ds_grupo=Aprendizagem%20Industrial&fase=Realiza%C3%A7%C3%A3o')")
+nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030201/230?cd_centro_resp=30303020101&nm_unidade=SENAI%20gamUATINGA&nm_centro_resp=APRENDIZAGEM%20INDUSTRIAL%20PRESENCIAL&id_grupo=2&ds_grupo=Aprendizagem%20Industrial&fase=Realiza%C3%A7%C3%A3o')")
 
 nav.switch_to.window(nav.window_handles[-1])
 
@@ -362,7 +388,7 @@ nav.close()
 nav.switch_to.window(nav.window_handles[0])
 
 
-# SENAI TAGUATINGA - 30303020101 - APRENDIZAGEM INDUSTRIAL PRESENCIAL MATRICULA NAO GRATUITA
+# SENAI gamUATINGA - 30303020101 - APRENDIZAGEM INDUSTRIAL PRESENCIAL MATRICULA NAO GRATUITA
 
 app_ng_mat_jan = WebDriverWait(nav, 10).until(
     EC.visibility_of_element_located((By.CSS_SELECTOR, '[data-tipo="1"]')))
@@ -371,7 +397,7 @@ app_ng_mat_jan.click()
 
 app_ng_mat_jan = WebDriverWait(nav, 15).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]")))
 
-app_ng_mat_jan.send_keys(tag_aprendizagem_presencial['jan_mat_n_gratuita'])
+app_ng_mat_jan.send_keys(gam_aprendizagem_presencial['jan_mat_n_gratuita'])
 
 app_ng_mat_jan.send_keys(Keys.ENTER)
 
@@ -413,7 +439,7 @@ for i, (mes, campo_dado) in enumerate(meses):
     app_ng_mat.send_keys(str(mat_aprendizagem_presencial_ng))
     app_ng_mat.send_keys(Keys.ENTER)
 
-# SENAI TAGUATINGA - 30303020101 - APRENDIZAGEM INDUSTRIAL PRESENCIAL MATRICULA REGIMENTAL
+# SENAI gamUATINGA - 30303020101 - APRENDIZAGEM INDUSTRIAL PRESENCIAL MATRICULA REGIMENTAL
 
 app_regimental_mat_jan = WebDriverWait(nav, 10).until(
     EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(4) > [id='5122'].indicador")))
@@ -422,7 +448,7 @@ app_regimental_mat_jan.click()
 
 app_regimental_mat_jan = WebDriverWait(nav, 15).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]")))
 
-app_regimental_mat_jan.send_keys(tag_aprendizagem_presencial['jan_mat_regi'])
+app_regimental_mat_jan.send_keys(gam_aprendizagem_presencial['jan_mat_regi'])
 
 app_regimental_mat_jan.send_keys(Keys.ENTER)
 
@@ -465,7 +491,7 @@ for i, (mes, campo_dado) in enumerate(meses):
     app_regimental_mat.send_keys(Keys.ENTER)
 
 
-# SENAI TAGUATINGA - 30303020201 - QUALIFICACAO PROFISSIONAL PRESENCIAL MATRICULA CONVENIO
+# SENAI gamUATINGA - 30303020201 - QUALIFICACAO PROFISSIONAL PRESENCIAL MATRICULA CONVENIO
 
 from selenium import webdriver
 
@@ -473,7 +499,7 @@ janela_atual = nav.current_window_handle
 
 # Abrir a nova página em uma nova aba
 
-nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030201/221?cd_centro_resp=30303020201&nm_unidade=SENAI%20TAGUATINGA&nm_centro_resp=QUALIFICACAO%20PROFISSIONAL%20PRESENCIAL&id_grupo=3&ds_grupo=Qualifica%C3%A7%C3%A3o%20Industrial&fase=Realiza%C3%A7%C3%A3o')")
+nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030201/221?cd_centro_resp=30303020201&nm_unidade=SENAI%20gamUATINGA&nm_centro_resp=QUALIFICACAO%20PROFISSIONAL%20PRESENCIAL&id_grupo=3&ds_grupo=Qualifica%C3%A7%C3%A3o%20Industrial&fase=Realiza%C3%A7%C3%A3o')")
 
 # Alternar para a nova janela
 nav.switch_to.window(nav.window_handles[-1])
@@ -494,7 +520,7 @@ quali_convenio_mat_jan.click()
 
 quali_convenio_mat_jan = WebDriverWait(nav, 15).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]")))
 
-quali_convenio_mat_jan.send_keys(tag_qualificacao_presencial['jan_mat_convenio'])
+quali_convenio_mat_jan.send_keys(gam_qualificacao_presencial['jan_mat_convenio'])
 
 quali_convenio_mat_jan.send_keys(Keys.ENTER)
 
@@ -534,7 +560,7 @@ for i, (mes, campo_dado) in enumerate(meses):
     qualifi_convenio_mat.send_keys(str(mat_qualificacao_presencial_convenio))
     qualifi_convenio_mat.send_keys(Keys.ENTER)
 
-# SENAI TAGUATINGA - 30303020201 - QUALIFICACAO PROFISSIONAL PRESENCIAL MATRICULA BOLSA
+# SENAI gamUATINGA - 30303020201 - QUALIFICACAO PROFISSIONAL PRESENCIAL MATRICULA BOLSA
 
 quali_bolsa_mat_jan = WebDriverWait(nav, 10).until(
     EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(4) > [id='5032'].indicador")))
@@ -543,7 +569,7 @@ quali_bolsa_mat_jan.click()
 
 quali_bolsa_mat_jan = WebDriverWait(nav, 15).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]")))
 
-quali_bolsa_mat_jan.send_keys(tag_qualificacao_presencial['jan_mat_bolsa'])
+quali_bolsa_mat_jan.send_keys(gam_qualificacao_presencial['jan_mat_bolsa'])
 
 quali_bolsa_mat_jan.send_keys(Keys.ENTER)
 
@@ -585,7 +611,7 @@ for i, (mes, campo_dado) in enumerate(meses):
     qualifi_bolsa_mat.send_keys(Keys.ENTER)
 
 
-    # SENAI TAGUATINGA - 30303020201 - QUALIFICACAO PROFISSIONAL PRESENCIAL MATRICULA NAO GRATUITA
+    # SENAI gamUATINGA - 30303020201 - QUALIFICACAO PROFISSIONAL PRESENCIAL MATRICULA NAO GRATUITA
 
 quali_ng_mat_jan = WebDriverWait(nav, 10).until(
     EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(4) > [id='5033'].indicador")))
@@ -594,7 +620,7 @@ quali_ng_mat_jan.click()
 
 quali_ng_mat_jan = WebDriverWait(nav, 15).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]")))
 
-quali_ng_mat_jan.send_keys(tag_qualificacao_presencial['jan_mat_n_gratuita'])
+quali_ng_mat_jan.send_keys(gam_qualificacao_presencial['jan_mat_n_gratuita'])
 
 quali_ng_mat_jan.send_keys(Keys.ENTER)
 
@@ -636,7 +662,7 @@ for i, (mes, campo_dado) in enumerate(meses):
     qualifi_ng_mat.send_keys(Keys.ENTER)
 
 
-# SENAI TAGUATINGA - 30303020201 - QUALIFICACAO PROFISSIONAL PRESENCIAL MATRICULA Regimental
+# SENAI gamUATINGA - 30303020201 - QUALIFICACAO PROFISSIONAL PRESENCIAL MATRICULA Regimental
 
 quali_regime_mat_jan = WebDriverWait(nav, 10).until(
     EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(4) > [id='5034'].indicador")))
@@ -645,7 +671,7 @@ quali_regime_mat_jan.click()
 
 quali_regime_mat_jan = WebDriverWait(nav, 15).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]")))
 
-quali_regime_mat_jan.send_keys(tag_qualificacao_presencial['jan_mat_regi'])
+quali_regime_mat_jan.send_keys(gam_qualificacao_presencial['jan_mat_regi'])
 
 quali_regime_mat_jan.send_keys(Keys.ENTER)
 
@@ -688,14 +714,14 @@ for i, (mes, campo_dado) in enumerate(meses):
     quali_regime_mat_mat.send_keys(Keys.ENTER)
 
 
-# SENAI TAGUATINGA - 30303020301 - APRENDIZAGEM INDUSTRIAL A DISTANCIA - REGIMENTAL
+# SENAI gamUATINGA - 30303020301 - APRENDIZAGEM INDUSTRIAL A DISTANCIA - REGIMENTAL
 
 from selenium import webdriver
 
 janela_atual = nav.current_window_handle
 
 # Abrir a nova página em uma nova aba
-nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030201/232?cd_centro_resp=30303020301&nm_unidade=SENAI%20TAGUATINGA&nm_centro_resp=APRENDIZAGEM%20INDUSTRIAL%20A%20DISTANCIA&id_grupo=2&ds_grupo=Aprendizagem%20Industrial&fase=Realiza%C3%A7%C3%A3o')")
+nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030201/232?cd_centro_resp=30303020301&nm_unidade=SENAI%20gamUATINGA&nm_centro_resp=APRENDIZAGEM%20INDUSTRIAL%20A%20DISTANCIA&id_grupo=2&ds_grupo=Aprendizagem%20Industrial&fase=Realiza%C3%A7%C3%A3o')")
 
 # Alternar para a nova janela
 nav.switch_to.window(nav.window_handles[-1])
@@ -717,7 +743,7 @@ apre_regime_semi_mat_jan.click()
 
 apre_regime_semi_mat_jan = WebDriverWait(nav, 15).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]")))
 
-apre_regime_semi_mat_jan.send_keys(tag_aprendizagem_distancia['jan_mat_regi'])
+apre_regime_semi_mat_jan.send_keys(gam_aprendizagem_distancia['jan_mat_regi'])
 
 apre_regime_semi_mat_jan.send_keys(Keys.ENTER)
 
@@ -761,14 +787,14 @@ for i, (mes, campo_dado) in enumerate(meses):
 
 
 
-# SENAI TAGUATINGA - 30303020401 - QUALIFICACAO PROFISSIONAL SEMIPRESENCIAL - BOLSA
+# SENAI gamUATINGA - 30303020401 - QUALIFICACAO PROFISSIONAL SEMIPRESENCIAL - BOLSA
 
 from selenium import webdriver
 
 janela_atual = nav.current_window_handle
 
 # Abrir a nova página em uma nova aba
-nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030201/223?cd_centro_resp=30303020401&nm_unidade=SENAI%20TAGUATINGA&nm_centro_resp=QUALIFICACAO%20PROFISSIONAL%20SEMIPRESENCIAL&id_grupo=3&ds_grupo=Qualifica%C3%A7%C3%A3o%20Industrial&fase=Realiza%C3%A7%C3%A3o')")
+nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030201/223?cd_centro_resp=30303020401&nm_unidade=SENAI%20gamUATINGA&nm_centro_resp=QUALIFICACAO%20PROFISSIONAL%20SEMIPRESENCIAL&id_grupo=3&ds_grupo=Qualifica%C3%A7%C3%A3o%20Industrial&fase=Realiza%C3%A7%C3%A3o')")
 
 # Alternar para a nova janela
 nav.switch_to.window(nav.window_handles[-1])
@@ -790,7 +816,7 @@ qualifi_semi_bolsa_mat_jan.click()
 
 qualifi_semi_bolsa_mat_jan = WebDriverWait(nav, 15).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]")))
 
-qualifi_semi_bolsa_mat_jan.send_keys(tag_qualificacao_distancia['jan_mat_bolsa'])
+qualifi_semi_bolsa_mat_jan.send_keys(gam_qualificacao_distancia['jan_mat_bolsa'])
 
 qualifi_semi_bolsa_mat_jan.send_keys(Keys.ENTER)
 
@@ -832,7 +858,7 @@ for i, (mes, campo_dado) in enumerate(meses):
     qualifi_semi_bolsa_mat.send_keys(str(mat_qualifica_semi_bolsa))
     qualifi_semi_bolsa_mat.send_keys(Keys.ENTER)
 
-# SENAI TAGUATINGA - 30303020401 - QUALIFICACAO PROFISSIONAL SEMIPRESENCIAL - NAO GRATUITA
+# SENAI gamUATINGA - 30303020401 - QUALIFICACAO PROFISSIONAL SEMIPRESENCIAL - NAO GRATUITA
 
 qualifi_semi_ng_mat_jan = WebDriverWait(nav, 10).until(
     EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(4) > [id='5057'].indicador")))
@@ -841,7 +867,7 @@ qualifi_semi_ng_mat_jan.click()
 
 qualifi_semi_ng_mat_jan = WebDriverWait(nav, 15).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]")))
 
-qualifi_semi_ng_mat_jan.send_keys(tag_qualificacao_distancia['jan_mat_n_gratuita'])
+qualifi_semi_ng_mat_jan.send_keys(gam_qualificacao_distancia['jan_mat_n_gratuita'])
 
 qualifi_semi_ng_mat_jan.send_keys(Keys.ENTER)
 
@@ -883,7 +909,7 @@ for i, (mes, campo_dado) in enumerate(meses):
     qualifi_semi_ng_mat.send_keys(str(mat_qualifica_semi_ng))
     qualifi_semi_ng_mat.send_keys(Keys.ENTER)
 
-# SENAI TAGUATINGA - 30303020401 - QUALIFICACAO PROFISSIONAL SEMIPRESENCIAL - REGIMENTAL
+# SENAI gamUATINGA - 30303020401 - QUALIFICACAO PROFISSIONAL SEMIPRESENCIAL - REGIMENTAL
 
 qualifi_semi_regimental_mat_jan = WebDriverWait(nav, 10).until(
     EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(4) > [id='5058'].indicador")))
@@ -892,7 +918,7 @@ qualifi_semi_regimental_mat_jan.click()
 
 qualifi_semi_regimental_mat_jan = WebDriverWait(nav, 15).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]")))
 
-qualifi_semi_regimental_mat_jan.send_keys(tag_qualificacao_distancia['jan_mat_regi'])
+qualifi_semi_regimental_mat_jan.send_keys(gam_qualificacao_distancia['jan_mat_regi'])
 
 qualifi_semi_regimental_mat_jan.send_keys(Keys.ENTER)
 
@@ -933,14 +959,14 @@ for i, (mes, campo_dado) in enumerate(meses):
     qualifi_semi_regimental_mat.send_keys(str(mat_qualifica_semi_regimental))
     qualifi_semi_regimental_mat.send_keys(Keys.ENTER)
     
-# SENAI TAGUATINGA - 30303020501 - APERF/ESPECIALIZ PROFISSIONAL PRESENCIAL - BOLSA
+# SENAI gamUATINGA - 30303020501 - APERF/ESPECIALIZ PROFISSIONAL PRESENCIAL - BOLSA
 
 from selenium import webdriver
 
 janela_atual = nav.current_window_handle
 
 # Abrir a nova página em uma nova aba
-nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030201/227?cd_centro_resp=30303020501&nm_unidade=SENAI%20TAGUATINGA&nm_centro_resp=APERF%2FESPECIALIZ%20PROFISSIONAL%20PRESENCIAL&id_grupo=5&ds_grupo=Aperfei%C3%A7oamento%20Profissional&fase=Realiza%C3%A7%C3%A3o')")
+nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030201/227?cd_centro_resp=30303020501&nm_unidade=SENAI%20gamUATINGA&nm_centro_resp=APERF%2FESPECIALIZ%20PROFISSIONAL%20PRESENCIAL&id_grupo=5&ds_grupo=Aperfei%C3%A7oamento%20Profissional&fase=Realiza%C3%A7%C3%A3o')")
 
 # Alternar para a nova janela
 nav.switch_to.window(nav.window_handles[-1])
@@ -961,7 +987,7 @@ aper_prese_bolsa_mat_jan.click()
 
 aper_prese_bolsa_mat_jan = WebDriverWait(nav, 15).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]")))
 
-aper_prese_bolsa_mat_jan.send_keys(tag_aperfeicoamento_presencial['jan_mat_bolsa'])
+aper_prese_bolsa_mat_jan.send_keys(gam_aperfeicoamento_presencial['jan_mat_bolsa'])
 
 aper_prese_bolsa_mat_jan.send_keys(Keys.ENTER)
 
@@ -1004,7 +1030,7 @@ for i, (mes, campo_dado) in enumerate(meses):
     aper_prese_bolsa_mat.send_keys(Keys.ENTER)
 
 
-# SENAI TAGUATINGA - 30303020501 - APERF/ESPECIALIZ PROFISSIONAL PRESENCIAL - NAO GRATUITA
+# SENAI gamUATINGA - 30303020501 - APERF/ESPECIALIZ PROFISSIONAL PRESENCIAL - NAO GRATUITA
 
 
 aper_prese_ng_mat_jan = WebDriverWait(nav, 10).until(
@@ -1014,7 +1040,7 @@ aper_prese_ng_mat_jan.click()
 
 aper_prese_ng_mat_jan = WebDriverWait(nav, 15).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]")))
 
-aper_prese_ng_mat_jan.send_keys(tag_aperfeicoamento_presencial['jan_mat_n_gratuita'])
+aper_prese_ng_mat_jan.send_keys(gam_aperfeicoamento_presencial['jan_mat_n_gratuita'])
 
 aper_prese_ng_mat_jan.send_keys(Keys.ENTER)
 
@@ -1057,7 +1083,7 @@ for i, (mes, campo_dado) in enumerate(meses):
     aper_prese_ng_mat.send_keys(Keys.ENTER)
 
 
-# SENAI TAGUATINGA - 30303020501 - APERF/ESPECIALIZ PROFISSIONAL PRESENCIAL - REGIMENTAL
+# SENAI gamUATINGA - 30303020501 - APERF/ESPECIALIZ PROFISSIONAL PRESENCIAL - REGIMENTAL
 
 
 aper_prese_regimental_mat_jan = WebDriverWait(nav, 10).until(
@@ -1067,7 +1093,7 @@ aper_prese_regimental_mat_jan.click()
 
 aper_prese_regimental_mat_jan = WebDriverWait(nav, 15).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]")))
 
-aper_prese_regimental_mat_jan.send_keys(tag_aperfeicoamento_presencial['jan_mat_regi'])
+aper_prese_regimental_mat_jan.send_keys(gam_aperfeicoamento_presencial['jan_mat_regi'])
 
 aper_prese_regimental_mat_jan.send_keys(Keys.ENTER)
 
@@ -1109,7 +1135,7 @@ for i, (mes, campo_dado) in enumerate(meses):
     aper_prese_regimental_mat.send_keys(Keys.ENTER)
 
 
-# SENAI TAGUATINGA - 30303020501 - APERF/ESPECIALIZ PROFISSIONAL PRESENCIAL - CONVENIO
+# SENAI gamUATINGA - 30303020501 - APERF/ESPECIALIZ PROFISSIONAL PRESENCIAL - CONVENIO
 
 aper_prese_convenio_mat_jan = WebDriverWait(nav, 10).until(
     EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(4) > [id='5098'].indicador")))
@@ -1118,7 +1144,7 @@ aper_prese_convenio_mat_jan.click()
 
 aper_prese_convenio_mat_jan = WebDriverWait(nav, 15).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]")))
 
-aper_prese_convenio_mat_jan.send_keys(tag_aperfeicoamento_presencial['jan_mat_convenio'])
+aper_prese_convenio_mat_jan.send_keys(gam_aperfeicoamento_presencial['jan_mat_convenio'])
 
 aper_prese_convenio_mat_jan.send_keys(Keys.ENTER)
 
@@ -1159,14 +1185,14 @@ for i, (mes, campo_dado) in enumerate(meses):
     aper_prese_convenio_mat.send_keys(str(mat_aper_prese_convenio))
     aper_prese_convenio_mat.send_keys(Keys.ENTER)
     
-# SENAI TAGUATINGA - 30303020601 - APERF/ESPECIALI PROFISSIONAL A DISTANCIA BOLSA
+# SENAI gamUATINGA - 30303020601 - APERF/ESPECIALI PROFISSIONAL A DISTANCIA BOLSA
 
 from selenium import webdriver
 
 janela_atual = nav.current_window_handle
 
 # Abrir a nova página em uma nova aba
-nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030201/231?cd_centro_resp=30303020601&nm_unidade=SENAI%20TAGUATINGA&nm_centro_resp=APERF%2FESPECIALI%20PROFISSIONAL%20A%20DISTANCIA&id_grupo=5&ds_grupo=Aperfei%C3%A7oamento%20Profissional&fase=Realiza%C3%A7%C3%A3o')")
+nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030201/231?cd_centro_resp=30303020601&nm_unidade=SENAI%20gamUATINGA&nm_centro_resp=APERF%2FESPECIALI%20PROFISSIONAL%20A%20DISTANCIA&id_grupo=5&ds_grupo=Aperfei%C3%A7oamento%20Profissional&fase=Realiza%C3%A7%C3%A3o')")
 
 # Alternar para a nova janela
 nav.switch_to.window(nav.window_handles[-1])
@@ -1187,7 +1213,7 @@ aper_distan_bolsa_mat_jan.click()
 
 aper_distan_bolsa_mat_jan = WebDriverWait(nav, 15).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]")))
 
-aper_distan_bolsa_mat_jan.send_keys(tag_aperfeicoamento_distancia['jan_mat_bolsa'])
+aper_distan_bolsa_mat_jan.send_keys(gam_aperfeicoamento_distancia['jan_mat_bolsa'])
 
 aper_distan_bolsa_mat_jan.send_keys(Keys.ENTER)
 
@@ -1228,7 +1254,7 @@ for i, (mes, campo_dado) in enumerate(meses):
     aper_dista_bolsa_mat.send_keys(str(mat_aper_distan_bolsa))
     aper_dista_bolsa_mat.send_keys(Keys.ENTER)
 
-# SENAI TAGUATINGA - 30303020601 - APERF/ESPECIALI PROFISSIONAL A DISTANCIA NAO GRATUITA
+# SENAI gamUATINGA - 30303020601 - APERF/ESPECIALI PROFISSIONAL A DISTANCIA NAO GRATUITA
 
 aper_distan_ng_mat_jan = WebDriverWait(nav, 10).until(
     EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(4) > [id='5133'].indicador")))
@@ -1237,7 +1263,7 @@ aper_distan_ng_mat_jan.click()
 
 aper_distan_ng_mat_jan = WebDriverWait(nav, 15).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]")))
 
-aper_distan_ng_mat_jan.send_keys(tag_aperfeicoamento_distancia['jan_mat_n_gratuita'])
+aper_distan_ng_mat_jan.send_keys(gam_aperfeicoamento_distancia['jan_mat_n_gratuita'])
 
 aper_distan_ng_mat_jan.send_keys(Keys.ENTER)
 
@@ -1277,7 +1303,7 @@ for i, (mes, campo_dado) in enumerate(meses):
     aper_dista_ng_mat.send_keys(str(mat_aper_distan_ng))
     aper_dista_ng_mat.send_keys(Keys.ENTER)
 
-# SENAI TAGUATINGA - 30303020601 - APERF/ESPECIALI PROFISSIONAL A DISTANCIA REGIMENTAL
+# SENAI gamUATINGA - 30303020601 - APERF/ESPECIALI PROFISSIONAL A DISTANCIA REGIMENTAL
 
 
 aper_distan_regimental_mat_jan = WebDriverWait(nav, 10).until(
@@ -1287,7 +1313,7 @@ aper_distan_regimental_mat_jan.click()
 
 aper_distan_regimental_mat_jan = WebDriverWait(nav, 15).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]")))
 
-aper_distan_regimental_mat_jan.send_keys(tag_aperfeicoamento_distancia['jan_mat_regi'])
+aper_distan_regimental_mat_jan.send_keys(gam_aperfeicoamento_distancia['jan_mat_regi'])
 
 aper_distan_regimental_mat_jan.send_keys(Keys.ENTER)
 
@@ -1327,14 +1353,14 @@ for i, (mes, campo_dado) in enumerate(meses):
     aper_dista_regimental_mat.send_keys(str(mat_aper_distan_regimental))
     aper_dista_regimental_mat.send_keys(Keys.ENTER)
 
-# SENAI TAGUATINGA - 30303020901 - QUALIFIC PROF PRESENC - ITINER V ENS MED - BOLSA
+# SENAI gamUATINGA - 30303020901 - QUALIFIC PROF PRESENC - ITINER V ENS MED - BOLSA
 
 from selenium import webdriver
 
 janela_atual = nav.current_window_handle
 
 # Abrir a nova página em uma nova aba
-nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030201/222?cd_centro_resp=30303020901&nm_unidade=SENAI%20TAGUATINGA&nm_centro_resp=QUALIFIC%20PROF%20PRESENC%20-%20ITINER%20V%20ENS%20MED&id_grupo=3&ds_grupo=Qualifica%C3%A7%C3%A3o%20Industrial&fase=Realiza%C3%A7%C3%A3o')")
+nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030201/222?cd_centro_resp=30303020901&nm_unidade=SENAI%20gamUATINGA&nm_centro_resp=QUALIFIC%20PROF%20PRESENC%20-%20ITINER%20V%20ENS%20MED&id_grupo=3&ds_grupo=Qualifica%C3%A7%C3%A3o%20Industrial&fase=Realiza%C3%A7%C3%A3o')")
 
 # Alternar para a nova janela
 nav.switch_to.window(nav.window_handles[-1])
@@ -1355,7 +1381,7 @@ qualifi_iti_presencial_bolsa_mat_jan.click()
 
 qualifi_iti_presencial_bolsa_mat_jan = WebDriverWait(nav, 15).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]")))
 
-qualifi_iti_presencial_bolsa_mat_jan.send_keys(tag_qualificacao_iti_presencial['jan_mat_bolsa'])
+qualifi_iti_presencial_bolsa_mat_jan.send_keys(gam_qualificacao_iti_presencial['jan_mat_bolsa'])
 
 qualifi_iti_presencial_bolsa_mat_jan.send_keys(Keys.ENTER)
 
@@ -1396,7 +1422,7 @@ for i, (mes, campo_dado) in enumerate(meses):
     qualifi_iti_presencial_bolsa_mat.send_keys(Keys.ENTER)
 
 
-# SENAI TAGUATINGA - 30303020901 - QUALIFIC PROF PRESENC - ITINER V ENS MED - NAO GRATUITA
+# SENAI gamUATINGA - 30303020901 - QUALIFIC PROF PRESENC - ITINER V ENS MED - NAO GRATUITA
 
 qualifi_iti_presencial_ng_mat_jan = WebDriverWait(nav, 10).until(
     EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(4) > [id='5045'].indicador")))
@@ -1405,7 +1431,7 @@ qualifi_iti_presencial_ng_mat_jan.click()
 
 qualifi_iti_presencial_ng_mat_jan = WebDriverWait(nav, 15).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]")))
 
-qualifi_iti_presencial_ng_mat_jan.send_keys(tag_qualificacao_iti_presencial['jan_mat_n_gratuita'])
+qualifi_iti_presencial_ng_mat_jan.send_keys(gam_qualificacao_iti_presencial['jan_mat_n_gratuita'])
 
 qualifi_iti_presencial_ng_mat_jan.send_keys(Keys.ENTER)
 
@@ -1446,7 +1472,7 @@ for i, (mes, campo_dado) in enumerate(meses):
     qualifi_iti_presencial_ng_mat.send_keys(Keys.ENTER)
 
 
-# SENAI TAGUATINGA - 30303020901 - QUALIFIC PROF PRESENC - ITINER V ENS MED - REGIMENTAL
+# SENAI gamUATINGA - 30303020901 - QUALIFIC PROF PRESENC - ITINER V ENS MED - REGIMENTAL
 
 qualifi_iti_presencial_regimental_mat_jan = WebDriverWait(nav, 10).until(
     EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(4) > [id='5046'].indicador")))
@@ -1455,7 +1481,7 @@ qualifi_iti_presencial_regimental_mat_jan.click()
 
 qualifi_iti_presencial_regimental_mat_jan = WebDriverWait(nav, 15).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]")))
 
-qualifi_iti_presencial_regimental_mat_jan.send_keys(tag_qualificacao_iti_presencial['jan_mat_regi'])
+qualifi_iti_presencial_regimental_mat_jan.send_keys(gam_qualificacao_iti_presencial['jan_mat_regi'])
 
 qualifi_iti_presencial_regimental_mat_jan.send_keys(Keys.ENTER)
 
@@ -1496,7 +1522,7 @@ for i, (mes, campo_dado) in enumerate(meses):
     qualifi_iti_presencial_regimental_mat.send_keys(Keys.ENTER)
 
 
-# SENAI TAGUATINGA - 30303040101 - APREND. IND. TEC. NIVEL MEDIO PRESENCIAL - NAO GRATUITA
+# SENAI gamUATINGA - 30303040101 - APREND. IND. TEC. NIVEL MEDIO PRESENCIAL - NAO GRATUITA
 
 
 from selenium import webdriver
@@ -1504,7 +1530,7 @@ from selenium import webdriver
 janela_atual = nav.current_window_handle
 
 # Abrir a nova página em uma nova aba
-nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030201/226?cd_centro_resp=30303040101&nm_unidade=SENAI%20TAGUATINGA&nm_centro_resp=APREND.%20IND.%20TEC.%20NIVEL%20MEDIO%20PRESENCIAL&id_grupo=11&ds_grupo=Aprendizagem%20Industrial%20T%C3%A9cnico%20de%20N%C3%ADvel%20M%C3%A9dio&fase=Realiza%C3%A7%C3%A3o')")
+nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030201/226?cd_centro_resp=30303040101&nm_unidade=SENAI%20gamUATINGA&nm_centro_resp=APREND.%20IND.%20TEC.%20NIVEL%20MEDIO%20PRESENCIAL&id_grupo=11&ds_grupo=Aprendizagem%20Industrial%20T%C3%A9cnico%20de%20N%C3%ADvel%20M%C3%A9dio&fase=Realiza%C3%A7%C3%A3o')")
 
 # Alternar para a nova janela
 nav.switch_to.window(nav.window_handles[-1])
@@ -1526,7 +1552,7 @@ aprendi_tec_presencial_ng_mat_jan.click()
 
 aprendi_tec_presencial_ng_mat_jan = WebDriverWait(nav, 15).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]")))
 
-aprendi_tec_presencial_ng_mat_jan.send_keys(tag_aprendizagem_tec['jan_mat_n_gratuita'])
+aprendi_tec_presencial_ng_mat_jan.send_keys(gam_aprendizagem_tec['jan_mat_n_gratuita'])
 
 aprendi_tec_presencial_ng_mat_jan.send_keys(Keys.ENTER)
 
@@ -1567,7 +1593,7 @@ for i, (mes, campo_dado) in enumerate(meses):
     aprendi_tec_presencial_ng_mat.send_keys(Keys.ENTER)
 
 
-# SENAI TAGUATINGA - 30303040101 - APREND. IND. TEC. NIVEL MEDIO PRESENCIAL - REGIMENTAL
+# SENAI gamUATINGA - 30303040101 - APREND. IND. TEC. NIVEL MEDIO PRESENCIAL - REGIMENTAL
 
 aprendi_tec_presencial_regimental_mat_jan = WebDriverWait(nav, 10).until(
     EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(4) > [id='5082'].indicador")))
@@ -1576,7 +1602,7 @@ aprendi_tec_presencial_regimental_mat_jan.click()
 
 aprendi_tec_presencial_regimental_mat_jan = WebDriverWait(nav, 15).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]")))
 
-aprendi_tec_presencial_regimental_mat_jan.send_keys(tag_aprendizagem_tec['jan_mat_regi'])
+aprendi_tec_presencial_regimental_mat_jan.send_keys(gam_aprendizagem_tec['jan_mat_regi'])
 
 aprendi_tec_presencial_regimental_mat_jan.send_keys(Keys.ENTER)
 
@@ -1616,14 +1642,14 @@ for i, (mes, campo_dado) in enumerate(meses):
     aprendi_tec_presencial_regimental_mat.send_keys(str(mat_aprendi_tec_presencial_regimental))
     aprendi_tec_presencial_regimental_mat.send_keys(Keys.ENTER)
 
-# SENAI TAGUATINGA - 30303040201 - TECNICO DE NIVEL MEDIO PRESENCIAL - NAO GRATUITA
+# SENAI gamUATINGA - 30303040201 - TECNICO DE NIVEL MEDIO PRESENCIAL - NAO GRATUITA
 
 from selenium import webdriver
 
 janela_atual = nav.current_window_handle
 
 # Abrir a nova página em uma nova aba
-nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030201/233?cd_centro_resp=30303040201&nm_unidade=SENAI%20TAGUATINGA&nm_centro_resp=TECNICO%20DE%20NIVEL%20MEDIO%20PRESENCIAL&id_grupo=4&ds_grupo=T%C3%A9cnico%20de%20N%C3%ADvel%20M%C3%A9dio&fase=Realiza%C3%A7%C3%A3o')")
+nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030201/233?cd_centro_resp=30303040201&nm_unidade=SENAI%20gamUATINGA&nm_centro_resp=TECNICO%20DE%20NIVEL%20MEDIO%20PRESENCIAL&id_grupo=4&ds_grupo=T%C3%A9cnico%20de%20N%C3%ADvel%20M%C3%A9dio&fase=Realiza%C3%A7%C3%A3o')")
 
 # Alternar para a nova janela
 nav.switch_to.window(nav.window_handles[-1])
@@ -1644,7 +1670,7 @@ tec_presencial_ng_mat_jan.click()
 
 tec_presencial_ng_mat_jan = WebDriverWait(nav, 15).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]")))
 
-tec_presencial_ng_mat_jan.send_keys(tag_tecnico_presencial['jan_mat_n_gratuita'])
+tec_presencial_ng_mat_jan.send_keys(gam_tecnico_presencial['jan_mat_n_gratuita'])
 
 tec_presencial_ng_mat_jan.send_keys(Keys.ENTER)
 
@@ -1684,7 +1710,7 @@ for i, (mes, campo_dado) in enumerate(meses):
     tec_presencial_ng_mat.send_keys(str(mat_tec_presencial_ng))
     tec_presencial_ng_mat.send_keys(Keys.ENTER)
 
-# SENAI TAGUATINGA - 30303040201 - TECNICO DE NIVEL MEDIO PRESENCIAL - REGIMENTAL
+# SENAI gamUATINGA - 30303040201 - TECNICO DE NIVEL MEDIO PRESENCIAL - REGIMENTAL
 
 tec_presencial_regimental_mat_jan = WebDriverWait(nav, 10).until(
     EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(4) > [id='5146'].indicador")))
@@ -1693,7 +1719,7 @@ tec_presencial_regimental_mat_jan.click()
 
 tec_presencial_regimental_mat_jan = WebDriverWait(nav, 15).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]")))
 
-tec_presencial_regimental_mat_jan.send_keys(tag_tecnico_presencial['jan_mat_regi'])
+tec_presencial_regimental_mat_jan.send_keys(gam_tecnico_presencial['jan_mat_regi'])
 
 tec_presencial_regimental_mat_jan.send_keys(Keys.ENTER)
 
@@ -1733,7 +1759,7 @@ for i, (mes, campo_dado) in enumerate(meses):
     tec_presencial_regimental_mat.send_keys(str(mat_tec_presencial_regimental))
     tec_presencial_regimental_mat.send_keys(Keys.ENTER)
 
-# SENAI TAGUATINGA - 30303040201 - TECNICO DE NIVEL MEDIO PRESENCIAL - BOLSA   
+# SENAI gamUATINGA - 30303040201 - TECNICO DE NIVEL MEDIO PRESENCIAL - BOLSA   
 
 tec_presencial_bolsa_mat_jan = WebDriverWait(nav, 10).until(
     EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(4) > [id='5150'].indicador")))
@@ -1742,7 +1768,7 @@ tec_presencial_bolsa_mat_jan.click()
 
 tec_presencial_bolsa_mat_jan = WebDriverWait(nav, 15).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]")))
 
-tec_presencial_bolsa_mat_jan.send_keys(tag_tecnico_presencial['jan_mat_bolsa'])
+tec_presencial_bolsa_mat_jan.send_keys(gam_tecnico_presencial['jan_mat_bolsa'])
 
 tec_presencial_bolsa_mat_jan.send_keys(Keys.ENTER)
 
@@ -1784,14 +1810,14 @@ for i, (mes, campo_dado) in enumerate(meses):
     tec_presencial_bolsa_mat.send_keys(Keys.ENTER)
 
 
-# SENAI TAGUATINGA - 30303040401 - TECNICO DE NIVEL MEDIO SEMIPRESENCIAL NAO GRATUITA
+# SENAI gamUATINGA - 30303040401 - TECNICO DE NIVEL MEDIO SEMIPRESENCIAL NAO GRATUITA
 
 from selenium import webdriver
 
 janela_atual = nav.current_window_handle
 
 # Abrir a nova página em uma nova aba
-nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030201/224?cd_centro_resp=30303040401&nm_unidade=SENAI%20TAGUATINGA&nm_centro_resp=TECNICO%20DE%20NIVEL%20MEDIO%20SEMIPRESENCIAL&id_grupo=4&ds_grupo=T%C3%A9cnico%20de%20N%C3%ADvel%20M%C3%A9dio&fase=Realiza%C3%A7%C3%A3o')")
+nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030201/224?cd_centro_resp=30303040401&nm_unidade=SENAI%20gamUATINGA&nm_centro_resp=TECNICO%20DE%20NIVEL%20MEDIO%20SEMIPRESENCIAL&id_grupo=4&ds_grupo=T%C3%A9cnico%20de%20N%C3%ADvel%20M%C3%A9dio&fase=Realiza%C3%A7%C3%A3o')")
 
 # Alternar para a nova janela
 nav.switch_to.window(nav.window_handles[-1])
@@ -1814,7 +1840,7 @@ tec_distancia_ng_mat_jan.click()
 
 tec_distancia_ng_mat_jan = WebDriverWait(nav, 15).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]")))
 
-tec_distancia_ng_mat_jan.send_keys(tag_tecnico_distancia['jan_mat_n_gratuita'])
+tec_distancia_ng_mat_jan.send_keys(gam_tecnico_distancia['jan_mat_n_gratuita'])
 
 tec_distancia_ng_mat_jan.send_keys(Keys.ENTER)
 
@@ -1855,7 +1881,7 @@ for i, (mes, campo_dado) in enumerate(meses):
     tec_distancia_ng_mat.send_keys(str(mat_tec_distancia_ng))
     tec_distancia_ng_mat.send_keys(Keys.ENTER)
 
-# SENAI TAGUATINGA - 30303040401 - TECNICO DE NIVEL MEDIO SEMIPRESENCIAL REGIMENTAL
+# SENAI gamUATINGA - 30303040401 - TECNICO DE NIVEL MEDIO SEMIPRESENCIAL REGIMENTAL
 
 tec_distancia_regimental_mat_jan = WebDriverWait(nav, 10).until(
     EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(4) > [id='5066'].indicador")))
@@ -1864,7 +1890,7 @@ tec_distancia_regimental_mat_jan.click()
 
 tec_distancia_regimental_mat_jan = WebDriverWait(nav, 15).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]")))
 
-tec_distancia_regimental_mat_jan.send_keys(tag_tecnico_distancia['jan_mat_regi'])
+tec_distancia_regimental_mat_jan.send_keys(gam_tecnico_distancia['jan_mat_regi'])
 
 tec_distancia_regimental_mat_jan.send_keys(Keys.ENTER)
 
@@ -1906,7 +1932,7 @@ for i, (mes, campo_dado) in enumerate(meses):
     tec_distancia_regimental_mat.send_keys(Keys.ENTER)
 
 
-# SENAI TAGUATINGA - 30303040401 - TECNICO DE NIVEL MEDIO SEMIPRESENCIAL BOLSA
+# SENAI gamUATINGA - 30303040401 - TECNICO DE NIVEL MEDIO SEMIPRESENCIAL BOLSA
 
 tec_distancia_bolsa_mat_jan = WebDriverWait(nav, 10).until(
     EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(4) > [id='5476'].indicador")))
@@ -1915,7 +1941,7 @@ tec_distancia_bolsa_mat_jan.click()
 
 tec_distancia_bolsa_mat_jan = WebDriverWait(nav, 15).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]")))
 
-tec_distancia_bolsa_mat_jan.send_keys(tag_tecnico_distancia['jan_mat_bolsa'])
+tec_distancia_bolsa_mat_jan.send_keys(gam_tecnico_distancia['jan_mat_bolsa'])
 
 tec_distancia_bolsa_mat_jan.send_keys(Keys.ENTER)
 
@@ -1958,11 +1984,11 @@ for i, (mes, campo_dado) in enumerate(meses):
     tec_distancia_bolsa_mat.send_keys(Keys.ENTER)
 
 
-# SENAI TAGUATINGA - 30303040501 - TECN DE NIV MED ITINERARIOS PRESENCIAL BOLSA
+# SENAI gamUATINGA - 30303040501 - TECN DE NIV MED ITINERARIOS PRESENCIAL BOLSA
 
 janela_atual = nav.current_window_handle
 
-nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030201/228?cd_centro_resp=30303040501&nm_unidade=SENAI%20TAGUATINGA&nm_centro_resp=TECN%20DE%20NIV%20MED%20ITINERARIOS%20PRESENCIAL&id_grupo=4&ds_grupo=T%C3%A9cnico%20de%20N%C3%ADvel%20M%C3%A9dio&fase=Realiza%C3%A7%C3%A3o')")
+nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030201/228?cd_centro_resp=30303040501&nm_unidade=SENAI%20gamUATINGA&nm_centro_resp=TECN%20DE%20NIV%20MED%20ITINERARIOS%20PRESENCIAL&id_grupo=4&ds_grupo=T%C3%A9cnico%20de%20N%C3%ADvel%20M%C3%A9dio&fase=Realiza%C3%A7%C3%A3o')")
 
 nav.switch_to.window(nav.window_handles[-1])
 
@@ -1981,7 +2007,7 @@ tec_iti_presencial_bolsa_mat_jan.click()
 
 tec_iti_presencial_bolsa_mat_jan = WebDriverWait(nav, 15).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]")))
 
-tec_iti_presencial_bolsa_mat_jan.send_keys(tag_tecnico_iti_presencial['jan_mat_bolsa'])
+tec_iti_presencial_bolsa_mat_jan.send_keys(gam_tecnico_iti_presencial['jan_mat_bolsa'])
 
 tec_iti_presencial_bolsa_mat_jan.send_keys(Keys.ENTER)
 
@@ -2022,7 +2048,7 @@ for i, (mes, campo_dado) in enumerate(meses):
     tec_iti_presencial_bolsa_mat.send_keys(str(mat_tec_iti_presencial_bolsa))
     tec_iti_presencial_bolsa_mat.send_keys(Keys.ENTER)
 
-# SENAI TAGUATINGA - 30303040501 - TECN DE NIV MED ITINERARIOS PRESENCIAL REGIMENTAL
+# SENAI gamUATINGA - 30303040501 - TECN DE NIV MED ITINERARIOS PRESENCIAL REGIMENTAL
 
 
 tec_iti_presencial_regimental_mat_jan = WebDriverWait(nav, 10).until(
@@ -2032,7 +2058,7 @@ tec_iti_presencial_regimental_mat_jan.click()
 
 tec_iti_presencial_regimental_mat_jan = WebDriverWait(nav, 15).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]")))
 
-tec_iti_presencial_regimental_mat_jan.send_keys(tag_tecnico_iti_presencial['jan_mat_regi'])
+tec_iti_presencial_regimental_mat_jan.send_keys(gam_tecnico_iti_presencial['jan_mat_regi'])
 
 tec_iti_presencial_regimental_mat_jan.send_keys(Keys.ENTER)
 
