@@ -1,5 +1,6 @@
 
 # Importação dos pacotes
+from socket import timeout
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -84,93 +85,72 @@ dados = {
     }
 }
 
-# Navhagção para a pagina
+DEFAULT_WAIT = 15
 
+def esperar_elemento(nav, locator, condition=EC.visibility_of_element_located, timeout=DEFAULT_WAIT):
+    return WebDriverWait(nav, timeout).until(condition(locator))
+
+# Navegação para a página
 url = 'http://sn-iis-02/SIGECON20/'
-
 nav = webdriver.Firefox()
-
 nav.get(url)
 
 # Elemento Usuario
-e_usuario = WebDriverWait(nav, 5).until(
-    EC.visibility_of_element_located((By.XPATH, '//*[@id="UserName"]')))
+e_usuario = esperar_elemento(nav, (By.XPATH, '//*[@id="UserName"]'))
 usuario = "matheus.reck"
 e_usuario.send_keys(usuario)
 
 # Elemento Senha
-e_senha = WebDriverWait(nav, 5).until(
-    EC.visibility_of_element_located((By.XPATH, '//*[@id="Password"]')))
+e_senha = esperar_elemento(nav, (By.XPATH, '//*[@id="Password"]'))
 senha = "Vitoria2625!"
 e_senha.send_keys(senha)
 
 # Elemento Ano
-e_ano = WebDriverWait(nav, 5).until(
-    EC.visibility_of_element_located((By.XPATH, '//*[@id="Ano"]')))
+e_ano = esperar_elemento(nav, (By.XPATH, '//*[@id="Ano"]'))
 e_ano.click()
-e_ano_2024 = WebDriverWait(nav, 5).until(EC.visibility_of_element_located(
-    (By.XPATH, '//*[@id="Ano"]/option[2]')))
+e_ano_2024 = esperar_elemento(nav, (By.XPATH, '//*[@id="Ano"]/option[2]'))
 e_ano_2024.click()
 
 # Elemento Entidade
-e_entidade = WebDriverWait(nav, 5).until(
-    EC.visibility_of_element_located((By.XPATH, '//*[@id="Cod_Empresa"]')))
+e_entidade = esperar_elemento(nav, (By.XPATH, '//*[@id="Cod_Empresa"]'))
 e_entidade.click()
-e_entidade_senai = WebDriverWait(nav, 5).until(EC.visibility_of_element_located(
-    (By.XPATH, '/html/body/div[1]/div/div[1]/div/div[2]/form/fieldset/div[4]/select/option[3]')))
+e_entidade_senai = esperar_elemento(nav, (By.XPATH, '/html/body/div[1]/div/div[1]/div/div[2]/form/fieldset/div[4]/select/option[3]'))
 e_entidade_senai.click()
 
 # Elemento Entrar
-e_entrar = WebDriverWait(nav, 5).until(EC.visibility_of_element_located(
-    (By.XPATH, '/html/body/div[1]/div/div[1]/div/div[2]/form/fieldset/div[6]/input')))
+e_entrar = esperar_elemento(nav, (By.XPATH, '/html/body/div[1]/div/div[1]/div/div[2]/form/fieldset/div[6]/input'))
 e_entrar.click()
 
-#################################################################   Elemento unidade SENAI TAGUATINGA ###################################################################################
-
-e_uni_tag1 = WebDriverWait(nav, 15).until(EC.visibility_of_element_located(
-    (By.PARTIAL_LINK_TEXT, 'Senai Gama')))
+# Elemento unidade SENAI TAGUATINGA
+e_uni_tag1 = esperar_elemento(nav, (By.PARTIAL_LINK_TEXT, 'Senai Gama'))
 e_uni_tag1.click()
 
-################################################################   Elemento CR INICIACAO PROFISSIONAL PRESENCIAL ########################################################################
-
-e_cr_inici_prese = WebDriverWait(nav, 5).until(EC.visibility_of_element_located(
-    (By.PARTIAL_LINK_TEXT, 'INICIACAO PROFISSIONAL PRESENCIAL')))
+# Elemento CR INICIACAO PROFISSIONAL PRESENCIAL
+e_cr_inici_prese = esperar_elemento(nav, (By.PARTIAL_LINK_TEXT, 'INICIACAO PROFISSIONAL PRESENCIAL'))
 e_cr_inici_prese.click()
 
-################################################################   Elemento FICHA DE PRODUÇÃO ############################################################################################
-
-e_ficha_prod = WebDriverWait(nav, 15).until(EC.visibility_of_element_located(
-    (By.LINK_TEXT, 'Produção')))
+# Elemento FICHA DE PRODUÇÃO
+e_ficha_prod = esperar_elemento(nav, (By.LINK_TEXT, 'Produção'))
 
 nav.execute_script("arguments[0].scrollIntoView(true);", e_ficha_prod)
-
 nav.execute_script("arguments[0].click();", e_ficha_prod)
 
-################################################################   Elemento GRUPO DE META ###############################################################################################
-
-e_grupo_meta = WebDriverWait(nav, 30).until(EC.visibility_of_element_located(
-    (By.XPATH, "//a[@href='/SIGECON20/Metas/MetasTipo/309/2024/0902030202/211?cd_centro_resp=30303010101&nm_unidade=SENAI%20GAMA&nm_centro_resp=INICIACAO%20PROFISSIONAL%20PRESENCIAL&id_grupo=1&ds_grupo=Inicia%C3%A7%C3%A3o%20Profissional&fase=Realiza%C3%A7%C3%A3o']"
-)))
+# Elemento GRUPO DE META
+e_grupo_meta = esperar_elemento(nav, (By.XPATH, "//a[@href='/SIGECON20/Metas/MetasTipo/309/2024/0902030202/211?cd_centro_resp=30303010101&nm_unidade=SENAI%20GAMA&nm_centro_resp=INICIACAO%20PROFISSIONAL%20PRESENCIAL&id_grupo=1&ds_grupo=Inicia%C3%A7%C3%A3o%20Profissional&fase=Realiza%C3%A7%C3%A3o']"))
 
 nav.execute_script("arguments[0].scrollIntoView(true);", e_grupo_meta)
-
 e_grupo_meta.click()
 
-# SENAI GAMA - 30303010101 - INICIACAO PROFISSIONAL PRESENCIAL 
+# SENAI GAMA - 30303010101 - INICIACAO PROFISSIONAL PRESENCIAL
 
-################################################################   MATRICULA BOLSA ####################################################################################################
-
+# MATRICULA BOLSA
 nav.refresh()
 
-em_bolsa_click = WebDriverWait(nav, 20).until(
-    EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(4) > [id='4921'].indicador")))
-
+em_bolsa_click = esperar_elemento(nav, (By.CSS_SELECTOR, "td:nth-child(4) > [id='4921'].indicador"))
 em_bolsa_click.click()
 
-em_bolsa_s = WebDriverWait(nav, 15).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]")))
-
+em_bolsa_s = esperar_elemento(nav, (By.XPATH, "(//input[@type='text'])[8]"))
 em_bolsa_s.send_keys(gam_iniciacao_presencial['jan_mat_bolsa'])
-
 em_bolsa_s.send_keys(Keys.ENTER)
 
 nav.refresh()
@@ -189,20 +169,13 @@ meses = [
     ("dez", "dez_inicia_presen_mat_2 Gratuidade Não Regimental")
 ]
 
-
 for i, (mes, campo_dado) in enumerate(meses):
-   
-    mat_bolsa_mes = WebDriverWait(nav, 10).until(
-        EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({5 + i}) > [id='4921'].indicador"))
-    )
+    mat_bolsa_mes = esperar_elemento(nav, (By.CSS_SELECTOR, f"td:nth-child({5 + i}) > [id='4921'].indicador"), timeout=10)
     mat_bolsa_mes.click()
 
-    mat_bolsa_send = WebDriverWait(nav, 15).until(
-        EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]"))
-    )
+    mat_bolsa_send = esperar_elemento(nav, (By.XPATH, "(//input[@type='text'])[8]"))
 
     chave_dado = f"{mes}_inicia_presen_mat_2 Gratuidade Não Regimental"
-    
     mat_iniciacao_presencial_geral = dados['iniciacao']['presencial']['matriculas'].get(chave_dado, 0)
 
     mat_bolsa_send.send_keys(str(mat_iniciacao_presencial_geral))
@@ -211,18 +184,12 @@ for i, (mes, campo_dado) in enumerate(meses):
 
 ############################################################   MATRICULA NAO GRATUITA ####################################################################################################
 
-mem_ng_click = WebDriverWait(nav, 10).until(
-    EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(4) > [id='4922'].indicador")))
-
+mem_ng_click = esperar_elemento(nav, (By.CSS_SELECTOR, "td:nth-child(4) > [id='4922'].indicador"))
 mem_ng_click.click()
 
-em_ng_s = WebDriverWait(nav, 15).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]")))
-
+em_ng_s = esperar_elemento(nav,(By.XPATH, "(//input[@type='text'])[8]"))
 em_ng_s.send_keys(gam_iniciacao_presencial['jan_mat_n_gratuita'])
-
 em_ng_s.send_keys(Keys.ENTER)
-
- 
 
 meses = [
     ("fev", "fev_inicia_presen_mat_9 Pago por Pessoa Fisica ou Empresa"),
@@ -238,47 +205,42 @@ meses = [
     ("dez", "dez_inicia_presen_mat_9 Pago por Pessoa Fisica ou Empresa")
 ]
 
-
-em_ng_click = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(4) > [id='4922'].indicador")))
-em_ng_click.click()
-
-
 for i, (mes, campo_dado) in enumerate(meses):
     
-    mat_ng_mes = WebDriverWait(nav, 10).until(
-        EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({5 + i}) > [id='4922'].indicador"))
-    )
+    mat_ng_mes = esperar_elemento(nav, (By.CSS_SELECTOR, f"td:nth-child({5 + i}) > [id='4922'].indicador"), timeout=10)
     mat_ng_mes.click()
 
-    mat_ng_send = WebDriverWait(nav, 15).until(
-        EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]"))
-    )
+    mat_ng_send = esperar_elemento(nav, (By.XPATH, "(//input[@type='text'])[8]"))
 
     chave_dado = f"{mes}_inicia_presen_mat_9 Pago por Pessoa Fisica ou Empresa"
-    
     mat_iniciacao_presencial_ng = dados['iniciacao']['presencial']['matriculas'].get(chave_dado, 0)
 
     mat_ng_send.send_keys(str(mat_iniciacao_presencial_ng))
     mat_ng_send.send_keys(Keys.ENTER)
 
 
-#########################################  INICIAÇÃO PROFISSIONAL A DISTANCIA  ##########################################################################################################
+#########################################  INICIAÇÃO PROFISSIONAL A DISTANCIA ########################################################################################################
+
+from selenium import webdriver
 
 janela_atual = nav.current_window_handle
 
-nav.execute_script("window.open('', '_self')")
+nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030202/212?cd_centro_resp=30303010201&nm_unidade=SENAI%20GAMA&nm_centro_resp=INICIACAO%20PROFISSIONAL%20A%20DISTANCIA&id_grupo=1&ds_grupo=Inicia%C3%A7%C3%A3o%20Profissional&fase=Realiza%C3%A7%C3%A3o')")
+
+nav.switch_to.window(nav.window_handles[-1])
+
+nav.switch_to.window(janela_atual)
+nav.close()
+
+nav.switch_to.window(nav.window_handles[0])
 
 # SENAI gamUATINGA - 30303010201 - INICIACAO PROFISSIONAL A DISTANCIA MATRICULA BOLSA ##################################################################################################
 
-ipd_bolsa_mat_jan = WebDriverWait(nav, 10).until(
-    EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(4) > [id='4929'].indicador")))
-
+ipd_bolsa_mat_jan = esperar_elemento(nav, (By.CSS_SELECTOR, "td:nth-child(4) > [id='4929'].indicador"))
 ipd_bolsa_mat_jan.click()
 
-ipd_bolsa_mat_jan = WebDriverWait(nav, 15).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]")))
-
+ipd_bolsa_mat_jan = esperar_elemento(nav, (By.XPATH, "(//input[@type='text'])[8]"))
 ipd_bolsa_mat_jan.send_keys(gam_iniciacao_distancia['jan_mat_bolsa'])
-
 ipd_bolsa_mat_jan.send_keys(Keys.ENTER)
 
 nav.refresh()
@@ -300,17 +262,13 @@ meses = [
 
 for i, (mes, campo_dado) in enumerate(meses):
 
-    mat_ipd_bolsa_mes = WebDriverWait(nav, 10).until(
-        EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({5 + i}) > [id='4929'].indicador"))
-    )
+    mat_ipd_bolsa_mes = esperar_elemento(nav, (By.CSS_SELECTOR, f"td:nth-child({5 + i}) > [id='4929'].indicador"), timeout=10)
     mat_ipd_bolsa_mes.click()
 
-    mat_ipd_bolsa_mes = WebDriverWait(nav, 15).until(
-        EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]"))
-    )
+    mat_ipd_bolsa_mes = esperar_elemento(nav, (By.XPATH, "(//input[@type='text'])[8]"))
+    
 
     chave_dado = f"{mes}_inicia_distan_mat_2 Gratuidade Não Regimental"
-    
     mat_iniciacao_distancia_bolsa = dados['iniciacao']['distancia']['matriculas'].get(chave_dado, 0)
 
     mat_ipd_bolsa_mes.send_keys(str(mat_iniciacao_distancia_bolsa))
@@ -319,15 +277,11 @@ for i, (mes, campo_dado) in enumerate(meses):
 
 # SENAI gamUATINGA - 30303010201 - INICIACAO PROFISSIONAL A DISTANCIA MATRICULA NAO GRATUITA
 
-ipd_ng_mat_jan = WebDriverWait(nav, 10).until(
-    EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(4) > [id='4930'].indicador")))
-
+ipd_ng_mat_jan = esperar_elemento(nav, (By.CSS_SELECTOR, "td:nth-child(4) > [id='4930'].indicador"))
 ipd_ng_mat_jan.click()
 
-ipd_ng_mat_jan = WebDriverWait(nav, 15).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]")))
-
+ipd_ng_mat_jan = esperar_elemento(nav, (By.XPATH, "(//input[@type='text'])[8]"))
 ipd_ng_mat_jan.send_keys(gam_iniciacao_distancia['jan_mat_n_gratuita'])
-
 ipd_ng_mat_jan.send_keys(Keys.ENTER)
 
 nav.refresh()
@@ -346,26 +300,16 @@ meses = [
     ("dez", "dez_inicia_distan_mat_9 Pago por Pessoa Fisica ou Empresa")
 ]
 
-
-ipd_ng_mat_jan = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(5) > [id='4930'].indicador")))
-ipd_ng_mat_jan.click()
-
 nav.refresh()
 
 for i, (mes, campo_dado) in enumerate(meses):
 
-    mat_ipd_ng_mes = WebDriverWait(nav, 10).until(
-        EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({5 + i}) > [id='4930'].indicador"))
-    )
+    mat_ipd_ng_mes = esperar_elemento(nav, (By.CSS_SELECTOR, f"td:nth-child({5 + i}) > [id='4930'].indicador"), timeout=10)
     mat_ipd_ng_mes.click()
 
-    mat_ipd_ng_mes = WebDriverWait(nav, 15).until(
-        EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]"))
-    )
+    mat_ipd_ng_mes = esperar_elemento(nav, (By.XPATH, "(//input[@type='text'])[8]"))
 
     chave_dado = f"{mes}_inicia_distan_mat_9 Pago por Pessoa Fisica ou Empresa"
-    
-
     mat_iniciacao_distancia_ng = dados['iniciacao']['distancia']['matriculas'].get(chave_dado, 0)
 
     mat_ipd_ng_mes.send_keys(str(mat_iniciacao_distancia_ng))
@@ -793,9 +737,11 @@ meses = [
     ("dez", "dez_qualifi_distan_mat_1 Gratuidade Regimental")
 ]
 
+nav.refresh()
+
 for i, (mes, campo_dado) in enumerate(meses):
 
-    qualifi_semi_regimental_mat = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({5 + i}) > [id='4962].indicador")))
+    qualifi_semi_regimental_mat = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({5 + i}) > [id='4962'].indicador")))
     qualifi_semi_regimental_mat.click()
 
    
@@ -841,7 +787,7 @@ meses = [
 
 for i, (mes, campo_dado) in enumerate(meses):
 
-    qualifi_semi_convenio_mat = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({5 + i}) > [id='4966].indicador")))
+    qualifi_semi_convenio_mat = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({5 + i}) > [id='4966'].indicador")))
     qualifi_semi_convenio_mat.click()
 
    
@@ -878,7 +824,7 @@ nav.switch_to.window(nav.window_handles[0])
 nav.refresh()
 
 aper_prese_bolsa_mat_jan = WebDriverWait(nav, 10).until(
-    EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(4) > [id=4976'].indicador")))
+    EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(4) > [id='4976'].indicador")))
 
 aper_prese_bolsa_mat_jan.click()
 
@@ -975,7 +921,7 @@ for i, (mes, campo_dado) in enumerate(meses):
 
 
 aper_prese_regimental_mat_jan = WebDriverWait(nav, 10).until(
-    EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(4) > [id='4978].indicador")))
+    EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(4) > [id='4978'].indicador")))
 
 aper_prese_regimental_mat_jan.click()
 
@@ -1435,7 +1381,7 @@ aprendi_tec_presencial_regimental_mat.click()
 
 for i, (mes, campo_dado) in enumerate(meses):
 
-    aprendi_tec_presencial_regimental_mat = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({5 + i}) > [id='5082'].indicador")))
+    aprendi_tec_presencial_regimental_mat = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({5 + i}) > [id='5010'].indicador")))
     aprendi_tec_presencial_regimental_mat.click()
 
    

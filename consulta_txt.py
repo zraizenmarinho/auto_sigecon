@@ -85,3 +85,36 @@ dados = {
 
 
 {'fev_inicia_presen_mat_1 Gratuidade Regimental': 0, 'fev_inicia_presen_mat_2 Gratuidade Não Regimental': 0, 'fev_inicia_presen_mat_3 Convênio': 0, 'fev_inicia_presen_mat_9 Pago por Pessoa Fisica ou Empresa': 0, 'mar_inicia_presen_mat_1 Gratuidade Regimental': 0, 'mar_inicia_presen_mat_2 Gratuidade Não Regimental': 0, 'mar_inicia_presen_mat_3 Convênio': 0, 'mar_inicia_presen_mat_9 Pago por Pessoa Fisica ou Empresa': 0, 'abr_inicia_presen_mat_1 Gratuidade Regimental': 0, 'abr_inicia_presen_mat_2 Gratuidade Não Regimental': 0, 'abr_inicia_presen_mat_3 Convênio': 0, 'abr_inicia_presen_mat_9 Pago por Pessoa Fisica ou Empresa': 0, 'mai_inicia_presen_mat_1 Gratuidade Regimental': 0, 'mai_inicia_presen_mat_2 Gratuidade Não Regimental': 0, 'mai_inicia_presen_mat_3 Convênio': 0, 'mai_inicia_presen_mat_9 Pago por Pessoa Fisica ou Empresa': 0, 'jun_inicia_presen_mat_1 Gratuidade Regimental': 0, 'jun_inicia_presen_mat_2 Gratuidade Não Regimental': 0, 'jun_inicia_presen_mat_3 Convênio': 0, 'jun_inicia_presen_mat_9 Pago por Pessoa Fisica ou Empresa': 0, 'jul_inicia_presen_mat_1 Gratuidade Regimental': 0, 'jul_inicia_presen_mat_2 Gratuidade Não RegiGratuidade Não Regimental': 0, 'ago_inicia_presen_mat_3 Convênio': 0, 'ago_inicia_presen_mat_9 Pago por Pessoa Fisica ou Empresa': 0, 'set_inicia_presen_mat_1 Gratuidade Regimental': 0, 'set_inicia_presen_mat_2 Gratuidade Não Regimental': 0, 'set_inicia_presen_mat_3 Convênio': 0, 'set_inicia_presen_mat_9 Pago por Pessoa Fisica ou Empresa': 0, 'out_inicia_presen_mat_1 Gratuidade Regimental': 0, 'out_inicia_presen_mat_2 Gratuidade Não Regimental': 0, 'out_inicia_presen_mat_3 Convênio': 0, 'out_inicia_presen_mat_9 Pago por Pessoa Fisica ou Empresa': 0, 'nov_inicia_presen_mat_1 Gratuidade Regimental': 0, 'nov_inicia_presen_mat_2 Gratuidade Não Regimental': 0, 'nov_inicia_presen_mat_3 Convênio': 0, 'nov_inicia_presen_mat_9 Pago por Pessoa Fisica ou Empresa': 0, 'dez_inicia_presen_mat_1 Gratuidade Regimental': 0, 'dez_inicia_presen_mat_2 Gratuidade Não Regimental': 0, 'dez_inicia_presen_mat_3 Convênio': 0, 'dez_inicia_presen_mat_9 Pago por Pessoa Fisica ou Empresa': 0}
+
+
+
+
+DEFAULT_WAIT = 15
+
+def esperar_elemento(nav, locator, condition=EC.visibility_of_element_located, timeout=DEFAULT_WAIT):
+    return WebDriverWait(nav, timeout).until(condition(locator))
+
+
+
+######################################################Janeiro
+
+em_bolsa_click = esperar_elemento(nav, (By.CSS_SELECTOR, "td:nth-child(4) > [id='4921'].indicador"))
+em_bolsa_click.click()
+
+em_bolsa_s = esperar_elemento(nav, (By.XPATH, "(//input[@type='text'])[8]"))
+em_bolsa_s.send_keys(gam_iniciacao_presencial['jan_mat_bolsa'])
+em_bolsa_s.send_keys(Keys.ENTER)
+
+######################################################Fevereiro
+
+for i, (mes, campo_dado) in enumerate(meses):
+    mat_bolsa_mes = esperar_elemento(nav, (By.CSS_SELECTOR, f"td:nth-child({5 + i}) > [id='4921'].indicador"), timeout=10) # Unica vez diferente
+    mat_bolsa_mes.click()
+
+    mat_bolsa_send = esperar_elemento(nav, (By.XPATH, "(//input[@type='text'])[8]"))
+
+    chave_dado = f"{mes}_inicia_presen_mat_2 Gratuidade Não Regimental"
+    mat_iniciacao_presencial_geral = dados['iniciacao']['presencial']['matriculas'].get(chave_dado, 0)
+
+    mat_bolsa_send.send_keys(str(mat_iniciacao_presencial_geral))
+    mat_bolsa_send.send_keys(Keys.ENTER)
