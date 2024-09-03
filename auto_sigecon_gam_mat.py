@@ -9,8 +9,6 @@ from selenium.webdriver.common.keys import Keys
 
 from obter_dados_gam_mat import obter_dados_por_tipo
 
-arquivo = 'si_jan.xlsx'
-
 from mat_gam import (
     gam_iniciacao_presencial,
     gam_iniciacao_distancia,
@@ -30,57 +28,57 @@ from mat_gam import (
 dados = {
     'iniciacao': {
         'presencial': {
-            'matriculas': obter_dados_por_tipo('iniciacao', 'presencial', arquivo)['matriculas'],
+            'matriculas': obter_dados_por_tipo('iniciacao', 'presencial')['matriculas'],
         },
         'distancia': {
-            'matriculas': obter_dados_por_tipo('iniciacao', 'distancia', arquivo)['matriculas'],
+            'matriculas': obter_dados_por_tipo('iniciacao', 'distancia')['matriculas'],
         }
     },
     'aprendizagem': {
         'presencial': {
-            'matriculas': obter_dados_por_tipo('aprendizagem', 'presencial', arquivo)['matriculas'],
+            'matriculas': obter_dados_por_tipo('aprendizagem', 'presencial')['matriculas'],
         },
         'distancia': {
-            'matriculas': obter_dados_por_tipo('aprendizagem', 'distancia', arquivo)['matriculas'],
+            'matriculas': obter_dados_por_tipo('aprendizagem', 'distancia')['matriculas'],
         }
     },
     'qualificacao': {
         'presencial': {
-            'matriculas': obter_dados_por_tipo('qualificacao', 'presencial', arquivo)['matriculas'],
+            'matriculas': obter_dados_por_tipo('qualificacao', 'presencial')['matriculas'],
         },
         'distancia': {
-            'matriculas': obter_dados_por_tipo('qualificacao', 'distancia', arquivo)['matriculas'],
+            'matriculas': obter_dados_por_tipo('qualificacao', 'distancia')['matriculas'],
         }
     },
     'aperfeicoamento': {
         'presencial': {
-            'matriculas': obter_dados_por_tipo('aperfeicoamento', 'presencial', arquivo)['matriculas'],
+            'matriculas': obter_dados_por_tipo('aperfeicoamento', 'presencial')['matriculas'],
         },
         'distancia': {
-            'matriculas': obter_dados_por_tipo('aperfeicoamento', 'distancia', arquivo)['matriculas'],
+            'matriculas': obter_dados_por_tipo('aperfeicoamento', 'distancia')['matriculas'],
         }
     },
     'qualificacao_iti': {
         'presencial': {
-            'matriculas': obter_dados_por_tipo('qualificacao_iti', 'presencial', arquivo)['matriculas'],
+            'matriculas': obter_dados_por_tipo('qualificacao_iti', 'presencial')['matriculas'],
         }
     },
     'aprendizagem_tec': {
         'presencial': {
-            'matriculas': obter_dados_por_tipo('aprendizagem_tec', 'presencial', arquivo)['matriculas'],
+            'matriculas': obter_dados_por_tipo('aprendizagem_tec', 'presencial')['matriculas'],
         }
     },
     'tecnico_nm': {
         'presencial': {
-            'matriculas': obter_dados_por_tipo('tecnico_nm', 'presencial', arquivo)['matriculas'],
+            'matriculas': obter_dados_por_tipo('tecnico_nm', 'presencial')['matriculas'],
         },
         'distancia': {
-            'matriculas': obter_dados_por_tipo('tecnico_nm', 'distancia', arquivo)['matriculas'],
+            'matriculas': obter_dados_por_tipo('tecnico_nm', 'distancia')['matriculas'],
         }
     },
     'tecnico_nm_iti': {
         'presencial': {
-            'matriculas': obter_dados_por_tipo('tecnico_nm_iti', 'presencial', arquivo)['matriculas'],
+            'matriculas': obter_dados_por_tipo('tecnico_nm_iti', 'presencial')['matriculas'],
         }
     }
 }

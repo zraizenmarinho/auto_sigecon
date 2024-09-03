@@ -1,29 +1,29 @@
-import pandas as pd
-import dask.dataframe as dd
+from supabase import create_client, Client
 
-arquivo = 'si_jan.xlsx'
+url = "https://rrlcjzoliigmswfbnzgz.supabase.co"
+key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJybGNqem9saWlnbXN3ZmJuemd6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjUzNzEwODQsImV4cCI6MjA0MDk0NzA4NH0.O9QG-fope78SqhveVEwDzwU37ZZjOMTf__m7zbsAY3w"
 
-def obter_matriculas(file_path, unidade, modalidade, tipo_acao, chave_prefixo):
+supabase: Client = create_client(url, key)
+
+def obter_matriculas(unidade, modalidade, tipo_acao, chave_prefixo):
     class MatriculasPorTipoFinanciamento:
-        def __init__(self, file_path):
-            pandas_df = pd.read_excel(file_path)
-            self.data = dd.from_pandas(pandas_df, npartitions=1)
+        def __init__(self, supabase_client):
+            self.supabase = supabase_client
         
         def contar_matriculas(self, unidade, modalidade, tipo_acao, mes_rela, mes_referencia, anos_referencia, tipo_financiamento):
-            filtros = (
-                (self.data['UNIDADE_ATENDIMENTO'] == unidade) &
-                (self.data['MODALIDADE'] == modalidade) &
-                (self.data['TIPO_ACAO'] == tipo_acao) &
-                (self.data['MES_REFERENCIA'].astype(str).isin([mes_rela])) &
-                (self.data['DT_ENTRADA_MÊS'].astype(str).isin([mes_referencia])) &
-                (self.data['DT_ENTRADA_ANO'].astype(str).isin([anos_referencia])) &
-                (self.data['TIPO_FINANCIAMENTO'] == tipo_financiamento)
-            )
-
-            base_filtrada = self.data[filtros].compute()
-            return len(base_filtrada)
+            response = self.supabase.table("si_ep").select("*") \
+                .eq("UNIDADE_ATENDIMENTO", unidade) \
+                .eq("MODALIDADE", modalidade) \
+                .eq("TIPO_ACAO", tipo_acao) \
+                .eq("MES_REFERENCIA", mes_rela) \
+                .eq("DT_ENTRADA_MÊS", mes_referencia) \
+                .eq("DT_ENTRADA_ANO", anos_referencia) \
+                .eq("TIPO_FINANCIAMENTO", tipo_financiamento) \
+                .execute()
+            data = response.data
+            return len(data)
         
-    matriculas_por_tipo = MatriculasPorTipoFinanciamento(file_path)
+    matriculas_por_tipo = MatriculasPorTipoFinanciamento(supabase)
 
     meses = {
         'fev': '2',
@@ -50,66 +50,67 @@ def obter_matriculas(file_path, unidade, modalidade, tipo_acao, chave_prefixo):
     
     return resultados_mat
 
-def obter_matriculas_iniciacao_presencial_tag(file_path):
-    return obter_matriculas(file_path, '1117374 SENAI Gama', '5 Iniciação Profissional', '1 Presencial', 'inicia_presen_mat')
 
-def obter_matriculas_iniciacao_distancia_tag(file_path):
-    return obter_matriculas(file_path, '1117374 SENAI Gama', '5 Iniciação Profissional', '2 A distância', 'inicia_distan_mat')
+def obter_matriculas_iniciacao_presencial_gam():
+    return obter_matriculas('1117374 SENAI Gama', '5 Iniciação Profissional', '1 Presencial', 'inicia_presen_mat')
 
-def obter_matriculas_aprendizagem_presencial_tag(file_path):
-    return obter_matriculas(file_path, '1117374 SENAI Gama', '11 Aprendizagem Industrial básica', '1 Presencial', 'aprendi_presen_mat')
+def obter_matriculas_iniciacao_distancia_gam():
+    return obter_matriculas('1117374 SENAI Gama', '5 Iniciação Profissional', '2 A distância', 'inicia_distan_mat')
 
-def obter_matriculas_qualificacao_presencial_tag(file_path):
-    return obter_matriculas(file_path, '1117374 SENAI Gama', '21 Qualificação Profissional', '1 Presencial', 'qualifi_presen_mat')
+def obter_matriculas_aprendizagem_presencial_gam():
+    return obter_matriculas('1117374 SENAI Gama', '11 Aprendizagem Industrial básica', '1 Presencial', 'aprendi_presen_mat')
 
-def obter_matriculas_aprendizagem_distancia_tag(file_path):
-    return obter_matriculas(file_path, '1117374 SENAI Gama', '11 Aprendizagem Industrial básica', '2 A distância', 'aprendi_distan_mat')
+def obter_matriculas_qualificacao_presencial_gam():
+    return obter_matriculas('1117374 SENAI Gama', '21 Qualificação Profissional', '1 Presencial', 'qualifi_presen_mat')
 
-def obter_matriculas_qualificacao_distancia_tag(file_path):
-    return obter_matriculas(file_path, '1117374 SENAI Gama', '21 Qualificação Profissional', '2 A distância', 'qualifi_distan_mat')
+def obter_matriculas_aprendizagem_distancia_gam():
+    return obter_matriculas('1117374 SENAI Gama', '11 Aprendizagem Industrial básica', '2 A distância', 'aprendi_distan_mat')
 
-def obter_matriculas_aperfeicoamento_presencial_tag(file_path):
-    return obter_matriculas(file_path, '1117374 SENAI Gama', '58 Aperfeiçoamento/Especialização Profissional', '1 Presencial', 'aperfei_presen_mat')
+def obter_matriculas_qualificacao_distancia_gam():
+    return obter_matriculas('1117374 SENAI Gama', '21 Qualificação Profissional', '2 A distância', 'qualifi_distan_mat')
 
-def obter_matriculas_aperfeicoamento_distancia_tag(file_path):
-    return obter_matriculas(file_path, '1117374 SENAI Gama', '58 Aperfeiçoamento/Especialização Profissional', '2 A distância', 'aperfei_distan_mat')
+def obter_matriculas_aperfeicoamento_presencial_gam():
+    return obter_matriculas('1117374 SENAI Gama', '58 Aperfeiçoamento/Especialização Profissional', '1 Presencial', 'aperfei_presen_mat')
 
-def obter_matriculas_qualificacao_itine_presencial_tag(file_path):
-    return obter_matriculas(file_path, '1117374 SENAI Gama', '22 Qualificação Profissional - Itinerário V Ensino Médio', '1 Presencial', 'qualifi_iti_presen_mat')
+def obter_matriculas_aperfeicoamento_distancia_gam():
+    return obter_matriculas('1117374 SENAI Gama', '58 Aperfeiçoamento/Especialização Profissional', '2 A distância', 'aperfei_distan_mat')
 
-def obter_matriculas_aprendizagem_tecnica_presencial_tag(file_path):
-    return obter_matriculas(file_path, '1117374 SENAI Gama', '15 Aprendizagem Industrial Técnica de Nível Médio', '1 Presencial', 'aprendi_tec_presen_mat')
+def obter_matriculas_qualificacao_itine_presencial_gam():
+    return obter_matriculas('1117374 SENAI Gama', '22 Qualificação Profissional - Itinerário V Ensino Médio', '1 Presencial', 'qualifi_iti_presen_mat')
 
-def obter_matriculas_tecnico_presencial_tag(file_path):
-    return obter_matriculas(file_path, '1117374 SENAI Gama', '31 Técnico de Nível Médio', '1 Presencial', 'tecni_presen_mat')
+def obter_matriculas_aprendizagem_tecnica_presencial_gam():
+    return obter_matriculas('1117374 SENAI Gama', '15 Aprendizagem Industrial Técnica de Nível Médio', '1 Presencial', 'aprendi_tec_presen_mat')
 
-def obter_matriculas_tecnico_distancia_tag(file_path):
-    return obter_matriculas(file_path, '1117374 SENAI Gama', '31 Técnico de Nível Médio', '2 A distância', 'tecni_distan_mat')
+def obter_matriculas_tecnico_presencial_gam():
+    return obter_matriculas('1117374 SENAI Gama', '31 Técnico de Nível Médio', '1 Presencial', 'tecni_presen_mat')
 
-def obter_matriculas_tecnico_iti_presencial_tag(file_path):
-    return obter_matriculas(file_path, '1117374 SENAI Gama', '32 Técnico de Nível Médio - Itinerário V Ensino Médio', '1 Presencial', 'tecni_iti_presen_mat')
+def obter_matriculas_tecnico_distancia_gam():
+    return obter_matriculas('1117374 SENAI Gama', '31 Técnico de Nível Médio', '2 A distância', 'tecni_distan_mat')
+
+def obter_matriculas_tecnico_iti_presencial_gam():
+    return obter_matriculas('1117374 SENAI Gama', '32 Técnico de Nível Médio - Itinerário V Ensino Médio', '1 Presencial', 'tecni_iti_presen_mat')
 
 funcoes_mat = {
     
     'matriculas': {
-        'iniciacao_presencial': obter_matriculas_iniciacao_presencial_tag,
-        'iniciacao_distancia': obter_matriculas_iniciacao_distancia_tag,
-        'aprendizagem_presencial': obter_matriculas_aprendizagem_presencial_tag,
-        'qualificacao_presencial': obter_matriculas_qualificacao_presencial_tag,
-        'aprendizagem_distancia': obter_matriculas_aprendizagem_distancia_tag,
-        'qualificacao_distancia': obter_matriculas_qualificacao_distancia_tag,
-        'aperfeicoamento_presencial': obter_matriculas_aperfeicoamento_presencial_tag,
-        'aperfeicoamento_distancia': obter_matriculas_aperfeicoamento_distancia_tag,
-        'qualificacao_iti_presencial': obter_matriculas_tecnico_iti_presencial_tag,
-        'aprendizagem_tec_presencial': obter_matriculas_aprendizagem_tecnica_presencial_tag,
-        'tecnico_nm_presencial': obter_matriculas_tecnico_presencial_tag,
-        'tecnico_nm_distancia': obter_matriculas_tecnico_distancia_tag,
-        'tecnico_nm_iti_presencial': obter_matriculas_tecnico_iti_presencial_tag
+        'iniciacao_presencial': obter_matriculas_iniciacao_presencial_gam,
+        'iniciacao_distancia': obter_matriculas_iniciacao_distancia_gam,
+        'aprendizagem_presencial': obter_matriculas_aprendizagem_presencial_gam,
+        'qualificacao_presencial': obter_matriculas_qualificacao_presencial_gam,
+        'aprendizagem_distancia': obter_matriculas_aprendizagem_distancia_gam,
+        'qualificacao_distancia': obter_matriculas_qualificacao_distancia_gam,
+        'aperfeicoamento_presencial': obter_matriculas_aperfeicoamento_presencial_gam,
+        'aperfeicoamento_distancia': obter_matriculas_aperfeicoamento_distancia_gam,
+        'qualificacao_iti_presencial': obter_matriculas_tecnico_iti_presencial_gam,
+        'aprendizagem_tec_presencial': obter_matriculas_aprendizagem_tecnica_presencial_gam,
+        'tecnico_nm_presencial': obter_matriculas_tecnico_presencial_gam,
+        'tecnico_nm_distancia': obter_matriculas_tecnico_distancia_gam,
+        'tecnico_nm_iti_presencial': obter_matriculas_tecnico_iti_presencial_gam
     },
 }
 
-def obter_dados_por_tipo(categoria, tipo, arquivo):
+def obter_dados_por_tipo(categoria, tipo):
     chave = f"{categoria}_{tipo}"
     return {
-        'matriculas': funcoes_mat['matriculas'][chave](arquivo), 
+        'matriculas': funcoes_mat['matriculas'][chave](), 
     }

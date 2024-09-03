@@ -1,37 +1,37 @@
-import pandas as pd
-import dask.dataframe as dd
+from supabase import create_client, Client
 
-arquivo = 'si_jan.xlsx'
+url = "https://rrlcjzoliigmswfbnzgz.supabase.co"
+key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJybGNqem9saWlnbXN3ZmJuemd6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjUzNzEwODQsImV4cCI6MjA0MDk0NzA4NH0.O9QG-fope78SqhveVEwDzwU37ZZjOMTf__m7zbsAY3w"
 
 class MatriculasPorTipoFinanciamentoJan:
-    def __init__(self, file_path):
-        pandas_df = pd.read_excel(file_path)
-        self.data = dd.from_pandas(pandas_df, npartitions=1)
+    def __init__(self, supabase_client: Client):
+        self.supabase = supabase_client
     
-    def contar_matriculas_jan(self, unidade, modalidade, tipo_acao, mes_rela, mes_referencia, anos_referencia, tipo_financiamento):
-        filtro_uni = self.data['UNIDADE_ATENDIMENTO'] == unidade
-        filtro_mod = self.data['MODALIDADE'] == modalidade
-        filtro_tipo = self.data['TIPO_ACAO'] == tipo_acao
-        filtro_mes_rel = self.data['MES_REFERENCIA'].astype(str).isin([mes_rela])
-        filtro_mes = self.data['DT_ENTRADA_MÊS'].astype(str).isin(mes_referencia)
-        filtro_ano = self.data['DT_ENTRADA_ANO'].astype(str).isin(anos_referencia)
-        filtro_finan = self.data['TIPO_FINANCIAMENTO'] == tipo_financiamento
-        
-        base_filtrada = self.data[filtro_uni & filtro_mod & filtro_tipo & filtro_mes_rel & filtro_mes & filtro_ano & filtro_finan].compute()
+    def contar_matriculas(self, unidade, modalidade, tipo_acao, mes_rela, mes_referencia, anos_referencia, tipo_financiamento):
+        response = self.supabase.table("si_ep").select("*") \
+            .eq("UNIDADE_ATENDIMENTO", unidade) \
+            .eq("MODALIDADE", modalidade) \
+            .eq("TIPO_ACAO", tipo_acao) \
+            .eq("MES_REFERENCIA", mes_rela) \
+            .in_("DT_ENTRADA_MÊS", mes_referencia) \
+            .in_("DT_ENTRADA_ANO", anos_referencia) \
+            .eq("TIPO_FINANCIAMENTO", tipo_financiamento) \
+            .execute()
+        data = response.data
+        return len(data)
 
-        return len(base_filtrada)
-
-def obter_matriculas_por_tipo_jan(file_path, unidade ,modalidade, tipo_acao):
-    matriculas_por_tipo = MatriculasPorTipoFinanciamentoJan(file_path)
+def obter_matriculas_por_tipo_jan(supabase_url, supabase_key, unidade, modalidade, tipo_acao):
+    supabase_client = create_client(supabase_url, supabase_key)
+    matriculas_por_tipo = MatriculasPorTipoFinanciamentoJan(supabase_client)
 
     mes_rela = '12024'
     mes_referencia = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']
     anos_referencia = ['2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024']
     
-    jan_mat_regi = matriculas_por_tipo.contar_matriculas_jan(unidade, modalidade, tipo_acao, mes_rela, mes_referencia, anos_referencia, '1 Gratuidade Regimental')
-    jan_mat_bolsa = matriculas_por_tipo.contar_matriculas_jan(unidade, modalidade, tipo_acao, mes_rela, mes_referencia, anos_referencia, '2 Gratuidade Não Regimental')
-    jan_mat_convenio = matriculas_por_tipo.contar_matriculas_jan(unidade, modalidade, tipo_acao, mes_rela, mes_referencia, anos_referencia, '3 Convênio')
-    jan_mat_n_gratuita = matriculas_por_tipo.contar_matriculas_jan(unidade, modalidade, tipo_acao, mes_rela, mes_referencia, anos_referencia, '9 Pago por Pessoa Fisica ou Empresa')
+    jan_mat_regi = matriculas_por_tipo.contar_matriculas(unidade, modalidade, tipo_acao, mes_rela, mes_referencia, anos_referencia, '1 Gratuidade Regimental')
+    jan_mat_bolsa = matriculas_por_tipo.contar_matriculas(unidade, modalidade, tipo_acao, mes_rela, mes_referencia, anos_referencia, '2 Gratuidade Não Regimental')
+    jan_mat_convenio = matriculas_por_tipo.contar_matriculas(unidade, modalidade, tipo_acao, mes_rela, mes_referencia, anos_referencia, '3 Convênio')
+    jan_mat_n_gratuita = matriculas_por_tipo.contar_matriculas(unidade, modalidade, tipo_acao, mes_rela, mes_referencia, anos_referencia, '9 Pago por Pessoa Fisica ou Empresa')
 
     return {
         "jan_mat_regi": jan_mat_regi,
@@ -40,18 +40,16 @@ def obter_matriculas_por_tipo_jan(file_path, unidade ,modalidade, tipo_acao):
         "jan_mat_n_gratuita": jan_mat_n_gratuita
     }
 
-
-gam_iniciacao_presencial = obter_matriculas_por_tipo_jan('si_jan.xlsx', '1117374 SENAI Gama', '5 Iniciação Profissional', '1 Presencial')
-gam_iniciacao_distancia = obter_matriculas_por_tipo_jan('si_jan.xlsx','1117374 SENAI Gama','5 Iniciação Profissional', '2 A distância')
-gam_aprendizagem_presencial = obter_matriculas_por_tipo_jan('si_jan.xlsx','1117374 SENAI Gama','11 Aprendizagem Industrial básica', '1 Presencial')
-gam_qualificacao_presencial = obter_matriculas_por_tipo_jan('si_jan.xlsx','1117374 SENAI Gama','21 Qualificação Profissional', '1 Presencial')
-gam_aprendizagem_distancia = obter_matriculas_por_tipo_jan('si_jan.xlsx','1117374 SENAI Gama','11 Aprendizagem Industrial básica', '2 A distância')
-gam_qualificacao_distancia = obter_matriculas_por_tipo_jan('si_jan.xlsx','1117374 SENAI Gama','21 Qualificação Profissional', '2 A distância')
-gam_aperfeicoamento_presencial = obter_matriculas_por_tipo_jan('si_jan.xlsx','1117374 SENAI Gama','58 Aperfeiçoamento/Especialização Profissional', '1 Presencial')
-gam_aperfeicoamento_distancia = obter_matriculas_por_tipo_jan('si_jan.xlsx','1117374 SENAI Gama','58 Aperfeiçoamento/Especialização Profissional', '2 A distância')
-gam_qualificacao_iti_presencial = obter_matriculas_por_tipo_jan('si_jan.xlsx','1117374 SENAI Gama','22 Qualificação Profissional - Itinerário V Ensino Médio', '1 Presencial')
-gam_aprendizagem_tec = obter_matriculas_por_tipo_jan('si_jan.xlsx','1117374 SENAI Gama','15 Aprendizagem Industrial Técnica de Nível Médio', '1 Presencial')
-gam_tecnico_presencial = obter_matriculas_por_tipo_jan('si_jan.xlsx','1117374 SENAI Gama','31 Técnico de Nível Médio', '1 Presencial')
-gam_tecnico_distancia = obter_matriculas_por_tipo_jan('si_jan.xlsx','1117374 SENAI Gama','31 Técnico de Nível Médio', '2 A distância')
-gam_tecnico_iti_presencial = obter_matriculas_por_tipo_jan('si_jan.xlsx','1117374 SENAI Gama','32 Técnico de Nível Médio - Itinerário V Ensino Médio', '1 Presencial')
-
+gam_iniciacao_presencial = obter_matriculas_por_tipo_jan(url, key, '1117374 SENAI Gama', '5 Iniciação Profissional', '1 Presencial')
+gam_iniciacao_distancia = obter_matriculas_por_tipo_jan(url, key, '1117374 SENAI Gama', '5 Iniciação Profissional', '2 A distância')
+gam_aprendizagem_presencial = obter_matriculas_por_tipo_jan(url, key, '1117374 SENAI Gama', '11 Aprendizagem Industrial básica', '1 Presencial')
+gam_qualificacao_presencial = obter_matriculas_por_tipo_jan(url, key, '1117374 SENAI Gama', '21 Qualificação Profissional', '1 Presencial')
+gam_aprendizagem_distancia = obter_matriculas_por_tipo_jan(url, key, '1117374 SENAI Gama', '11 Aprendizagem Industrial básica', '2 A distância')
+gam_qualificacao_distancia = obter_matriculas_por_tipo_jan(url, key, '1117374 SENAI Gama', '21 Qualificação Profissional', '2 A distância')
+gam_aperfeicoamento_presencial = obter_matriculas_por_tipo_jan(url, key, '1117374 SENAI Gama', '58 Aperfeiçoamento/Especialização Profissional', '1 Presencial')
+gam_aperfeicoamento_distancia = obter_matriculas_por_tipo_jan(url, key, '1117374 SENAI Gama', '58 Aperfeiçoamento/Especialização Profissional', '2 A distância')
+gam_qualificacao_iti_presencial = obter_matriculas_por_tipo_jan(url, key, '1117374 SENAI Gama', '22 Qualificação Profissional - Itinerário V Ensino Médio', '1 Presencial')
+gam_aprendizagem_tec = obter_matriculas_por_tipo_jan(url, key, '1117374 SENAI Gama', '15 Aprendizagem Industrial Técnica de Nível Médio', '1 Presencial')
+gam_tecnico_presencial = obter_matriculas_por_tipo_jan(url, key, '1117374 SENAI Gama', '31 Técnico de Nível Médio', '1 Presencial')
+gam_tecnico_distancia = obter_matriculas_por_tipo_jan(url, key, '1117374 SENAI Gama', '31 Técnico de Nível Médio', '2 A distância')
+gam_tecnico_iti_presencial = obter_matriculas_por_tipo_jan(url, key, '1117374 SENAI Gama', '32 Técnico de Nível Médio - Itinerário V Ensino Médio', '1 Presencial')
