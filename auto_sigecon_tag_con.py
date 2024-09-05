@@ -13,57 +13,57 @@ arquivo = 'si_jan.xlsx'
 dados = {
     'iniciacao': {
         'presencial': {
-            'concluintes': obter_dados_por_tipo('iniciacao', 'presencial', arquivo)['concluintes'],
+            'concluintes': obter_dados_por_tipo('iniciacao', 'presencial')['concluintes'],
         },
         'distancia': {
-            'concluintes': obter_dados_por_tipo('iniciacao', 'distancia', arquivo)['concluintes'],
+            'concluintes': obter_dados_por_tipo('iniciacao', 'distancia')['concluintes'],
         }
     },
     'aprendizagem': {
         'presencial': {
-            'concluintes': obter_dados_por_tipo('aprendizagem', 'presencial', arquivo)['concluintes'],
+            'concluintes': obter_dados_por_tipo('aprendizagem', 'presencial')['concluintes'],
         },
         'distancia': {
-            'concluintes': obter_dados_por_tipo('aprendizagem', 'distancia', arquivo)['concluintes'],
+            'concluintes': obter_dados_por_tipo('aprendizagem', 'distancia')['concluintes'],
         }
     },
     'qualificacao': {
         'presencial': {
-            'concluintes': obter_dados_por_tipo('qualificacao', 'presencial', arquivo)['concluintes'],
+            'concluintes': obter_dados_por_tipo('qualificacao', 'presencial')['concluintes'],
         },
         'distancia': {
-            'concluintes': obter_dados_por_tipo('qualificacao', 'distancia', arquivo)['concluintes'],
+            'concluintes': obter_dados_por_tipo('qualificacao', 'distancia')['concluintes'],
         }
     },
     'aperfeicoamento': {
         'presencial': {
-            'concluintes': obter_dados_por_tipo('aperfeicoamento', 'presencial', arquivo)['concluintes'],
+            'concluintes': obter_dados_por_tipo('aperfeicoamento', 'presencial')['concluintes'],
         },
         'distancia': {
-            'concluintes': obter_dados_por_tipo('aperfeicoamento', 'distancia', arquivo)['concluintes'],
+            'concluintes': obter_dados_por_tipo('aperfeicoamento', 'distancia')['concluintes'],
         }
     },
     'qualificacao_iti': {
         'presencial': {
-            'concluintes': obter_dados_por_tipo('qualificacao_iti', 'presencial', arquivo)['concluintes'],
+            'concluintes': obter_dados_por_tipo('qualificacao_iti', 'presencial')['concluintes'],
         }
     },
     'aprendizagem_tec': {
         'presencial': {
-            'concluintes': obter_dados_por_tipo('aprendizagem_tec', 'presencial', arquivo)['concluintes'],
+            'concluintes': obter_dados_por_tipo('aprendizagem_tec', 'presencial')['concluintes'],
         }
     },
     'tecnico_nm': {
         'presencial': {
-            'concluintes': obter_dados_por_tipo('tecnico_nm', 'presencial', arquivo)['concluintes'],
+            'concluintes': obter_dados_por_tipo('tecnico_nm', 'presencial')['concluintes'],
         },
         'distancia': {
-            'concluintes': obter_dados_por_tipo('tecnico_nm', 'distancia', arquivo)['concluintes'],
+            'concluintes': obter_dados_por_tipo('tecnico_nm', 'distancia')['concluintes'],
         }
     },
     'tecnico_nm_iti': {
         'presencial': {
-            'concluintes': obter_dados_por_tipo('tecnico_nm_iti', 'presencial', arquivo)['concluintes'],
+            'concluintes': obter_dados_por_tipo('tecnico_nm_iti', 'presencial')['concluintes'],
         }
     }
 }

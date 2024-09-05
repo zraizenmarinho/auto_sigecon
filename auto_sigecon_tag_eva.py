@@ -13,57 +13,57 @@ arquivo = 'si_jan.xlsx'
 dados = {
     'iniciacao': {
         'presencial': {
-            'evadidos': obter_dados_por_tipo('iniciacao', 'presencial', arquivo)['evadidos'],
+            'evadidos': obter_dados_por_tipo('iniciacao', 'presencial')['evadidos'],
         },
         'distancia': {
-            'evadidos': obter_dados_por_tipo('iniciacao', 'distancia', arquivo)['evadidos'],
+            'evadidos': obter_dados_por_tipo('iniciacao', 'distancia')['evadidos'],
         }
     },
     'aprendizagem': {
         'presencial': {
-            'evadidos': obter_dados_por_tipo('aprendizagem', 'presencial', arquivo)['evadidos'],
+            'evadidos': obter_dados_por_tipo('aprendizagem', 'presencial')['evadidos'],
         },
         'distancia': {
-            'evadidos': obter_dados_por_tipo('aprendizagem', 'distancia', arquivo)['evadidos'],
+            'evadidos': obter_dados_por_tipo('aprendizagem', 'distancia')['evadidos'],
         }
     },
     'qualificacao': {
         'presencial': {
-            'evadidos': obter_dados_por_tipo('qualificacao', 'presencial', arquivo)['evadidos'],
+            'evadidos': obter_dados_por_tipo('qualificacao', 'presencial')['evadidos'],
         },
         'distancia': {
-            'evadidos': obter_dados_por_tipo('qualificacao', 'distancia', arquivo)['evadidos'],
+            'evadidos': obter_dados_por_tipo('qualificacao', 'distancia')['evadidos'],
         }
     },
     'aperfeicoamento': {
         'presencial': {
-            'evadidos': obter_dados_por_tipo('aperfeicoamento', 'presencial', arquivo)['evadidos'],
+            'evadidos': obter_dados_por_tipo('aperfeicoamento', 'presencial')['evadidos'],
         },
         'distancia': {
-            'evadidos': obter_dados_por_tipo('aperfeicoamento', 'distancia', arquivo)['evadidos'],
+            'evadidos': obter_dados_por_tipo('aperfeicoamento', 'distancia')['evadidos'],
         }
     },
     'qualificacao_iti': {
         'presencial': {
-            'evadidos': obter_dados_por_tipo('qualificacao_iti', 'presencial', arquivo)['evadidos'],
+            'evadidos': obter_dados_por_tipo('qualificacao_iti', 'presencial')['evadidos'],
         }
     },
     'aprendizagem_tec': {
         'presencial': {
-            'evadidos': obter_dados_por_tipo('aprendizagem_tec', 'presencial', arquivo)['evadidos'],
+            'evadidos': obter_dados_por_tipo('aprendizagem_tec', 'presencial')['evadidos'],
         }
     },
     'tecnico_nm': {
         'presencial': {
-            'evadidos': obter_dados_por_tipo('tecnico_nm', 'presencial', arquivo)['evadidos'],
+            'evadidos': obter_dados_por_tipo('tecnico_nm', 'presencial')['evadidos'],
         },
         'distancia': {
-            'evadidos': obter_dados_por_tipo('tecnico_nm', 'distancia', arquivo)['evadidos'],
+            'evadidos': obter_dados_por_tipo('tecnico_nm', 'distancia')['evadidos'],
         }
     },
     'tecnico_nm_iti': {
         'presencial': {
-            'evadidos': obter_dados_por_tipo('tecnico_nm_iti', 'presencial', arquivo)['evadidos'],
+            'evadidos': obter_dados_por_tipo('tecnico_nm_iti', 'presencial')['evadidos'],
         }
     }
 }

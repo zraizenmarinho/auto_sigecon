@@ -112,7 +112,7 @@ e_entrar.click()
 #################################################################   Elemento unidade SENAI TAGUATINGA ###################################################################################
 
 e_uni_tag1 = WebDriverWait(nav, 15).until(EC.visibility_of_element_located(
-    (By.PARTIAL_LINK_TEXT, 'Senai Taguatinga')))
+    (By.PARTIAL_LINK_TEXT, 'Senai Gama')))
 e_uni_tag1.click()
 
 ################################################################   Elemento CR INICIACAO PROFISSIONAL PRESENCIAL ########################################################################
@@ -133,14 +133,14 @@ nav.execute_script("arguments[0].click();", e_ficha_prod)
 ################################################################   Elemento GRUPO DE META ###############################################################################################
 
 e_grupo_meta = WebDriverWait(nav, 30).until(EC.visibility_of_element_located(
-    (By.XPATH, "//a[@href='/SIGECON20/Metas/MetasTipo/309/2024/0902030201/229?cd_centro_resp=30303010101&nm_unidade=SENAI%20TAGUATINGA&nm_centro_resp=INICIACAO%20PROFISSIONAL%20PRESENCIAL&id_grupo=1&ds_grupo=Inicia%C3%A7%C3%A3o%20Profissional&fase=Realiza%C3%A7%C3%A3o']"
+    (By.XPATH, "//a[@href='/SIGECON20/Metas/MetasTipo/309/2024/0902030202/211?cd_centro_resp=30303010101&nm_unidade=SENAI%20GAMA&nm_centro_resp=INICIACAO%20PROFISSIONAL%20PRESENCIAL&id_grupo=1&ds_grupo=Inicia%C3%A7%C3%A3o%20Profissional&fase=Realiza%C3%A7%C3%A3o']"
 )))
 
 nav.execute_script("arguments[0].scrollIntoView(true);", e_grupo_meta)
 
 e_grupo_meta.click()
 
-# SENAI TAGUATINGA - 30303010101 - INICIACAO PROFISSIONAL PRESENCIAL 
+#  30303010101 - INICIACAO PROFISSIONAL PRESENCIAL 
 
 ################################################################   Concluintes BOLSA ####################################################################################################
 
@@ -223,7 +223,7 @@ for i, (mes, campo_dado) in enumerate(meses):
 
 janela_atual = nav.current_window_handle
 
-nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030201/225?cd_centro_resp=30303010201&nm_unidade=SENAI%20TAGUATINGA&nm_centro_resp=INICIACAO%20PROFISSIONAL%20A%20DISTANCIA&id_grupo=1&ds_grupo=Inicia%C3%A7%C3%A3o%20Profissional&fase=Realiza%C3%A7%C3%A3o')")
+nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030202/212?cd_centro_resp=30303010201&nm_unidade=SENAI%20GAMA&nm_centro_resp=INICIACAO%20PROFISSIONAL%20A%20DISTANCIA&id_grupo=1&ds_grupo=Inicia%C3%A7%C3%A3o%20Profissional&fase=Realiza%C3%A7%C3%A3o')")
 
 nav.switch_to.window(nav.window_handles[-1])
 
@@ -234,7 +234,7 @@ nav.switch_to.window(nav.window_handles[0])
 
 nav.refresh()
 
-# SENAI TAGUATINGA - 30303010201 - INICIACAO PROFISSIONAL A DISTANCIA Concluintes BOLSA ##################################################################################################
+#  30303010201 - INICIACAO PROFISSIONAL A DISTANCIA Concluintes BOLSA ##################################################################################################
 
 nav.refresh()
 
@@ -272,7 +272,7 @@ for i, (mes, campo_dado) in enumerate(meses):
     con_ipd_bolsa_mes.send_keys(Keys.ENTER)
 
 
-# SENAI TAGUATINGA - 30303010201 - INICIACAO PROFISSIONAL A DISTANCIA Concluintes NAO GRATUITA
+#  30303010201 - INICIACAO PROFISSIONAL A DISTANCIA Concluintes NAO GRATUITA
 
 nav.refresh()
 
@@ -317,7 +317,7 @@ from selenium import webdriver
 
 janela_atual = nav.current_window_handle
 
-nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030201/230?cd_centro_resp=30303020101&nm_unidade=SENAI%20TAGUATINGA&nm_centro_resp=APRENDIZAGEM%20INDUSTRIAL%20PRESENCIAL&id_grupo=2&ds_grupo=Aprendizagem%20Industrial&fase=Realiza%C3%A7%C3%A3o')")
+nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030202/213?cd_centro_resp=30303020101&nm_unidade=SENAI%20GAMA&nm_centro_resp=APRENDIZAGEM%20INDUSTRIAL%20PRESENCIAL&id_grupo=2&ds_grupo=Aprendizagem%20Industrial&fase=Realiza%C3%A7%C3%A3o')")
 
 nav.switch_to.window(nav.window_handles[-1])
 
@@ -327,7 +327,7 @@ nav.close()
 nav.switch_to.window(nav.window_handles[0])
 
 
-# SENAI TAGUATINGA - 30303020101 - APRENDIZAGEM INDUSTRIAL PRESENCIAL Concluintes NAO GRATUITA
+#  30303020101 - APRENDIZAGEM INDUSTRIAL PRESENCIAL Concluintes NAO GRATUITA
 
 nav.refresh()
 
@@ -361,7 +361,7 @@ for i, (mes, campo_dado) in enumerate(meses):
     app_ng_con.send_keys(str(con_aprendizagem_presencial_ng))
     app_ng_con.send_keys(Keys.ENTER)
 
-# SENAI TAGUATINGA - 30303020101 - APRENDIZAGEM INDUSTRIAL PRESENCIAL Concluintes REGIMENTAL
+#  30303020101 - APRENDIZAGEM INDUSTRIAL PRESENCIAL Concluintes REGIMENTAL
 
 nav.refresh()
 
@@ -399,13 +399,13 @@ for i, (mes, campo_dado) in enumerate(meses):
     app_regimental_con.send_keys(Keys.ENTER)
 
 
-# SENAI TAGUATINGA - 30303020201 - QUALIFICACAO PROFISSIONAL PRESENCIAL Concluintes CONVENIO
+#  30303020201 - QUALIFICACAO PROFISSIONAL PRESENCIAL Concluintes CONVENIO
 
 from selenium import webdriver
 
 janela_atual = nav.current_window_handle
 
-nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030201/221?cd_centro_resp=30303020201&nm_unidade=SENAI%20TAGUATINGA&nm_centro_resp=QUALIFICACAO%20PROFISSIONAL%20PRESENCIAL&id_grupo=3&ds_grupo=Qualifica%C3%A7%C3%A3o%20Industrial&fase=Realiza%C3%A7%C3%A3o')")
+nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030202/214?cd_centro_resp=30303020201&nm_unidade=SENAI%20GAMA&nm_centro_resp=QUALIFICACAO%20PROFISSIONAL%20PRESENCIAL&id_grupo=3&ds_grupo=Qualifica%C3%A7%C3%A3o%20Industrial&fase=Realiza%C3%A7%C3%A3o')")
 
 nav.switch_to.window(nav.window_handles[-1])
 
@@ -448,7 +448,7 @@ for i, (mes, campo_dado) in enumerate(meses):
     qualifi_convenio_con.send_keys(str(con_qualificacao_presencial_convenio))
     qualifi_convenio_con.send_keys(Keys.ENTER)
 
-# SENAI TAGUATINGA - 30303020201 - QUALIFICACAO PROFISSIONAL PRESENCIAL Concluintes BOLSA
+#  30303020201 - QUALIFICACAO PROFISSIONAL PRESENCIAL Concluintes BOLSA
 
 nav.refresh()
 
@@ -557,65 +557,13 @@ for i, (mes, campo_dado) in enumerate(meses):
     quali_regime_con_con.send_keys(str(con_qualificacao_presencial_regimental))
     quali_regime_con_con.send_keys(Keys.ENTER)
 
-
-# SENAI TAGUATINGA - 30303020301 - APRENDIZAGEM INDUSTRIAL A DISTANCIA - REGIMENTAL
-
-from selenium import webdriver
-
-janela_atual = nav.current_window_handle
-
-nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030201/232?cd_centro_resp=30303020301&nm_unidade=SENAI%20TAGUATINGA&nm_centro_resp=APRENDIZAGEM%20INDUSTRIAL%20A%20DISTANCIA&id_grupo=2&ds_grupo=Aprendizagem%20Industrial&fase=Realiza%C3%A7%C3%A3o')")
-
-nav.switch_to.window(nav.window_handles[-1])
-
-nav.switch_to.window(janela_atual)
-nav.close()
-
-nav.switch_to.window(nav.window_handles[0])
-
-nav.refresh()
-
-meses = [
-    ("jan", "jan_aprendi_distan_con_1 Gratuidade Regimental"),
-    ("fev", "fev_aprendi_distan_con_1 Gratuidade Regimental"),
-    ("mar", "mar_aprendi_distan_con_1 Gratuidade Regimental"),
-    ("abr", "abr_aprendi_distan_con_1 Gratuidade Regimental"),
-    ("mai", "mai_aprendi_distan_con_1 Gratuidade Regimental"),
-    ("jun", "jun_aprendi_distan_con_1 Gratuidade Regimental"),
-    ("jul", "jul_aprendi_distan_con_1 Gratuidade Regimental"),
-    ("ago", "ago_aprendi_distan_con_1 Gratuidade Regimental"),
-    ("set", "set_aprendi_distan_con_1 Gratuidade Regimental"),
-    ("out", "out_aprendi_distan_con_1 Gratuidade Regimental"),
-    ("nov", "nov_aprendi_distan_con_1 Gratuidade Regimental"),
-    ("dez", "dez_aprendi_distan_con_1 Gratuidade Regimental")
-]
-
-for i, (mes, campo_dado) in enumerate(meses):
-
-    apre_regime_semi_con = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='5135'].indicador")))
-    apre_regime_semi_con.click()
-
-   
-    apre_regime_semi_con = WebDriverWait(nav, 15).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]")))
-
- 
-    chave_dado = f"{mes}_aprendi_distan_con_1 Gratuidade Regimental"
-    
-    
-    con_aprendizagem_distancia_regimental = dados['aprendizagem']['distancia']['concluintes'].get(chave_dado, 0)
-
-    apre_regime_semi_con.send_keys(str(con_aprendizagem_distancia_regimental))
-    apre_regime_semi_con.send_keys(Keys.ENTER)
-
-
-
-# SENAI TAGUATINGA - 30303020401 - QUALIFICACAO PROFISSIONAL SEMIPRESENCIAL - BOLSA
+#  30303020401 - QUALIFICACAO PROFISSIONAL SEMIPRESENCIAL - BOLSA
 
 from selenium import webdriver
 
 janela_atual = nav.current_window_handle
 
-nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030201/223?cd_centro_resp=30303020401&nm_unidade=SENAI%20TAGUATINGA&nm_centro_resp=QUALIFICACAO%20PROFISSIONAL%20SEMIPRESENCIAL&id_grupo=3&ds_grupo=Qualifica%C3%A7%C3%A3o%20Industrial&fase=Realiza%C3%A7%C3%A3o')")
+nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030202/215?cd_centro_resp=30303020401&nm_unidade=SENAI%20GAMA&nm_centro_resp=QUALIFICACAO%20PROFISSIONAL%20SEMIPRESENCIAL&id_grupo=3&ds_grupo=Qualifica%C3%A7%C3%A3o%20Industrial&fase=Realiza%C3%A7%C3%A3o')")
 
 nav.switch_to.window(nav.window_handles[-1])
 
@@ -659,7 +607,7 @@ for i, (mes, campo_dado) in enumerate(meses):
     qualifi_semi_bolsa_con.send_keys(str(con_qualifica_semi_bolsa))
     qualifi_semi_bolsa_con.send_keys(Keys.ENTER)
 
-# SENAI TAGUATINGA - 30303020401 - QUALIFICACAO PROFISSIONAL SEMIPRESENCIAL - NAO GRATUITA
+# 30303020401 - QUALIFICACAO PROFISSIONAL SEMIPRESENCIAL - NAO GRATUITA
 
 nav.refresh()
 
@@ -696,7 +644,7 @@ for i, (mes, campo_dado) in enumerate(meses):
     qualifi_semi_ng_con.send_keys(str(con_qualifica_semi_ng))
     qualifi_semi_ng_con.send_keys(Keys.ENTER)
 
-# SENAI TAGUATINGA - 30303020401 - QUALIFICACAO PROFISSIONAL SEMIPRESENCIAL - REGIMENTAL
+#  30303020401 - QUALIFICACAO PROFISSIONAL SEMIPRESENCIAL - REGIMENTAL
 
 nav.refresh()
 
@@ -732,13 +680,13 @@ for i, (mes, campo_dado) in enumerate(meses):
     qualifi_semi_regimental_con.send_keys(str(con_qualifica_semi_regimental))
     qualifi_semi_regimental_con.send_keys(Keys.ENTER)
     
-# SENAI TAGUATINGA - 30303020501 - APERF/ESPECIALIZ PROFISSIONAL PRESENCIAL - BOLSA
+#  30303020501 - APERF/ESPECIALIZ PROFISSIONAL PRESENCIAL - BOLSA
 
 from selenium import webdriver
 
 janela_atual = nav.current_window_handle
 
-nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030201/227?cd_centro_resp=30303020501&nm_unidade=SENAI%20TAGUATINGA&nm_centro_resp=APERF%2FESPECIALIZ%20PROFISSIONAL%20PRESENCIAL&id_grupo=5&ds_grupo=Aperfei%C3%A7oamento%20Profissional&fase=Realiza%C3%A7%C3%A3o')")
+nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030202/216?cd_centro_resp=30303020501&nm_unidade=SENAI%20GAMA&nm_centro_resp=APERF%2FESPECIALIZ%20PROFISSIONAL%20PRESENCIAL&id_grupo=5&ds_grupo=Aperfei%C3%A7oamento%20Profissional&fase=Realiza%C3%A7%C3%A3o')")
 
 nav.switch_to.window(nav.window_handles[-1])
 
@@ -783,7 +731,7 @@ for i, (mes, campo_dado) in enumerate(meses):
     aper_prese_bolsa_con.send_keys(Keys.ENTER)
 
 
-# SENAI TAGUATINGA - 30303020501 - APERF/ESPECIALIZ PROFISSIONAL PRESENCIAL - NAO GRATUITA
+#   30303020501 - APERF/ESPECIALIZ PROFISSIONAL PRESENCIAL - NAO GRATUITA
 
 nav.refresh()
 
@@ -820,7 +768,7 @@ for i, (mes, campo_dado) in enumerate(meses):
     aper_prese_ng_con.send_keys(Keys.ENTER)
 
 
-# SENAI TAGUATINGA - 30303020501 - APERF/ESPECIALIZ PROFISSIONAL PRESENCIAL - REGIMENTAL
+#  30303020501 - APERF/ESPECIALIZ PROFISSIONAL PRESENCIAL - REGIMENTAL
 
 
 nav.refresh()
@@ -859,7 +807,7 @@ for i, (mes, campo_dado) in enumerate(meses):
     aper_prese_regimental_con.send_keys(Keys.ENTER)
 
 
-# SENAI TAGUATINGA - 30303020501 - APERF/ESPECIALIZ PROFISSIONAL PRESENCIAL - CONVENIO
+#  30303020501 - APERF/ESPECIALIZ PROFISSIONAL PRESENCIAL - CONVENIO
 
 nav.refresh()
 
@@ -896,13 +844,13 @@ for i, (mes, campo_dado) in enumerate(meses):
     aper_prese_convenio_con.send_keys(str(con_aper_prese_convenio))
     aper_prese_convenio_con.send_keys(Keys.ENTER)
     
-# SENAI TAGUATINGA - 30303020601 - APERF/ESPECIALI PROFISSIONAL A DISTANCIA BOLSA
+#   30303020601 - APERF/ESPECIALI PROFISSIONAL A DISTANCIA BOLSA
 
 from selenium import webdriver
 
 janela_atual = nav.current_window_handle
 
-nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030201/231?cd_centro_resp=30303020601&nm_unidade=SENAI%20TAGUATINGA&nm_centro_resp=APERF%2FESPECIALI%20PROFISSIONAL%20A%20DISTANCIA&id_grupo=5&ds_grupo=Aperfei%C3%A7oamento%20Profissional&fase=Realiza%C3%A7%C3%A3o')")
+nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030202/217?cd_centro_resp=30303020601&nm_unidade=SENAI%20GAMA&nm_centro_resp=APERF%2FESPECIALI%20PROFISSIONAL%20A%20DISTANCIA&id_grupo=5&ds_grupo=Aperfei%C3%A7oamento%20Profissional&fase=Realiza%C3%A7%C3%A3o')")
 
 nav.switch_to.window(nav.window_handles[-1])
 
@@ -946,7 +894,7 @@ for i, (mes, campo_dado) in enumerate(meses):
     aper_dista_bolsa_con.send_keys(str(con_aper_distan_bolsa))
     aper_dista_bolsa_con.send_keys(Keys.ENTER)
 
-# SENAI TAGUATINGA - 30303020601 - APERF/ESPECIALI PROFISSIONAL A DISTANCIA NAO GRATUITA
+#   30303020601 - APERF/ESPECIALI PROFISSIONAL A DISTANCIA NAO GRATUITA
 
 nav.refresh()
 
@@ -982,7 +930,7 @@ for i, (mes, campo_dado) in enumerate(meses):
     aper_dista_ng_con.send_keys(str(con_aper_distan_ng))
     aper_dista_ng_con.send_keys(Keys.ENTER)
 
-# SENAI TAGUATINGA - 30303020601 - APERF/ESPECIALI PROFISSIONAL A DISTANCIA REGIMENTAL
+#  30303020601 - APERF/ESPECIALI PROFISSIONAL A DISTANCIA REGIMENTAL
 
 nav.refresh()
 
@@ -1017,13 +965,13 @@ for i, (mes, campo_dado) in enumerate(meses):
     aper_dista_regimental_con.send_keys(str(con_aper_distan_regimental))
     aper_dista_regimental_con.send_keys(Keys.ENTER)
 
-# SENAI TAGUATINGA - 30303020901 - QUALIFIC PROF PRESENC - ITINER V ENS MED - BOLSA
+#  30303020901 - QUALIFIC PROF PRESENC - ITINER V ENS MED - BOLSA
 
 from selenium import webdriver
 
 janela_atual = nav.current_window_handle
 
-nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030201/222?cd_centro_resp=30303020901&nm_unidade=SENAI%20TAGUATINGA&nm_centro_resp=QUALIFIC%20PROF%20PRESENC%20-%20ITINER%20V%20ENS%20MED&id_grupo=3&ds_grupo=Qualifica%C3%A7%C3%A3o%20Industrial&fase=Realiza%C3%A7%C3%A3o')")
+nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030202/218?cd_centro_resp=30303020901&nm_unidade=SENAI%20GAMA&nm_centro_resp=QUALIFIC%20PROF%20PRESENC%20-%20ITINER%20V%20ENS%20MED&id_grupo=3&ds_grupo=Qualifica%C3%A7%C3%A3o%20Industrial&fase=Realiza%C3%A7%C3%A3o')")
 
 nav.switch_to.window(nav.window_handles[-1])
 
@@ -1066,7 +1014,7 @@ for i, (mes, campo_dado) in enumerate(meses):
     qualifi_iti_presencial_bolsa_con.send_keys(Keys.ENTER)
 
 
-# SENAI TAGUATINGA - 30303020901 - QUALIFIC PROF PRESENC - ITINER V ENS MED - NAO GRATUITA
+#  30303020901 - QUALIFIC PROF PRESENC - ITINER V ENS MED - NAO GRATUITA
 
 nav.refresh()
 
@@ -1102,7 +1050,7 @@ for i, (mes, campo_dado) in enumerate(meses):
     qualifi_iti_presencial_ng_con.send_keys(Keys.ENTER)
 
 
-# SENAI TAGUATINGA - 30303020901 - QUALIFIC PROF PRESENC - ITINER V ENS MED - REGIMENTAL
+#  30303020901 - QUALIFIC PROF PRESENC - ITINER V ENS MED - REGIMENTAL
 
 nav.refresh()
 
@@ -1139,14 +1087,14 @@ for i, (mes, campo_dado) in enumerate(meses):
     qualifi_iti_presencial_regimental_con.send_keys(Keys.ENTER)
 
 
-# SENAI TAGUATINGA - 30303040101 - APREND. IND. TEC. NIVEL MEDIO PRESENCIAL - NAO GRATUITA
+#  30303040101 - APREND. IND. TEC. NIVEL MEDIO PRESENCIAL - NAO GRATUITA
 
 
 from selenium import webdriver
 
 janela_atual = nav.current_window_handle
 
-nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030201/226?cd_centro_resp=30303040101&nm_unidade=SENAI%20TAGUATINGA&nm_centro_resp=APREND.%20IND.%20TEC.%20NIVEL%20MEDIO%20PRESENCIAL&id_grupo=11&ds_grupo=Aprendizagem%20Industrial%20T%C3%A9cnico%20de%20N%C3%ADvel%20M%C3%A9dio&fase=Realiza%C3%A7%C3%A3o')")
+nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030202/219?cd_centro_resp=30303040101&nm_unidade=SENAI%20GAMA&nm_centro_resp=APREND.%20IND.%20TEC.%20NIVEL%20MEDIO%20PRESENCIAL&id_grupo=11&ds_grupo=Aprendizagem%20Industrial%20T%C3%A9cnico%20de%20N%C3%ADvel%20M%C3%A9dio&fase=Realiza%C3%A7%C3%A3o')")
 
 nav.switch_to.window(nav.window_handles[-1])
 
@@ -1189,7 +1137,7 @@ for i, (mes, campo_dado) in enumerate(meses):
     aprendi_tec_presencial_ng_con.send_keys(Keys.ENTER)
 
 
-# SENAI TAGUATINGA - 30303040101 - APREND. IND. TEC. NIVEL MEDIO PRESENCIAL - REGIMENTAL
+#   30303040101 - APREND. IND. TEC. NIVEL MEDIO PRESENCIAL - REGIMENTAL
 
 nav.refresh()
 
@@ -1224,13 +1172,13 @@ for i, (mes, campo_dado) in enumerate(meses):
     aprendi_tec_presencial_regimental_con.send_keys(str(con_aprendi_tec_presencial_regimental))
     aprendi_tec_presencial_regimental_con.send_keys(Keys.ENTER)
 
-# SENAI TAGUATINGA - 30303040201 - TECNICO DE NIVEL MEDIO PRESENCIAL - NAO GRATUITA
+#   30303040201 - TECNICO DE NIVEL MEDIO PRESENCIAL - NAO GRATUITA
 
 from selenium import webdriver
 
 janela_atual = nav.current_window_handle
 
-nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030201/233?cd_centro_resp=30303040201&nm_unidade=SENAI%20TAGUATINGA&nm_centro_resp=TECNICO%20DE%20NIVEL%20MEDIO%20PRESENCIAL&id_grupo=4&ds_grupo=T%C3%A9cnico%20de%20N%C3%ADvel%20M%C3%A9dio&fase=Realiza%C3%A7%C3%A3o')")
+nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030202/220?cd_centro_resp=30303040201&nm_unidade=SENAI%20GAMA&nm_centro_resp=TECNICO%20DE%20NIVEL%20MEDIO%20PRESENCIAL&id_grupo=4&ds_grupo=T%C3%A9cnico%20de%20N%C3%ADvel%20M%C3%A9dio&fase=Realiza%C3%A7%C3%A3o')")
 
 nav.switch_to.window(nav.window_handles[-1])
 
@@ -1272,7 +1220,7 @@ for i, (mes, campo_dado) in enumerate(meses):
     tec_presencial_ng_con.send_keys(str(con_tec_presencial_ng))
     tec_presencial_ng_con.send_keys(Keys.ENTER)
 
-# SENAI TAGUATINGA - 30303040201 - TECNICO DE NIVEL MEDIO PRESENCIAL - REGIMENTAL
+#  30303040201 - TECNICO DE NIVEL MEDIO PRESENCIAL - REGIMENTAL
 
 nav.refresh()
 
@@ -1307,7 +1255,7 @@ for i, (mes, campo_dado) in enumerate(meses):
     tec_presencial_regimental_con.send_keys(str(con_tec_presencial_regimental))
     tec_presencial_regimental_con.send_keys(Keys.ENTER)
 
-# SENAI TAGUATINGA - 30303040201 - TECNICO DE NIVEL MEDIO PRESENCIAL - BOLSA   
+#   30303040201 - TECNICO DE NIVEL MEDIO PRESENCIAL - BOLSA   
 
 nav.refresh()
 
@@ -1343,13 +1291,13 @@ for i, (mes, campo_dado) in enumerate(meses):
     tec_presencial_bolsa_con.send_keys(Keys.ENTER)
 
 
-# SENAI TAGUATINGA - 30303040401 - TECNICO DE NIVEL MEDIO SEMIPRESENCIAL NAO GRATUITA
+#   30303040401 - TECNICO DE NIVEL MEDIO SEMIPRESENCIAL NAO GRATUITA
 
 from selenium import webdriver
 
 janela_atual = nav.current_window_handle
 
-nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030201/224?cd_centro_resp=30303040401&nm_unidade=SENAI%20TAGUATINGA&nm_centro_resp=TECNICO%20DE%20NIVEL%20MEDIO%20SEMIPRESENCIAL&id_grupo=4&ds_grupo=T%C3%A9cnico%20de%20N%C3%ADvel%20M%C3%A9dio&fase=Realiza%C3%A7%C3%A3o')")
+nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030202/262?cd_centro_resp=30303040401&nm_unidade=SENAI%20GAMA&nm_centro_resp=TECNICO%20DE%20NIVEL%20MEDIO%20SEMIPRESENCIAL&id_grupo=4&ds_grupo=T%C3%A9cnico%20de%20N%C3%ADvel%20M%C3%A9dio&fase=Realiza%C3%A7%C3%A3o')")
 
 nav.switch_to.window(nav.window_handles[-1])
 
@@ -1391,7 +1339,7 @@ for i, (mes, campo_dado) in enumerate(meses):
     tec_distancia_ng_con.send_keys(str(con_tec_distancia_ng))
     tec_distancia_ng_con.send_keys(Keys.ENTER)
 
-# SENAI TAGUATINGA - 30303040401 - TECNICO DE NIVEL MEDIO SEMIPRESENCIAL REGIMENTAL
+#  30303040401 - TECNICO DE NIVEL MEDIO SEMIPRESENCIAL REGIMENTAL
 
 nav.refresh()
 
@@ -1428,7 +1376,7 @@ for i, (mes, campo_dado) in enumerate(meses):
     tec_distancia_regimental_con.send_keys(Keys.ENTER)
 
 
-# SENAI TAGUATINGA - 30303040401 - TECNICO DE NIVEL MEDIO SEMIPRESENCIAL BOLSA
+#   30303040401 - TECNICO DE NIVEL MEDIO SEMIPRESENCIAL BOLSA
 
 nav.refresh()
 
@@ -1465,11 +1413,11 @@ for i, (mes, campo_dado) in enumerate(meses):
     tec_distancia_bolsa_con.send_keys(Keys.ENTER)
 
 
-# SENAI TAGUATINGA - 30303040501 - TECN DE NIV MED ITINERARIOS PRESENCIAL BOLSA
+#   30303040501 - TECN DE NIV MED ITINERARIOS PRESENCIAL BOLSA
 
 janela_atual = nav.current_window_handle
 
-nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030201/228?cd_centro_resp=30303040501&nm_unidade=SENAI%20TAGUATINGA&nm_centro_resp=TECN%20DE%20NIV%20MED%20ITINERARIOS%20PRESENCIAL&id_grupo=4&ds_grupo=T%C3%A9cnico%20de%20N%C3%ADvel%20M%C3%A9dio&fase=Realiza%C3%A7%C3%A3o')")
+nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030202/263?cd_centro_resp=30303040501&nm_unidade=SENAI%20GAMA&nm_centro_resp=TECN%20DE%20NIV%20MED%20ITINERARIOS%20PRESENCIAL&id_grupo=4&ds_grupo=T%C3%A9cnico%20de%20N%C3%ADvel%20M%C3%A9dio&fase=Realiza%C3%A7%C3%A3o')")
 
 nav.switch_to.window(nav.window_handles[-1])
 
@@ -1511,7 +1459,7 @@ for i, (mes, campo_dado) in enumerate(meses):
     tec_iti_presencial_bolsa_con.send_keys(str(con_tec_iti_presencial_bolsa))
     tec_iti_presencial_bolsa_con.send_keys(Keys.ENTER)
 
-# SENAI TAGUATINGA - 30303040501 - TECN DE NIV MED ITINERARIOS PRESENCIAL REGIMENTAL
+#   30303040501 - TECN DE NIV MED ITINERARIOS PRESENCIAL REGIMENTAL
 
 nav.refresh()
 

@@ -13,57 +13,57 @@ arquivo = 'si_jan.xlsx'
 dados = {
     'iniciacao': {
         'presencial': {
-            'horas': obter_dados_por_tipo('iniciacao', 'presencial', arquivo)['horas'],
+            'horas': obter_dados_por_tipo('iniciacao', 'presencial')['horas'],
         },
         'distancia': {
-            'horas': obter_dados_por_tipo('iniciacao', 'distancia', arquivo)['horas'],
+            'horas': obter_dados_por_tipo('iniciacao', 'distancia')['horas'],
         }
     },
     'aprendizagem': {
         'presencial': {
-            'horas': obter_dados_por_tipo('aprendizagem', 'presencial', arquivo)['horas'],
+            'horas': obter_dados_por_tipo('aprendizagem', 'presencial')['horas'],
         },
         'distancia': {
-            'horas': obter_dados_por_tipo('aprendizagem', 'distancia', arquivo)['horas'],
+            'horas': obter_dados_por_tipo('aprendizagem', 'distancia')['horas'],
         }
     },
     'qualificacao': {
         'presencial': {
-            'horas': obter_dados_por_tipo('qualificacao', 'presencial', arquivo)['horas'],
+            'horas': obter_dados_por_tipo('qualificacao', 'presencial')['horas'],
         },
         'distancia': {
-            'horas': obter_dados_por_tipo('qualificacao', 'distancia', arquivo)['horas'],
+            'horas': obter_dados_por_tipo('qualificacao', 'distancia')['horas'],
         }
     },
     'aperfeicoamento': {
         'presencial': {
-            'horas': obter_dados_por_tipo('aperfeicoamento', 'presencial', arquivo)['horas'],
+            'horas': obter_dados_por_tipo('aperfeicoamento', 'presencial')['horas'],
         },
         'distancia': {
-            'horas': obter_dados_por_tipo('aperfeicoamento', 'distancia', arquivo)['horas'],
+            'horas': obter_dados_por_tipo('aperfeicoamento', 'distancia')['horas'],
         }
     },
     'qualificacao_iti': {
         'presencial': {
-            'horas': obter_dados_por_tipo('qualificacao_iti', 'presencial', arquivo)['horas'],
+            'horas': obter_dados_por_tipo('qualificacao_iti', 'presencial')['horas'],
         }
     },
     'aprendizagem_tec': {
         'presencial': {
-            'horas': obter_dados_por_tipo('aprendizagem_tec', 'presencial', arquivo)['horas'],
+            'horas': obter_dados_por_tipo('aprendizagem_tec', 'presencial')['horas'],
         }
     },
     'tecnico_nm': {
         'presencial': {
-            'horas': obter_dados_por_tipo('tecnico_nm', 'presencial', arquivo)['horas'],
+            'horas': obter_dados_por_tipo('tecnico_nm', 'presencial')['horas'],
         },
         'distancia': {
-            'horas': obter_dados_por_tipo('tecnico_nm', 'distancia', arquivo)['horas'],
+            'horas': obter_dados_por_tipo('tecnico_nm', 'distancia')['horas'],
         }
     },
     'tecnico_nm_iti': {
         'presencial': {
-            'horas': obter_dados_por_tipo('tecnico_nm_iti', 'presencial', arquivo)['horas'],
+            'horas': obter_dados_por_tipo('tecnico_nm_iti', 'presencial')['horas'],
         }
     }
 }

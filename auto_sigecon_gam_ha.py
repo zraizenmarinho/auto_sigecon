@@ -79,7 +79,7 @@ nav.get(url)
 
 # Elemento Usuario
 e_usuario = esperar_elemento(nav, (By.XPATH, '//*[@id="UserName"]'))
-usuario = "haheus.reck"
+usuario = "matheus.reck"
 e_usuario.send_keys(usuario)
 
 # Elemento Senha
@@ -141,7 +141,7 @@ meses = [
 ]
 
 for i, (mes, campo_dado) in enumerate(meses):
-    ha_bolsa_mes = esperar_elemento(nav, (By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='4921'].indicador"), timeout=10)
+    ha_bolsa_mes = esperar_elemento(nav, (By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='4919'].indicador"), timeout=10)
     ha_bolsa_mes.click()
 
     ha_bolsa_send = esperar_elemento(nav, (By.XPATH, "(//input[@type='text'])[8]"))
@@ -172,7 +172,7 @@ meses = [
 
 for i, (mes, campo_dado) in enumerate(meses):
     
-    ha_ng_mes = esperar_elemento(nav, (By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='4922'].indicador"), timeout=10)
+    ha_ng_mes = esperar_elemento(nav, (By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='4920'].indicador"), timeout=10)
     ha_ng_mes.click()
 
     ha_ng_send = esperar_elemento(nav, (By.XPATH, "(//input[@type='text'])[8]"))
@@ -219,7 +219,7 @@ meses = [
 
 for i, (mes, campo_dado) in enumerate(meses):
 
-    ha_ipd_bolsa_mes = esperar_elemento(nav, (By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='4929'].indicador"), timeout=10)
+    ha_ipd_bolsa_mes = esperar_elemento(nav, (By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='4927'].indicador"), timeout=10)
     ha_ipd_bolsa_mes.click()
 
     ha_ipd_bolsa_mes = esperar_elemento(nav, (By.XPATH, "(//input[@type='text'])[8]"))
@@ -255,7 +255,7 @@ nav.refresh()
 
 for i, (mes, campo_dado) in enumerate(meses):
 
-    ha_ipd_ng_mes = esperar_elemento(nav, (By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='4930'].indicador"), timeout=10)
+    ha_ipd_ng_mes = esperar_elemento(nav, (By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='4928'].indicador"), timeout=10)
     ha_ipd_ng_mes.click()
 
     ha_ipd_ng_mes = esperar_elemento(nav, (By.XPATH, "(//input[@type='text'])[8]"))
@@ -306,7 +306,7 @@ nav.refresh()
 
 for i, (mes, campo_dado) in enumerate(meses):
 
-    app_ng_ha = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='4937'].indicador")))
+    app_ng_ha = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='4935'].indicador")))
     app_ng_ha.click()
 
 
@@ -339,7 +339,7 @@ meses = [
 
 for i, (mes, campo_dado) in enumerate(meses):
 
-    app_regimental_ha = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='4938'].indicador")))
+    app_regimental_ha = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='4936'].indicador")))
     app_regimental_ha.click()
 
    
@@ -389,7 +389,7 @@ meses = [
 
 for i, (mes, campo_dado) in enumerate(meses):
 
-    qualifi_bolsa_ha = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='4948'].indicador")))
+    qualifi_bolsa_ha = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='4945'].indicador")))
     qualifi_bolsa_ha.click()
 
    
@@ -423,7 +423,7 @@ meses = [
 
 for i, (mes, campo_dado) in enumerate(meses):
 
-    qualifi_ng_ha = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='4949'].indicador")))
+    qualifi_ng_ha = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='4946'].indicador")))
     qualifi_ng_ha.click()
 
    
@@ -458,7 +458,7 @@ meses = [
 
 for i, (mes, campo_dado) in enumerate(meses):
 
-    quali_regime_ha_ha = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='4950'].indicador")))
+    quali_regime_ha_ha = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='4947'].indicador")))
     quali_regime_ha_ha.click()
 
    
@@ -472,8 +472,6 @@ for i, (mes, campo_dado) in enumerate(meses):
 
     quali_regime_ha_ha.send_keys(str(ha_qualificacao_presencial_regimental))
     quali_regime_ha_ha.send_keys(Keys.ENTER)
-
-
 
 # SENAI gamUATINGA - 30303020401 - QUALIFICACAO PROFISSIONAL SEMIPRESENCIAL - BOLSA
 
@@ -509,7 +507,7 @@ meses = [
 
 for i, (mes, campo_dado) in enumerate(meses):
 
-    qualifi_semi_bolsa_ha = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='4960'].indicador")))
+    qualifi_semi_bolsa_ha = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='4957'].indicador")))
     qualifi_semi_bolsa_ha.click()
 
    
@@ -543,7 +541,7 @@ meses = [
 
 for i, (mes, campo_dado) in enumerate(meses):
 
-    qualifi_semi_ng_ha = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='4961'].indicador")))
+    qualifi_semi_ng_ha = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='4958'].indicador")))
     qualifi_semi_ng_ha.click()
 
    
@@ -579,7 +577,7 @@ nav.refresh()
 
 for i, (mes, campo_dado) in enumerate(meses):
 
-    qualifi_semi_regimental_ha = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='4962'].indicador")))
+    qualifi_semi_regimental_ha = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='4959'].indicador")))
     qualifi_semi_regimental_ha.click()
 
    
@@ -613,7 +611,7 @@ meses = [
 
 for i, (mes, campo_dado) in enumerate(meses):
 
-    qualifi_semi_convenio_ha = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='4966'].indicador")))
+    qualifi_semi_convenio_ha = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='4965'].indicador")))
     qualifi_semi_convenio_ha.click()
 
    
@@ -662,7 +660,7 @@ meses = [
 
 for i, (mes, campo_dado) in enumerate(meses):
 
-    aper_prese_bolsa_ha = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='4976'].indicador")))
+    aper_prese_bolsa_ha = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='4973'].indicador")))
     aper_prese_bolsa_ha.click()
 
    
@@ -697,7 +695,7 @@ meses = [
 
 for i, (mes, campo_dado) in enumerate(meses):
 
-    aper_prese_ng_ha = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='4977'].indicador")))
+    aper_prese_ng_ha = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='4974'].indicador")))
     aper_prese_ng_ha.click()
 
    
@@ -732,7 +730,7 @@ meses = [
 
 for i, (mes, campo_dado) in enumerate(meses):
 
-    aper_prese_regimental_ha = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='4978'].indicador")))
+    aper_prese_regimental_ha = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='4975'].indicador")))
     aper_prese_regimental_ha.click()
 
    
@@ -781,7 +779,7 @@ meses = [
 
 for i, (mes, campo_dado) in enumerate(meses):
 
-    aper_dista_bolsa_ha = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='4988'].indicador")))
+    aper_dista_bolsa_ha = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='4985'].indicador")))
     aper_dista_bolsa_ha.click()
 
    
@@ -815,7 +813,7 @@ meses = [
 
 for i, (mes, campo_dado) in enumerate(meses):
 
-    aper_dista_ng_ha = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='4989'].indicador")))
+    aper_dista_ng_ha = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='4986'].indicador")))
     aper_dista_ng_ha.click()
 
    
@@ -848,7 +846,7 @@ meses = [
 
 for i, (mes, campo_dado) in enumerate(meses):
 
-    aper_dista_regimental_ha = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='4990'].indicador")))
+    aper_dista_regimental_ha = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='4987'].indicador")))
     aper_dista_regimental_ha.click()
 
    
@@ -896,7 +894,7 @@ meses = [
 
 for i, (mes, campo_dado) in enumerate(meses):
 
-    qualifi_iti_presencial_bolsa_ha = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='5000'].indicador")))
+    qualifi_iti_presencial_bolsa_ha = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='4997'].indicador")))
     qualifi_iti_presencial_bolsa_ha.click()
 
    
@@ -931,7 +929,7 @@ meses = [
 
 for i, (mes, campo_dado) in enumerate(meses):
 
-    qualifi_iti_presencial_ng_ha = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='5001'].indicador")))
+    qualifi_iti_presencial_ng_ha = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='4998'].indicador")))
     qualifi_iti_presencial_ng_ha.click()
 
    
@@ -965,7 +963,7 @@ meses = [
 
 for i, (mes, campo_dado) in enumerate(meses):
 
-    qualifi_iti_presencial_regimental_ha = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='5002'].indicador")))
+    qualifi_iti_presencial_regimental_ha = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='4999'].indicador")))
     qualifi_iti_presencial_regimental_ha.click()
 
    
@@ -1013,7 +1011,7 @@ meses = [
 
 for i, (mes, campo_dado) in enumerate(meses):
 
-    aprendi_tec_presencial_ng_ha = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='5009'].indicador")))
+    aprendi_tec_presencial_ng_ha = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='5007'].indicador")))
     aprendi_tec_presencial_ng_ha.click()
 
    
@@ -1045,7 +1043,7 @@ meses = [
     ("dez", "dez_aprendi_tec_presen_ha_1 Gratuidade Regimental")
 ]
 
-aprendi_tec_presencial_regimental_ha = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(4) > [id='5010'].indicador")))
+aprendi_tec_presencial_regimental_ha = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(4) > [id='5008'].indicador")))
 aprendi_tec_presencial_regimental_ha.click()
 
 
@@ -1097,7 +1095,7 @@ meses = [
 
 for i, (mes, campo_dado) in enumerate(meses):
 
-    tec_presencial_ng_ha = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='5017'].indicador")))
+    tec_presencial_ng_ha = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='5015'].indicador")))
     tec_presencial_ng_ha.click()
 
    
@@ -1131,7 +1129,7 @@ meses = [
 
 for i, (mes, campo_dado) in enumerate(meses):
 
-    tec_presencial_regimental_ha = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='5018'].indicador")))
+    tec_presencial_regimental_ha = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='5016'].indicador")))
     tec_presencial_regimental_ha.click()
 
    
@@ -1178,7 +1176,7 @@ meses = [
 
 for i, (mes, campo_dado) in enumerate(meses):
 
-    tec_distancia_ng_ha = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='5337'].indicador")))
+    tec_distancia_ng_ha = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='5335'].indicador")))
     tec_distancia_ng_ha.click()
 
    
@@ -1212,7 +1210,7 @@ meses = [
 
 for i, (mes, campo_dado) in enumerate(meses):
 
-    tec_distancia_regimental_ha = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='5338'].indicador")))
+    tec_distancia_regimental_ha = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='5336'].indicador")))
     tec_distancia_regimental_ha.click()
 
    
@@ -1256,7 +1254,7 @@ meses = [
 
 for i, (mes, campo_dado) in enumerate(meses):
 
-    tec_iti_presencial_bolsa_ha = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='5346'].indicador")))
+    tec_iti_presencial_bolsa_ha = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='5345'].indicador")))
     tec_iti_presencial_bolsa_ha.click()
 
    
@@ -1289,7 +1287,7 @@ meses = [
 
 for i, (mes, campo_dado) in enumerate(meses):
 
-    tec_iti_presencial_regimental_ha = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='5342'].indicador")))
+    tec_iti_presencial_regimental_ha = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='5341'].indicador")))
     tec_iti_presencial_regimental_ha.click()
 
    

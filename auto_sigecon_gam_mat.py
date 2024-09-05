@@ -433,27 +433,22 @@ for i, (mes, campo_dado) in enumerate(meses):
     app_regimental_mat.send_keys(Keys.ENTER)
 
 
-# SENAI gamUATINGA - 30303020201 - QUALIFICACAO PROFISSIONAL PRESENCIAL MATRICULA CONVENIO
+# SENAI GAMA  - 30303020201 - QUALIFICACAO PROFISSIONAL PRESENCIAL
 
 from selenium import webdriver
 
 janela_atual = nav.current_window_handle
 
-# Abrir a nova página em uma nova aba
-
 nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030202/214?cd_centro_resp=30303020201&nm_unidade=SENAI%20GAMA&nm_centro_resp=QUALIFICACAO%20PROFISSIONAL%20PRESENCIAL&id_grupo=3&ds_grupo=Qualifica%C3%A7%C3%A3o%20Industrial&fase=Realiza%C3%A7%C3%A3o')")
 
-# Alternar para a nova janela
 nav.switch_to.window(nav.window_handles[-1])
 
-# Fechar a janela anterior
 nav.switch_to.window(janela_atual)
 nav.close()
 
-# Voltar para a nova janela
 nav.switch_to.window(nav.window_handles[0])
 
-# SENAI gamUATINGA - 30303020201 - QUALIFICACAO PROFISSIONAL PRESENCIAL MATRICULA BOLSA
+# SENAI GAMA  - 30303020201 - QUALIFICACAO PROFISSIONAL PRESENCIAL
 
 quali_bolsa_mat_jan = WebDriverWait(nav, 10).until(
     EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(4) > [id='4948'].indicador")))
@@ -592,25 +587,19 @@ for i, (mes, campo_dado) in enumerate(meses):
     quali_regime_mat_mat.send_keys(str(mat_qualificacao_presencial_regimental))
     quali_regime_mat_mat.send_keys(Keys.ENTER)
 
-
-
 # SENAI gamUATINGA - 30303020401 - QUALIFICACAO PROFISSIONAL SEMIPRESENCIAL - BOLSA
 
 from selenium import webdriver
 
 janela_atual = nav.current_window_handle
 
-# Abrir a nova página em uma nova aba
 nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030202/215?cd_centro_resp=30303020401&nm_unidade=SENAI%20GAMA&nm_centro_resp=QUALIFICACAO%20PROFISSIONAL%20SEMIPRESENCIAL&id_grupo=3&ds_grupo=Qualifica%C3%A7%C3%A3o%20Industrial&fase=Realiza%C3%A7%C3%A3o')")
 
-# Alternar para a nova janela
 nav.switch_to.window(nav.window_handles[-1])
 
-# Fechar a janela anterior
 nav.switch_to.window(janela_atual)
 nav.close()
 
-# Voltar para a nova janela, que é agora a única aberta
 nav.switch_to.window(nav.window_handles[0])
 
 nav.refresh()
@@ -806,17 +795,13 @@ from selenium import webdriver
 
 janela_atual = nav.current_window_handle
 
-# Abrir a nova página em uma nova aba
 nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030202/216?cd_centro_resp=30303020501&nm_unidade=SENAI%20GAMA&nm_centro_resp=APERF%2FESPECIALIZ%20PROFISSIONAL%20PRESENCIAL&id_grupo=5&ds_grupo=Aperfei%C3%A7oamento%20Profissional&fase=Realiza%C3%A7%C3%A3o')")
 
-# Alternar para a nova janela
 nav.switch_to.window(nav.window_handles[-1])
 
-# Fechar a janela anterior
 nav.switch_to.window(janela_atual)
 nav.close()
 
-# Voltar para a nova janela, que é agora a única aberta
 nav.switch_to.window(nav.window_handles[0])
 
 nav.refresh()
@@ -968,17 +953,13 @@ from selenium import webdriver
 
 janela_atual = nav.current_window_handle
 
-# Abrir a nova página em uma nova aba
 nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030202/217?cd_centro_resp=30303020601&nm_unidade=SENAI%20GAMA&nm_centro_resp=APERF%2FESPECIALI%20PROFISSIONAL%20A%20DISTANCIA&id_grupo=5&ds_grupo=Aperfei%C3%A7oamento%20Profissional&fase=Realiza%C3%A7%C3%A3o')")
 
-# Alternar para a nova janela
 nav.switch_to.window(nav.window_handles[-1])
 
-# Fechar a janela anterior
 nav.switch_to.window(janela_atual)
 nav.close()
 
-# Voltar para a nova janela, que é agora a única aberta
 nav.switch_to.window(nav.window_handles[0])
 
 nav.refresh()
@@ -1124,17 +1105,12 @@ from selenium import webdriver
 
 janela_atual = nav.current_window_handle
 
-# Abrir a nova página em uma nova aba
 nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030202/218?cd_centro_resp=30303020901&nm_unidade=SENAI%20GAMA&nm_centro_resp=QUALIFIC%20PROF%20PRESENC%20-%20ITINER%20V%20ENS%20MED&id_grupo=3&ds_grupo=Qualifica%C3%A7%C3%A3o%20Industrial&fase=Realiza%C3%A7%C3%A3o')")
 
-# Alternar para a nova janela
 nav.switch_to.window(nav.window_handles[-1])
-
-# Fechar a janela anterior
 nav.switch_to.window(janela_atual)
 nav.close()
 
-# Voltar para a nova janela, que é agora a única aberta
 nav.switch_to.window(nav.window_handles[0])
 
 nav.refresh()
@@ -1284,21 +1260,16 @@ from selenium import webdriver
 
 janela_atual = nav.current_window_handle
 
-# Abrir a nova página em uma nova aba
 nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030202/219?cd_centro_resp=30303040101&nm_unidade=SENAI%20GAMA&nm_centro_resp=APREND.%20IND.%20TEC.%20NIVEL%20MEDIO%20PRESENCIAL&id_grupo=11&ds_grupo=Aprendizagem%20Industrial%20T%C3%A9cnico%20de%20N%C3%ADvel%20M%C3%A9dio&fase=Realiza%C3%A7%C3%A3o')")
 
-# Alternar para a nova janela
 nav.switch_to.window(nav.window_handles[-1])
 
-# Fechar a janela anterior
 nav.switch_to.window(janela_atual)
 nav.close()
 
-# Voltar para a nova janela, que é agora a única aberta
 nav.switch_to.window(nav.window_handles[0])
 
 nav.refresh()
-
 
 aprendi_tec_presencial_ng_mat_jan = WebDriverWait(nav, 10).until(
     EC.visibility_of_element_located((By.CSS_SELECTOR, "td:nth-child(4) > [id='5009'].indicador")))
@@ -1399,17 +1370,13 @@ from selenium import webdriver
 
 janela_atual = nav.current_window_handle
 
-# Abrir a nova página em uma nova aba
 nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030202/220?cd_centro_resp=30303040201&nm_unidade=SENAI%20GAMA&nm_centro_resp=TECNICO%20DE%20NIVEL%20MEDIO%20PRESENCIAL&id_grupo=4&ds_grupo=T%C3%A9cnico%20de%20N%C3%ADvel%20M%C3%A9dio&fase=Realiza%C3%A7%C3%A3o')")
 
-# Alternar para a nova janela
 nav.switch_to.window(nav.window_handles[-1])
 
-# Fechar a janela anterior
 nav.switch_to.window(janela_atual)
 nav.close()
 
-# Voltar para a nova janela, que é agora a única aberta
 nav.switch_to.window(nav.window_handles[0])
 
 nav.refresh()
@@ -1510,17 +1477,13 @@ from selenium import webdriver
 
 janela_atual = nav.current_window_handle
 
-# Abrir a nova página em uma nova aba
 nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030202/262?cd_centro_resp=30303040401&nm_unidade=SENAI%20GAMA&nm_centro_resp=TECNICO%20DE%20NIVEL%20MEDIO%20SEMIPRESENCIAL&id_grupo=4&ds_grupo=T%C3%A9cnico%20de%20N%C3%ADvel%20M%C3%A9dio&fase=Realiza%C3%A7%C3%A3o')")
 
-# Alternar para a nova janela
 nav.switch_to.window(nav.window_handles[-1])
 
-# Fechar a janela anterior
 nav.switch_to.window(janela_atual)
 nav.close()
 
-# Voltar para a nova janela, que é agora a única aberta
 nav.switch_to.window(nav.window_handles[0])
 
 nav.refresh()
@@ -1602,10 +1565,8 @@ for i, (mes, campo_dado) in enumerate(meses):
     tec_distancia_regimental_mat = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({5 + i}) > [id='5338'].indicador")))
     tec_distancia_regimental_mat.click()
 
-   
     tec_distancia_regimental_mat = WebDriverWait(nav, 15).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]")))
 
- 
     chave_dado = f"{mes}_tecni_distan_mat_1 Gratuidade Regimental"
     
     mat_tec_distancia_regimental = dados['tecnico_nm']['distancia']['matriculas'].get(chave_dado, 0)

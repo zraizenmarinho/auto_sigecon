@@ -1,8 +1,12 @@
 
-from obter_dados_gam_eva import obter_evadidos_iniciacao_presencial_gam
-mat =  obter_evadidos_iniciacao_presencial_gam()
+from obter_dados_tag_ha import obter_hora_qualificacao_presencial_tag
+mat =  obter_hora_qualificacao_presencial_tag()
 
+#from mat_tag import tag_iniciacao_presencial
 
+#mat_jan = tag_iniciacao_presencial
+
+#print(mat_jan)
 #Matricula 
 print(mat)
 
