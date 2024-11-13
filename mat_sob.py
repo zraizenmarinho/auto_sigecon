@@ -27,6 +27,38 @@ def obter_matriculas_por_tipo_jan(supabase_url, supabase_key, unidade, modalidad
     mes_rela = '12024'
     mes_referencia = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']
     anos_referencia = ['2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024']
+
+    # Mapa de financiamento consolidado
+    mapa_financiamento = {
+        '1 Gratuidade Regimental': [
+            '1 Gratuidade Regimental', 
+            '101 Emprega + Novo Emprego (desempregados)', 
+            '104 Novo Brasil Mais Produtivo'
+        ],
+        '2 Gratuidade Não Regimental': ['2 Gratuidade Não Regimental'],
+        '3 Convênio': ['3 Convênio'],
+        '9 Pago por Pessoa Fisica ou Empresa': [
+            '9 Pago por Pessoa Fisica ou Empresa', 
+            '901 Pago pelo SESI', 
+            '903 Pago pela Rede Privada de Educação'
+        ]
+    }
+
+    # Função para calcular a soma de matrículas para cada categoria de financiamento consolidado
+    def contar_matriculas_consolidadas(tipos_financiamento):
+        total_matriculas = 0
+        for tipo in tipos_financiamento:
+            total_matriculas += matriculas_por_tipo.contar_matriculas(
+                unidade, modalidade, tipo_acao, mes_rela, mes_referencia, anos_referencia, tipo
+            )
+        return total_matriculas
+    
+        # Soma as matrículas para cada chave de financiamento consolidada
+    jan_mat_regi = contar_matriculas_consolidadas(mapa_financiamento['1 Gratuidade Regimental'])
+    jan_mat_bolsa = contar_matriculas_consolidadas(mapa_financiamento['2 Gratuidade Não Regimental'])
+    jan_mat_convenio = contar_matriculas_consolidadas(mapa_financiamento['3 Convênio'])
+    jan_mat_n_gratuita = contar_matriculas_consolidadas(mapa_financiamento['9 Pago por Pessoa Fisica ou Empresa'])
+
     
     jan_mat_regi = matriculas_por_tipo.contar_matriculas(unidade, modalidade, tipo_acao, mes_rela, mes_referencia, anos_referencia, '1 Gratuidade Regimental')
     jan_mat_bolsa = matriculas_por_tipo.contar_matriculas(unidade, modalidade, tipo_acao, mes_rela, mes_referencia, anos_referencia, '2 Gratuidade Não Regimental')

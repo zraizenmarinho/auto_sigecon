@@ -26,6 +26,22 @@ def obter_evadidos(unidade, modalidade, tipo_acao, chave_prefixo):
         
     evariculas_por_tipo = EvadidosPorTipoFinanciamento(supabase)
 
+    # Mapeamento dos tipos de financiamento para consolidar
+    mapa_financiamento = {
+        '1 Gratuidade Regimental': [
+            '1 Gratuidade Regimental', 
+            '101 Emprega + Novo Emprego (desempregados)', 
+            '104 Novo Brasil Mais Produtivo'
+        ],
+        '9 Pago por Pessoa Fisica ou Empresa': [
+            '9 Pago por Pessoa Fisica ou Empresa', 
+            '901 Pago pelo SESI', 
+            '903 Pago pela Rede Privada de Educação'
+        ],
+        '2 Gratuidade Não Regimental': ['2 Gratuidade Não Regimental'],
+        '3 Convênio': ['3 Convênio']
+    }
+
     meses = {
         'jan': '1',
         'fev': '2',
@@ -40,18 +56,27 @@ def obter_evadidos(unidade, modalidade, tipo_acao, chave_prefixo):
         'nov': '11',
         'dez': '12'
     }
-    
+
     resultados_eva = {}
     
+        # Coleta as matrículas para cada mês e tipo de financiamento consolidado
     for mes_atual, mes_referencia in meses.items():
-        for tipo_financiamento in ['1 Gratuidade Regimental', '2 Gratuidade Não Regimental', '3 Convênio', '9 Pago por Pessoa Fisica ou Empresa']:
-            chave_resultado = f"{mes_atual}_{chave_prefixo}_{tipo_financiamento}"
-            resultados_eva[chave_resultado] = evariculas_por_tipo.contar_evadidos(
-                unidade, modalidade, tipo_acao, '82024', mes_referencia, '2024', tipo_financiamento, '4 Evadida'
-            )
-    
-    return resultados_eva
+        for tipo_financiamento_padrao, tipos_equivalentes in mapa_financiamento.items():
+            chave_resultado = f"{mes_atual}_{chave_prefixo}_{tipo_financiamento_padrao}"
+            
+            # Inicializa a soma de matrículas para os tipos equivalentes dentro do tipo padrão
+            total_evadidos = 0
+            
+            # Conta as matrículas para cada tipo equivalente e acumula no total
+            for tipo in tipos_equivalentes:
+                total_evadidos += evariculas_por_tipo.contar_evadidos(
+                    unidade, modalidade, tipo_acao, '102024', mes_referencia, '2024', tipo, '4 Evadida'
+                )
+            
+            # Armazena o total de matrículas para a chave de financiamento consolidada
+            resultados_eva[chave_resultado] = total_evadidos
 
+    return resultados_eva
 
 def obter_evadidos_iniciacao_presencial_sig():
     return obter_evadidos('5325373 SENAI SIG', '5 Iniciação Profissional', '1 Presencial', 'inicia_presen_eva')

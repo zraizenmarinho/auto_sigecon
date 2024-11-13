@@ -39,6 +39,22 @@ def obter_horas(unidade, modalidade, tipo_acao, chave_prefixo):
     
     hora_por_tipo = HorasPorTipoFinanciamento(supabase)
 
+    # Mapeamento financiamentos
+    mapa_financiamento = {
+        '1 Gratuidade Regimental': [
+            '1 Gratuidade Regimental', 
+            '101 Emprega + Novo Emprego (desempregados)', 
+            '104 Novo Brasil Mais Produtivo'
+        ],
+        '9 Pago por Pessoa Fisica ou Empresa': [
+            '9 Pago por Pessoa Fisica ou Empresa', 
+            '901 Pago pelo SESI', 
+            '903 Pago pela Rede Privada de Educação'
+        ],
+        '2 Gratuidade Não Regimental': ['2 Gratuidade Não Regimental'],
+        '3 Convênio': ['3 Convênio']
+    }
+
     meses = {
         'jan': '12024',
         'fev': '22024',
@@ -56,14 +72,25 @@ def obter_horas(unidade, modalidade, tipo_acao, chave_prefixo):
 
     resultados_ha = {}
 
-    #coleta as horas para cada mês e tipo de financiamento
+    # Coleta as horas para cada mês e tipo de financiamento consolidado
     for mes_atual, mes_rela in meses.items():
-        for tipo_financiamento in ['1 Gratuidade Regimental', '2 Gratuidade Não Regimental', '3 Convênio', '9 Pago por Pessoa Fisica ou Empresa']:
-            chave_resultado = f"{mes_atual}_{chave_prefixo}_ha_{tipo_financiamento}"
-            resultados_ha[chave_resultado] = hora_por_tipo.somar_horas(
-                unidade, modalidade, tipo_acao, mes_rela, tipo_financiamento)
+        for tipo_financiamento_padrao, tipos_equivalentes in mapa_financiamento.items():
+            chave_resultado = f"{mes_atual}_{chave_prefixo}_ha_{tipo_financiamento_padrao}"
+            
+            # Inicializa a variável de soma para as horas de todos os tipos equivalentes
+            total_horas = 0
+            
+            # Soma as horas para cada tipo equivalente dentro do tipo padrão
+            for tipo in tipos_equivalentes:
+                total_horas += hora_por_tipo.somar_horas(unidade, modalidade, tipo_acao, mes_rela, tipo)
+            
+            # Armazenando ou somando as horas para o resultado atual
+            if chave_resultado not in resultados_ha:
+                resultados_ha[chave_resultado] = total_horas
+            else:
+                resultados_ha[chave_resultado] += total_horas  # Acumula as horas de cada tipo
 
-    #justa as horas subtraindo as horas dos meses anteriores e gravando na variavel
+    # Ajusta as horas subtraindo as horas dos meses anteriores e gravando na variável
     for idx, (mes_atual, mes_rela) in enumerate(meses.items()):
         if idx == 0:
             continue
@@ -71,16 +98,17 @@ def obter_horas(unidade, modalidade, tipo_acao, chave_prefixo):
         mes_anterior_str = str(int(mes_rela) - 1).zfill(5)
         mes_anterior = mes_anterior_str
 
-        for tipo_financiamento in ['1 Gratuidade Regimental', '2 Gratuidade Não Regimental', '3 Convênio', '9 Pago por Pessoa Fisica ou Empresa']:
-            chave_resultado_atual = f"{mes_atual}_{chave_prefixo}_ha_{tipo_financiamento}"
-            
+        for tipo_financiamento_padrao in mapa_financiamento.keys():
+            chave_resultado_atual = f"{mes_atual}_{chave_prefixo}_ha_{tipo_financiamento_padrao}"
+
             if chave_resultado_atual in resultados_ha:
                 total_anterior = sum(
-                    resultados_ha.get(f"{list(meses.keys())[i]}_{chave_prefixo}_ha_{tipo_financiamento}", 0)
+                    resultados_ha.get(f"{list(meses.keys())[i]}_{chave_prefixo}_ha_{tipo_financiamento_padrao}", 0)
                     for i in range(idx)
                 )
                 resultados_ha[chave_resultado_atual] -= total_anterior
 
+                # Garantir que o valor não fique negativo
                 if resultados_ha[chave_resultado_atual] < 0:
                     resultados_ha[chave_resultado_atual] = 0
             else:
@@ -88,63 +116,62 @@ def obter_horas(unidade, modalidade, tipo_acao, chave_prefixo):
 
     return resultados_ha
 
-
-def obter_hora_iniciacao_presencial_gam():
+def obter_hora_iniciacao_presencial_sob():
     return obter_horas('5171003 SENAI Sobradinho', '5 Iniciação Profissional', '1 Presencial', 'inicia_presen')
 
-def obter_hora_iniciacao_distancia_gam():
+def obter_hora_iniciacao_distancia_sob():
     return obter_horas('5171003 SENAI Sobradinho', '5 Iniciação Profissional', '2 A distância', 'inicia_distan')
 
-def obter_hora_aprendizagem_presencial_gam():
+def obter_hora_aprendizagem_presencial_sob():
     return obter_horas('5171003 SENAI Sobradinho', '11 Aprendizagem Industrial básica', '1 Presencial', 'aprendi_presen')
 
-def obter_hora_qualificacao_presencial_gam():
+def obter_hora_qualificacao_presencial_sob():
     return obter_horas('5171003 SENAI Sobradinho', '21 Qualificação Profissional', '1 Presencial', 'qualifi_presen')
 
-def obter_hora_aprendizagem_distancia_gam():
+def obter_hora_aprendizagem_distancia_sob():
     return obter_horas('5171003 SENAI Sobradinho', '11 Aprendizagem Industrial básica', '2 A distância', 'aprendi_distan')
 
-def obter_hora_qualificacao_distancia_gam():
+def obter_hora_qualificacao_distancia_sob():
     return obter_horas('5171003 SENAI Sobradinho', '21 Qualificação Profissional', '2 A distância', 'qualifi_distan')
 
-def obter_hora_aperfeicoamento_presencial_gam():
+def obter_hora_aperfeicoamento_presencial_sob():
     return obter_horas('5171003 SENAI Sobradinho', '58 Aperfeiçoamento/Especialização Profissional', '1 Presencial', 'aperfei_presen')
 
-def obter_hora_aperfeicoamento_distancia_gam():
+def obter_hora_aperfeicoamento_distancia_sob():
     return obter_horas('5171003 SENAI Sobradinho', '58 Aperfeiçoamento/Especialização Profissional', '2 A distância', 'aperfei_distan')
 
-def obter_hora_qualificacao_iti_presencial_gam():
+def obter_hora_qualificacao_iti_presencial_sob():
     return obter_horas('5171003 SENAI Sobradinho', '22 Qualificação Profissional - Itinerário V Ensino Médio', '1 Presencial', 'qualifi_iti_presen')
 
-def obter_hora_aprendizagem_tec_presencial_gam():
+def obter_hora_aprendizagem_tec_presencial_sob():
     return obter_horas('5171003 SENAI Sobradinho', '15 Aprendizagem Industrial Técnica de Nível Médio', '1 Presencial', 'aprendi_tec_presen')
 
-def obter_hora_tecnico_presencial_gam():
+def obter_hora_tecnico_presencial_sob():
     return obter_horas('5171003 SENAI Sobradinho', '31 Técnico de Nível Médio', '1 Presencial', 'tecni_presen')
 
-def obter_hora_tecnico_distancia_gam():
+def obter_hora_tecnico_distancia_sob():
     return obter_horas('5171003 SENAI Sobradinho', '31 Técnico de Nível Médio', '2 A distância', 'tecni_distan')
 
-def obter_hora_tecnico_iti_presencial_gam():
+def obter_hora_tecnico_iti_presencial_sob():
     return obter_horas('5171003 SENAI Sobradinho', '32 Técnico de Nível Médio - Itinerário V Ensino Médio', '1 Presencial', 'tecni_iti_presen')
 
 
 funcoes_ha = {
 
     'horas': {
-        'iniciacao_presencial': obter_hora_iniciacao_presencial_gam,
-        'iniciacao_distancia': obter_hora_iniciacao_distancia_gam,
-        'aprendizagem_presencial': obter_hora_aprendizagem_presencial_gam,
-        'qualificacao_presencial': obter_hora_qualificacao_presencial_gam,
-        'aprendizagem_distancia': obter_hora_aprendizagem_distancia_gam,
-        'qualificacao_distancia': obter_hora_qualificacao_distancia_gam,
-        'aperfeicoamento_presencial': obter_hora_aperfeicoamento_presencial_gam,
-        'aperfeicoamento_distancia': obter_hora_aperfeicoamento_distancia_gam,
-        'qualificacao_iti_presencial': obter_hora_qualificacao_iti_presencial_gam,
-        'aprendizagem_tec_presencial': obter_hora_aprendizagem_tec_presencial_gam,
-        'tecnico_nm_presencial': obter_hora_tecnico_presencial_gam,
-        'tecnico_nm_distancia': obter_hora_tecnico_distancia_gam,
-        'tecnico_nm_iti_presencial': obter_hora_tecnico_iti_presencial_gam
+        'iniciacao_presencial': obter_hora_iniciacao_presencial_sob,
+        'iniciacao_distancia': obter_hora_iniciacao_distancia_sob,
+        'aprendizagem_presencial': obter_hora_aprendizagem_presencial_sob,
+        'qualificacao_presencial': obter_hora_qualificacao_presencial_sob,
+        'aprendizagem_distancia': obter_hora_aprendizagem_distancia_sob,
+        'qualificacao_distancia': obter_hora_qualificacao_distancia_sob,
+        'aperfeicoamento_presencial': obter_hora_aperfeicoamento_presencial_sob,
+        'aperfeicoamento_distancia': obter_hora_aperfeicoamento_distancia_sob,
+        'qualificacao_iti_presencial': obter_hora_qualificacao_iti_presencial_sob,
+        'aprendizagem_tec_presencial': obter_hora_aprendizagem_tec_presencial_sob,
+        'tecnico_nm_presencial': obter_hora_tecnico_presencial_sob,
+        'tecnico_nm_distancia': obter_hora_tecnico_distancia_sob,
+        'tecnico_nm_iti_presencial': obter_hora_tecnico_iti_presencial_sob
     },
 }
 

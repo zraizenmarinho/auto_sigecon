@@ -21,23 +21,31 @@ def obter_horas(unidade, modalidade, tipo_acao, chave_prefixo):
                 .execute()
 
             data = response.data
-            #converter a lista de dicionários para DataFrame
             df = pd.DataFrame(data)
 
-            #verificar se as colunas existem e somar as horas
-            if 'HORA_ALUNO' in df.columns:
-                soma_hora_aluno = df['HORA_ALUNO'].sum()
-            else:
-                soma_hora_aluno = 0
-            
-            if 'HORA_ALUNO_EAD' in df.columns:
-                soma_hora_aluno_ead = df['HORA_ALUNO_EAD'].sum()
-            else:
-                soma_hora_aluno_ead = 0
+            # Garantindo que 'HORA_ALUNO' e 'HORA_ALUNO_EAD' sejam números válidos
+            soma_hora_aluno = df.get('HORA_ALUNO', pd.Series()).sum()
+            soma_hora_aluno_ead = df.get('HORA_ALUNO_EAD', pd.Series()).sum()
 
-            return soma_hora_aluno + soma_hora_aluno_ead
+            return int(soma_hora_aluno + soma_hora_aluno_ead)
     
     hora_por_tipo = HorasPorTipoFinanciamento(supabase)
+
+    # Mapeamento financiamentos
+    mapa_financiamento = {
+        '1 Gratuidade Regimental': [
+            '1 Gratuidade Regimental', 
+            '101 Emprega + Novo Emprego (desempregados)', 
+            '104 Novo Brasil Mais Produtivo'
+        ],
+        '9 Pago por Pessoa Fisica ou Empresa': [
+            '9 Pago por Pessoa Fisica ou Empresa', 
+            '901 Pago pelo SESI', 
+            '903 Pago pela Rede Privada de Educação'
+        ],
+        '2 Gratuidade Não Regimental': ['2 Gratuidade Não Regimental'],
+        '3 Convênio': ['3 Convênio']
+    }
 
     meses = {
         'jan': '12024',
@@ -56,14 +64,25 @@ def obter_horas(unidade, modalidade, tipo_acao, chave_prefixo):
 
     resultados_ha = {}
 
-    #coleta as horas para cada mês e tipo de financiamento
+    # Coleta as horas para cada mês e tipo de financiamento consolidado
     for mes_atual, mes_rela in meses.items():
-        for tipo_financiamento in ['1 Gratuidade Regimental', '2 Gratuidade Não Regimental', '3 Convênio', '9 Pago por Pessoa Fisica ou Empresa']:
-            chave_resultado = f"{mes_atual}_{chave_prefixo}_ha_{tipo_financiamento}"
-            resultados_ha[chave_resultado] = hora_por_tipo.somar_horas(
-                unidade, modalidade, tipo_acao, mes_rela, tipo_financiamento)
+        for tipo_financiamento_padrao, tipos_equivalentes in mapa_financiamento.items():
+            chave_resultado = f"{mes_atual}_{chave_prefixo}_ha_{tipo_financiamento_padrao}"
+            
+            # Inicializa a variável de soma para as horas de todos os tipos equivalentes
+            total_horas = 0
+            
+            # Soma as horas para cada tipo equivalente dentro do tipo padrão
+            for tipo in tipos_equivalentes:
+                total_horas += hora_por_tipo.somar_horas(unidade, modalidade, tipo_acao, mes_rela, tipo)
+            
+            # Armazenando ou somando as horas para o resultado atual
+            if chave_resultado not in resultados_ha:
+                resultados_ha[chave_resultado] = total_horas
+            else:
+                resultados_ha[chave_resultado] += total_horas  # Acumula as horas de cada tipo
 
-    #ajusta as horas subtraindo as horas dos meses anteriores e gravando na variavel
+    # Ajusta as horas subtraindo as horas dos meses anteriores e gravando na variável
     for idx, (mes_atual, mes_rela) in enumerate(meses.items()):
         if idx == 0:
             continue
@@ -71,16 +90,17 @@ def obter_horas(unidade, modalidade, tipo_acao, chave_prefixo):
         mes_anterior_str = str(int(mes_rela) - 1).zfill(5)
         mes_anterior = mes_anterior_str
 
-        for tipo_financiamento in ['1 Gratuidade Regimental', '2 Gratuidade Não Regimental', '3 Convênio', '9 Pago por Pessoa Fisica ou Empresa']:
-            chave_resultado_atual = f"{mes_atual}_{chave_prefixo}_ha_{tipo_financiamento}"
-            
+        for tipo_financiamento_padrao in mapa_financiamento.keys():
+            chave_resultado_atual = f"{mes_atual}_{chave_prefixo}_ha_{tipo_financiamento_padrao}"
+
             if chave_resultado_atual in resultados_ha:
                 total_anterior = sum(
-                    resultados_ha.get(f"{list(meses.keys())[i]}_{chave_prefixo}_ha_{tipo_financiamento}", 0)
+                    resultados_ha.get(f"{list(meses.keys())[i]}_{chave_prefixo}_ha_{tipo_financiamento_padrao}", 0)
                     for i in range(idx)
                 )
                 resultados_ha[chave_resultado_atual] -= total_anterior
 
+                # Garantir que o valor não fique negativo
                 if resultados_ha[chave_resultado_atual] < 0:
                     resultados_ha[chave_resultado_atual] = 0
             else:
@@ -88,6 +108,7 @@ def obter_horas(unidade, modalidade, tipo_acao, chave_prefixo):
 
     return resultados_ha
 
+# Funções específicas de horas por categoria
 def obter_hora_iniciacao_presencial_tag():
     return obter_horas('1117376 SENAI Taguatinga', '5 Iniciação Profissional', '1 Presencial', 'inicia_presen')
 
@@ -128,8 +149,8 @@ def obter_hora_tecnico_iti_presencial_tag():
     return obter_horas('1117376 SENAI Taguatinga', '32 Técnico de Nível Médio - Itinerário V Ensino Médio', '1 Presencial', 'tecni_iti_presen')
 
 
+# Função para obter dados por tipo
 funcoes_ha = {
-
     'horas': {
         'iniciacao_presencial': obter_hora_iniciacao_presencial_tag,
         'iniciacao_distancia': obter_hora_iniciacao_distancia_tag,
@@ -141,11 +162,12 @@ funcoes_ha = {
         'aperfeicoamento_distancia': obter_hora_aperfeicoamento_distancia_tag,
         'qualificacao_iti_presencial': obter_hora_qualificacao_iti_presencial_tag,
         'aprendizagem_tec_presencial': obter_hora_aprendizagem_tec_presencial_tag,
-        'tecnico_nm_presencial': obter_hora_tecnico_presencial_tag,
-        'tecnico_nm_distancia': obter_hora_tecnico_distancia_tag,
-        'tecnico_nm_iti_presencial': obter_hora_tecnico_iti_presencial_tag
-    },
+        'tecnico_presencial': obter_hora_tecnico_presencial_tag,
+        'tecnico_distancia': obter_hora_tecnico_distancia_tag,
+        'tecnico_iti_presencial': obter_hora_tecnico_iti_presencial_tag,
+    }
 }
+
 
 def obter_dados_por_tipo(categoria, tipo):
     chave = f"{categoria}_{tipo}"

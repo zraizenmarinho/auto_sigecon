@@ -25,6 +25,22 @@ def obter_matriculas(unidade, modalidade, tipo_acao, chave_prefixo):
         
     matriculas_por_tipo = MatriculasPorTipoFinanciamento(supabase)
 
+    # Mapeamento dos tipos de financiamento para consolidar
+    mapa_financiamento = {
+        '1 Gratuidade Regimental': [
+            '1 Gratuidade Regimental', 
+            '101 Emprega + Novo Emprego (desempregados)', 
+            '104 Novo Brasil Mais Produtivo'
+        ],
+        '9 Pago por Pessoa Fisica ou Empresa': [
+            '9 Pago por Pessoa Fisica ou Empresa', 
+            '901 Pago pelo SESI', 
+            '903 Pago pela Rede Privada de Educação'
+        ],
+        '2 Gratuidade Não Regimental': ['2 Gratuidade Não Regimental'],
+        '3 Convênio': ['3 Convênio']
+    }
+
     meses = {
         'fev': '2',
         'mar': '3',
@@ -41,13 +57,23 @@ def obter_matriculas(unidade, modalidade, tipo_acao, chave_prefixo):
     
     resultados_mat = {}
     
+    # Coleta as matrículas para cada mês e tipo de financiamento consolidado
     for mes_atual, mes_referencia in meses.items():
-        for tipo_financiamento in ['1 Gratuidade Regimental', '2 Gratuidade Não Regimental', '3 Convênio', '9 Pago por Pessoa Fisica ou Empresa']:
-            chave_resultado = f"{mes_atual}_{chave_prefixo}_{tipo_financiamento}"
-            resultados_mat[chave_resultado] = matriculas_por_tipo.contar_matriculas(
-                unidade, modalidade, tipo_acao, '92024', mes_referencia, '2024', tipo_financiamento
-            )
-    
+        for tipo_financiamento_padrao, tipos_equivalentes in mapa_financiamento.items():
+            chave_resultado = f"{mes_atual}_{chave_prefixo}_{tipo_financiamento_padrao}"
+            
+            # Inicializa a soma de matrículas para os tipos equivalentes dentro do tipo padrão
+            total_matriculas = 0
+            
+            # Conta as matrículas para cada tipo equivalente e acumula no total
+            for tipo in tipos_equivalentes:
+                total_matriculas += matriculas_por_tipo.contar_matriculas(
+                    unidade, modalidade, tipo_acao, '102024', mes_referencia, '2024', tipo
+                )
+            
+            # Armazena o total de matrículas para a chave de financiamento consolidada
+            resultados_mat[chave_resultado] = total_matriculas
+
     return resultados_mat
 
 

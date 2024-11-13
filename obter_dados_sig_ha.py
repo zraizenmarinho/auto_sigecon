@@ -39,6 +39,22 @@ def obter_horas(unidade, modalidade, tipo_acao, chave_prefixo):
     
     hora_por_tipo = HorasPorTipoFinanciamento(supabase)
 
+    # Mapeamento financiamentos
+    mapa_financiamento = {
+        '1 Gratuidade Regimental': [
+            '1 Gratuidade Regimental', 
+            '101 Emprega + Novo Emprego (desempregados)', 
+            '104 Novo Brasil Mais Produtivo'
+        ],
+        '9 Pago por Pessoa Fisica ou Empresa': [
+            '9 Pago por Pessoa Fisica ou Empresa', 
+            '901 Pago pelo SESI', 
+            '903 Pago pela Rede Privada de Educação'
+        ],
+        '2 Gratuidade Não Regimental': ['2 Gratuidade Não Regimental'],
+        '3 Convênio': ['3 Convênio']
+    }
+
     meses = {
         'jan': '12024',
         'fev': '22024',
@@ -56,14 +72,25 @@ def obter_horas(unidade, modalidade, tipo_acao, chave_prefixo):
 
     resultados_ha = {}
 
-    #coleta as horas para cada mês e tipo de financiamento
+    # Coleta as horas para cada mês e tipo de financiamento consolidado
     for mes_atual, mes_rela in meses.items():
-        for tipo_financiamento in ['1 Gratuidade Regimental', '2 Gratuidade Não Regimental', '3 Convênio', '9 Pago por Pessoa Fisica ou Empresa']:
-            chave_resultado = f"{mes_atual}_{chave_prefixo}_ha_{tipo_financiamento}"
-            resultados_ha[chave_resultado] = hora_por_tipo.somar_horas(
-                unidade, modalidade, tipo_acao, mes_rela, tipo_financiamento)
+        for tipo_financiamento_padrao, tipos_equivalentes in mapa_financiamento.items():
+            chave_resultado = f"{mes_atual}_{chave_prefixo}_ha_{tipo_financiamento_padrao}"
+            
+            # Inicializa a variável de soma para as horas de todos os tipos equivalentes
+            total_horas = 0
+            
+            # Soma as horas para cada tipo equivalente dentro do tipo padrão
+            for tipo in tipos_equivalentes:
+                total_horas += hora_por_tipo.somar_horas(unidade, modalidade, tipo_acao, mes_rela, tipo)
+            
+            # Armazenando ou somando as horas para o resultado atual
+            if chave_resultado not in resultados_ha:
+                resultados_ha[chave_resultado] = total_horas
+            else:
+                resultados_ha[chave_resultado] += total_horas  # Acumula as horas de cada tipo
 
-    #justa as horas subtraindo as horas dos meses anteriores e gravando na variavel
+    # Ajusta as horas subtraindo as horas dos meses anteriores e gravando na variável
     for idx, (mes_atual, mes_rela) in enumerate(meses.items()):
         if idx == 0:
             continue
@@ -71,16 +98,17 @@ def obter_horas(unidade, modalidade, tipo_acao, chave_prefixo):
         mes_anterior_str = str(int(mes_rela) - 1).zfill(5)
         mes_anterior = mes_anterior_str
 
-        for tipo_financiamento in ['1 Gratuidade Regimental', '2 Gratuidade Não Regimental', '3 Convênio', '9 Pago por Pessoa Fisica ou Empresa']:
-            chave_resultado_atual = f"{mes_atual}_{chave_prefixo}_ha_{tipo_financiamento}"
-            
+        for tipo_financiamento_padrao in mapa_financiamento.keys():
+            chave_resultado_atual = f"{mes_atual}_{chave_prefixo}_ha_{tipo_financiamento_padrao}"
+
             if chave_resultado_atual in resultados_ha:
                 total_anterior = sum(
-                    resultados_ha.get(f"{list(meses.keys())[i]}_{chave_prefixo}_ha_{tipo_financiamento}", 0)
+                    resultados_ha.get(f"{list(meses.keys())[i]}_{chave_prefixo}_ha_{tipo_financiamento_padrao}", 0)
                     for i in range(idx)
                 )
                 resultados_ha[chave_resultado_atual] -= total_anterior
 
+                # Garantir que o valor não fique negativo
                 if resultados_ha[chave_resultado_atual] < 0:
                     resultados_ha[chave_resultado_atual] = 0
             else:

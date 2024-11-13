@@ -1,6 +1,8 @@
-
-from obter_dados_tag_ha import obter_hora_iniciacao_distancia_tag
+from turtle import xcor
+from obter_dados_tag_con import obter_concluintes_qualificacao_presencial_tag
 import pandas as pd
 
-dados = obter_hora_iniciacao_distancia_tag()
-print(dados)
+
+x= obter_concluintes_qualificacao_presencial_tag()
+
+print(x)

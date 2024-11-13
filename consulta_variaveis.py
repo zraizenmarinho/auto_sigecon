@@ -20,10 +20,10 @@
 
 ######Hora Aluno
 
-from obter_dados_tag_ha import obter_hora_iniciacao_distancia_tag
+from obter_dados_sob_ha import obter_hora_tecnico_iti_presencial_sob
 import pandas as pd
 
-dados = obter_hora_iniciacao_distancia_tag()
+dados = obter_hora_tecnico_iti_presencial_sob()
 
 dados_transformados = []
 for chave, valor in dados.items():
