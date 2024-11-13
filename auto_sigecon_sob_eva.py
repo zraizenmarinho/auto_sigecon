@@ -6,7 +6,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 
-from obter_dados_gam_eva import obter_dados_por_tipo
+from obter_dados_sob_eva import obter_dados_por_tipo
 
 dados = {
     'iniciacao': {
@@ -66,6 +66,12 @@ dados = {
     }
 }
 
+
+DEFAULT_WAIT = 20
+
+def esperar_elemento(nav, locator, condition=EC.visibility_of_element_located, timeout=DEFAULT_WAIT):
+    return WebDriverWait(nav, timeout).until(condition(locator))
+
 # Navevagção para a pagina
 
 url = 'http://sn-iis-02/SIGECON20/'
@@ -110,7 +116,7 @@ e_entrar.click()
 #################################################################   Elemento unidade SENAI TAGUATINGA ###################################################################################
 
 e_uni_tag1 = WebDriverWait(nav, 15).until(EC.visibility_of_element_located(
-    (By.PARTIAL_LINK_TEXT, 'Senai Gama')))
+    (By.PARTIAL_LINK_TEXT, 'Senai Sobradinho')))
 e_uni_tag1.click()
 
 ################################################################   Elemento CR INICIACAO PROFISSIONAL PRESENCIAL ########################################################################
@@ -130,8 +136,9 @@ nav.execute_script("arguments[0].click();", e_ficha_prod)
 
 ################################################################   Elemento GRUPO DE META ###############################################################################################
 
+
 e_grupo_meta = WebDriverWait(nav, 30).until(EC.visibility_of_element_located(
-    (By.XPATH, "//a[@href='/SIGECON20/Metas/MetasTipo/309/2024/0902030202/211?cd_centro_resp=30303010101&nm_unidade=SENAI%20GAMA&nm_centro_resp=INICIACAO%20PROFISSIONAL%20PRESENCIAL&id_grupo=1&ds_grupo=Inicia%C3%A7%C3%A3o%20Profissional&fase=Realiza%C3%A7%C3%A3o']"
+    (By.XPATH, "//a[@href='/SIGECON20/Metas/MetasTipo/309/2024/0902030204/240?cd_centro_resp=30303010101&nm_unidade=SENAI%20SOBRADINHO&nm_centro_resp=INICIACAO%20PROFISSIONAL%20PRESENCIAL&id_grupo=1&ds_grupo=Inicia%C3%A7%C3%A3o%20Profissional&fase=Realiza%C3%A7%C3%A3o']"
 )))
 
 nav.execute_script("arguments[0].scrollIntoView(true);", e_grupo_meta)
@@ -161,21 +168,21 @@ meses = [
 
 for i, (mes, campo_dado) in enumerate(meses):
    
-    eva_bolsa_mes = WebDriverWait(nav, 10).until(
-        EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='4917'].indicador"))
-    )
+    eva_bolsa_mes = esperar_elemento(nav, (By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='5153'].indicador"), timeout=10)
+    
     eva_bolsa_mes.click()
 
-    eva_bolsa_send = WebDriverWait(nav, 15).until(
+    eva_bolsa_mes = WebDriverWait(nav, 15).until(
         EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]"))
     )
+
 
     chave_dado = f"{mes}_inicia_presen_eva_2 Gratuidade Não Regimental"
     
     eva_iniciacao_presencial_geral = dados['iniciacao']['presencial']['evadidos'].get(chave_dado, 0)
 
-    eva_bolsa_send.send_keys(str(eva_iniciacao_presencial_geral))
-    eva_bolsa_send.send_keys(Keys.ENTER)
+    eva_bolsa_mes.send_keys(str(eva_iniciacao_presencial_geral))
+    eva_bolsa_mes.send_keys(Keys.ENTER)
 
 
 ############################################################   evadidos NAO GRATUITA ####################################################################################################
@@ -200,7 +207,7 @@ meses = [
 for i, (mes, campo_dado) in enumerate(meses):
     
     eva_ng_mes = WebDriverWait(nav, 10).until(
-        EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='4918'].indicador"))
+        EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='5154'].indicador"))
     )
     eva_ng_mes.click()
 
@@ -221,7 +228,7 @@ for i, (mes, campo_dado) in enumerate(meses):
 
 janela_atual = nav.current_window_handle
 
-nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030202/212?cd_centro_resp=30303010201&nm_unidade=SENAI%20GAMA&nm_centro_resp=INICIACAO%20PROFISSIONAL%20A%20DISTANCIA&id_grupo=1&ds_grupo=Inicia%C3%A7%C3%A3o%20Profissional&fase=Realiza%C3%A7%C3%A3o')")
+nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030204/244?cd_centro_resp=30303010201&nm_unidade=SENAI%20SOBRADINHO&nm_centro_resp=INICIACAO%20PROFISSIONAL%20A%20DISTANCIA&id_grupo=1&ds_grupo=Inicia%C3%A7%C3%A3o%20Profissional&fase=Realiza%C3%A7%C3%A3o')")
 
 nav.switch_to.window(nav.window_handles[-1])
 
@@ -254,7 +261,7 @@ meses = [
 for i, (mes, campo_dado) in enumerate(meses):
 
     eva_ipd_bolsa_mes = WebDriverWait(nav, 10).until(
-        EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='4925'].indicador"))
+        EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='5193'].indicador"))
     )
     eva_ipd_bolsa_mes.click()
 
@@ -292,7 +299,7 @@ meses = [
 for i, (mes, campo_dado) in enumerate(meses):
 
     eva_ipd_ng_mes = WebDriverWait(nav, 10).until(
-        EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='4926'].indicador"))
+        EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='5194'].indicador"))
     )
     eva_ipd_ng_mes.click()
 
@@ -315,7 +322,7 @@ from selenium import webdriver
 
 janela_atual = nav.current_window_handle
 
-nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030202/213?cd_centro_resp=30303020101&nm_unidade=SENAI%20GAMA&nm_centro_resp=APRENDIZAGEM%20INDUSTRIAL%20PRESENCIAL&id_grupo=2&ds_grupo=Aprendizagem%20Industrial&fase=Realiza%C3%A7%C3%A3o')")
+nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030204/248?cd_centro_resp=30303020101&nm_unidade=SENAI%20SOBRADINHO&nm_centro_resp=APRENDIZAGEM%20INDUSTRIAL%20PRESENCIAL&id_grupo=2&ds_grupo=Aprendizagem%20Industrial&fase=Realiza%C3%A7%C3%A3o')")
 
 nav.switch_to.window(nav.window_handles[-1])
 
@@ -346,7 +353,7 @@ meses = [
 
 for i, (mes, campo_dado) in enumerate(meses):
 
-    app_ng_eva = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='4933'].indicador")))
+    app_ng_eva = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='5233'].indicador")))
     app_ng_eva.click()
 
 
@@ -364,7 +371,7 @@ for i, (mes, campo_dado) in enumerate(meses):
 nav.refresh()
 
 meses = [
-    ("jan", "jan_aprendi_presen_eva_1 Gratuidade Regimenta" ),
+    ("jan", "jan_aprendi_presen_eva_1 Gratuidade Regimental"),
     ("fev", "fev_aprendi_presen_eva_1 Gratuidade Regimental"),
     ("mar", "mar_aprendi_presen_eva_1 Gratuidade Regimental"),
     ("abr", "abr_aprendi_presen_eva_1 Gratuidade Regimental"),
@@ -381,7 +388,7 @@ meses = [
 
 for i, (mes, campo_dado) in enumerate(meses):
 
-    app_regimental_eva = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='4934'].indicador")))
+    app_regimental_eva = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='5234'].indicador")))
     app_regimental_eva.click()
 
    
@@ -396,13 +403,51 @@ for i, (mes, campo_dado) in enumerate(meses):
     app_regimental_eva.send_keys(str(eva_aprendizagem_presencial_regimental))
     app_regimental_eva.send_keys(Keys.ENTER)
 
+
+# 30303020101 - APRENDIZAGEM INDUSTRIAL PRESENCIAL evadidos BOLSA
+
+nav.refresh()
+
+meses = [
+    ("jan", "jan_aprendi_presen_eva_2 Gratuidade Não Regimental"),
+    ("fev", "fev_aprendi_presen_eva_2 Gratuidade Não Regimental"),
+    ("mar", "mar_aprendi_presen_eva_2 Gratuidade Não Regimental"),
+    ("abr", "abr_aprendi_presen_eva_2 Gratuidade Não Regimental"),
+    ("mai", "mai_aprendi_presen_eva_2 Gratuidade Não Regimental"),
+    ("jun", "jun_aprendi_presen_eva_2 Gratuidade Não Regimental"),
+    ("jul", "jul_aprendi_presen_eva_2 Gratuidade Não Regimental"),
+    ("ago", "ago_aprendi_presen_eva_2 Gratuidade Não Regimental"),
+    ("set", "set_aprendi_presen_eva_2 Gratuidade Não Regimental"),
+    ("out", "out_aprendi_presen_eva_2 Gratuidade Não Regimental"),
+    ("nov", "nov_aprendi_presen_eva_2 Gratuidade Não Regimental"),
+    ("dez", "dez_aprendi_presen_eva_2 Gratuidade Não Regimental")
+]
+
+
+for i, (mes, campo_dado) in enumerate(meses):
+
+    app_bolsa_eva = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='5478'].indicador")))
+    app_bolsa_eva.click()
+
+   
+    app_bolsa_eva = WebDriverWait(nav, 15).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]")))
+
+
+    chave_dado = f"{mes}_aprendi_presen_con_2 Gratuidade Não Regimental"
+    
+   
+    eva_aprendizagem_presencial_bolsa = dados['aprendizagem']['presencial']['evadidos'].get(chave_dado, 0)
+
+    app_bolsa_eva.send_keys(str(eva_aprendizagem_presencial_bolsa))
+    app_bolsa_eva.send_keys(Keys.ENTER)
+
 # 30303020201 - QUALIFICACAO PROFISSIONAL PRESENCIAL evadidos BOLSA
 
 from selenium import webdriver
 
 janela_atual = nav.current_window_handle
 
-nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030202/214?cd_centro_resp=30303020201&nm_unidade=SENAI%20GAMA&nm_centro_resp=QUALIFICACAO%20PROFISSIONAL%20PRESENCIAL&id_grupo=3&ds_grupo=Qualifica%C3%A7%C3%A3o%20Industrial&fase=Realiza%C3%A7%C3%A3o')")
+nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030204/241?cd_centro_resp=30303020201&nm_unidade=SENAI%20SOBRADINHO&nm_centro_resp=QUALIFICACAO%20PROFISSIONAL%20PRESENCIAL&id_grupo=3&ds_grupo=Qualifica%C3%A7%C3%A3o%20Industrial&fase=Realiza%C3%A7%C3%A3o')")
 
 nav.switch_to.window(nav.window_handles[-1])
 
@@ -430,7 +475,7 @@ meses = [
 
 for i, (mes, campo_dado) in enumerate(meses):
 
-    qualifi_bolsa_eva = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='4942'].indicador")))
+    qualifi_bolsa_eva = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='5162'].indicador")))
     qualifi_bolsa_eva.click()
 
    
@@ -466,7 +511,7 @@ meses = [
 
 for i, (mes, campo_dado) in enumerate(meses):
 
-    qualifi_ng_eva = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='4943'].indicador")))
+    qualifi_ng_eva = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='5163'].indicador")))
     qualifi_ng_eva.click()
 
    
@@ -503,7 +548,7 @@ meses = [
 
 for i, (mes, campo_dado) in enumerate(meses):
 
-    quali_regime_eva_eva = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='4944'].indicador")))
+    quali_regime_eva_eva = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='5164'].indicador")))
     quali_regime_eva_eva.click()
 
    
@@ -525,7 +570,7 @@ from selenium import webdriver
 
 janela_atual = nav.current_window_handle
 
-nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030202/215?cd_centro_resp=30303020401&nm_unidade=SENAI%20GAMA&nm_centro_resp=QUALIFICACAO%20PROFISSIONAL%20SEMIPRESENCIAL&id_grupo=3&ds_grupo=Qualifica%C3%A7%C3%A3o%20Industrial&fase=Realiza%C3%A7%C3%A3o')")
+nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030204/245?cd_centro_resp=30303020401&nm_unidade=SENAI%20SOBRADINHO&nm_centro_resp=QUALIFICACAO%20PROFISSIONAL%20SEMIPRESENCIAL&id_grupo=3&ds_grupo=Qualifica%C3%A7%C3%A3o%20Industrial&fase=Realiza%C3%A7%C3%A3o')")
 
 nav.switch_to.window(nav.window_handles[-1])
 
@@ -554,7 +599,7 @@ meses = [
 
 for i, (mes, campo_dado) in enumerate(meses):
 
-    qualifi_semi_bolsa_eva = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='4954'].indicador")))
+    qualifi_semi_bolsa_eva = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='5202'].indicador")))
     qualifi_semi_bolsa_eva.click()
 
    
@@ -591,7 +636,7 @@ meses = [
 
 for i, (mes, campo_dado) in enumerate(meses):
 
-    qualifi_semi_ng_eva = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='4955'].indicador")))
+    qualifi_semi_ng_eva = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='5203'].indicador")))
     qualifi_semi_ng_eva.click()
 
    
@@ -627,7 +672,7 @@ meses = [
 
 for i, (mes, campo_dado) in enumerate(meses):
 
-    qualifi_semi_regimental_eva = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='4956'].indicador")))
+    qualifi_semi_regimental_eva = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='5204'].indicador")))
     qualifi_semi_regimental_eva.click()
 
    
@@ -642,45 +687,6 @@ for i, (mes, campo_dado) in enumerate(meses):
     qualifi_semi_regimental_eva.send_keys(str(eva_qualifica_semi_regimental))
     qualifi_semi_regimental_eva.send_keys(Keys.ENTER)
 
-
-#  30303020401 - QUALIFICACAO PROFISSIONAL SEMIPRESENCIAL - CONVENIO
-
-nav.refresh()
-
-meses = [
-    ("jan", "jan_qualifi_distan_eva_3 Convênio"),
-    ("fev", "fev_qualifi_distan_eva_3 Convênio"),
-    ("mar", "mar_qualifi_distan_eva_3 Convênio"),
-    ("abr", "abr_qualifi_distan_eva_3 Convênio"),
-    ("mai", "mai_qualifi_distan_eva_3 Convênio"),
-    ("jun", "jun_qualifi_distan_eva_3 Convênio"),
-    ("jul", "jul_qualifi_distan_eva_3 Convênio"),
-    ("ago", "ago_qualifi_distan_eva_3 Convênio"),
-    ("set", "set_qualifi_distan_eva_3 Convênio"),
-    ("out", "out_qualifi_distan_eva_3 Convênio"),
-    ("nov", "nov_qualifi_distan_eva_3 Convênio"),
-    ("dez", "dez_qualifi_distan_eva_3 Convênio")
-]
-
-nav.refresh()
-
-for i, (mes, campo_dado) in enumerate(meses):
-
-    qualifi_semi_convenio_eva = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='4964'].indicador")))
-    qualifi_semi_convenio_eva.click()
-
-   
-    qualifi_semi_convenio_eva = WebDriverWait(nav, 15).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]")))
-
- 
-    chave_dado = f"{mes}_qualifi_distan_eva_3 Convênio"
-    
-    
-    eva_qualifica_convenio_eva = dados['qualificacao']['distancia']['evadidos'].get(chave_dado, 0)
-
-    qualifi_semi_convenio_eva.send_keys(str(eva_qualifica_convenio_eva))
-    qualifi_semi_convenio_eva.send_keys(Keys.ENTER)
-    
     
 # 30303020501 - APERF/ESPECIALIZ PROFISSIONAL PRESENCIAL - BOLSA
 
@@ -688,7 +694,7 @@ from selenium import webdriver
 
 janela_atual = nav.current_window_handle
 
-nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030202/216?cd_centro_resp=30303020501&nm_unidade=SENAI%20GAMA&nm_centro_resp=APERF%2FESPECIALIZ%20PROFISSIONAL%20PRESENCIAL&id_grupo=5&ds_grupo=Aperfei%C3%A7oamento%20Profissional&fase=Realiza%C3%A7%C3%A3o')")
+nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030204/249?cd_centro_resp=30303020501&nm_unidade=SENAI%20SOBRADINHO&nm_centro_resp=APERF%2FESPECIALIZ%20PROFISSIONAL%20PRESENCIAL&id_grupo=5&ds_grupo=Aperfei%C3%A7oamento%20Profissional&fase=Realiza%C3%A7%C3%A3o')")
 
 nav.switch_to.window(nav.window_handles[-1])
 
@@ -717,7 +723,7 @@ meses = [
 
 for i, (mes, campo_dado) in enumerate(meses):
 
-    aper_prese_bolsa_eva = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='4970'].indicador")))
+    aper_prese_bolsa_eva = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='5242'].indicador")))
     aper_prese_bolsa_eva.click()
 
    
@@ -754,7 +760,7 @@ meses = [
 
 for i, (mes, campo_dado) in enumerate(meses):
 
-    aper_prese_ng_eva = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='4971'].indicador")))
+    aper_prese_ng_eva = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='5243'].indicador")))
     aper_prese_ng_eva.click()
 
    
@@ -793,7 +799,7 @@ meses = [
 
 for i, (mes, campo_dado) in enumerate(meses):
 
-    aper_prese_regimental_eva = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='4972'].indicador")))
+    aper_prese_regimental_eva = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='5244'].indicador")))
     aper_prese_regimental_eva.click()
 
    
@@ -814,7 +820,7 @@ from selenium import webdriver
 
 janela_atual = nav.current_window_handle
 
-nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030202/217?cd_centro_resp=30303020601&nm_unidade=SENAI%20GAMA&nm_centro_resp=APERF%2FESPECIALI%20PROFISSIONAL%20A%20DISTANCIA&id_grupo=5&ds_grupo=Aperfei%C3%A7oamento%20Profissional&fase=Realiza%C3%A7%C3%A3o')")
+nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030204/242?cd_centro_resp=30303020601&nm_unidade=SENAI%20SOBRADINHO&nm_centro_resp=APERF%2FESPECIALI%20PROFISSIONAL%20A%20DISTANCIA&id_grupo=5&ds_grupo=Aperfei%C3%A7oamento%20Profissional&fase=Realiza%C3%A7%C3%A3o')")
 
 nav.switch_to.window(nav.window_handles[-1])
 
@@ -843,7 +849,7 @@ meses = [
 
 for i, (mes, campo_dado) in enumerate(meses):
 
-    aper_dista_bolsa_eva = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='4982'].indicador")))
+    aper_dista_bolsa_eva = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='5174'].indicador")))
     aper_dista_bolsa_eva.click()
 
    
@@ -880,7 +886,7 @@ meses = [
 
 for i, (mes, campo_dado) in enumerate(meses):
 
-    aper_dista_ng_eva = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='4983'].indicador")))
+    aper_dista_ng_eva = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='5175'].indicador")))
     aper_dista_ng_eva.click()
 
    
@@ -915,8 +921,10 @@ meses = [
 
 for i, (mes, campo_dado) in enumerate(meses):
 
-    aper_dista_regimental_eva = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='4984'].indicador")))
+    aper_dista_regimental_eva = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='5176'].indicador")))
     aper_dista_regimental_eva.click()
+
+    aper_dista_regimental_eva = WebDriverWait(nav, 15).until(EC.visibility_of_element_located((By.XPATH, "(//input[@type='text'])[8]")))
 
  
     chave_dado = f"{mes}_aperfei_distan_eva_1 Gratuidade Regimental"
@@ -932,9 +940,10 @@ from selenium import webdriver
 
 janela_atual = nav.current_window_handle
 
-nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030202/218?cd_centro_resp=30303020901&nm_unidade=SENAI%20GAMA&nm_centro_resp=QUALIFIC%20PROF%20PRESENC%20-%20ITINER%20V%20ENS%20MED&id_grupo=3&ds_grupo=Qualifica%C3%A7%C3%A3o%20Industrial&fase=Realiza%C3%A7%C3%A3o')")
+nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030204/246?cd_centro_resp=30303020901&nm_unidade=SENAI%20SOBRADINHO&nm_centro_resp=QUALIFIC%20PROF%20PRESENC%20-%20ITINER%20V%20ENS%20MED&id_grupo=3&ds_grupo=Qualifica%C3%A7%C3%A3o%20Industrial&fase=Realiza%C3%A7%C3%A3o')")
 
 nav.switch_to.window(nav.window_handles[-1])
+
 
 nav.switch_to.window(janela_atual)
 nav.close()
@@ -960,7 +969,7 @@ meses = [
 
 for i, (mes, campo_dado) in enumerate(meses):
 
-    qualifi_iti_presencial_bolsa_eva = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='4994'].indicador")))
+    qualifi_iti_presencial_bolsa_eva = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='5214'].indicador")))
     qualifi_iti_presencial_bolsa_eva.click()
 
    
@@ -996,7 +1005,7 @@ meses = [
 
 for i, (mes, campo_dado) in enumerate(meses):
 
-    qualifi_iti_presencial_ng_eva = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='4995'].indicador")))
+    qualifi_iti_presencial_ng_eva = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='5215'].indicador")))
     qualifi_iti_presencial_ng_eva.click()
 
    
@@ -1033,7 +1042,7 @@ meses = [
 
 for i, (mes, campo_dado) in enumerate(meses):
 
-    qualifi_iti_presencial_regimental_eva = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='4996'].indicador")))
+    qualifi_iti_presencial_regimental_eva = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='5216'].indicador")))
     qualifi_iti_presencial_regimental_eva.click()
 
    
@@ -1055,7 +1064,7 @@ from selenium import webdriver
 
 janela_atual = nav.current_window_handle
 
-nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030202/219?cd_centro_resp=30303040101&nm_unidade=SENAI%20GAMA&nm_centro_resp=APREND.%20IND.%20TEC.%20NIVEL%20MEDIO%20PRESENCIAL&id_grupo=11&ds_grupo=Aprendizagem%20Industrial%20T%C3%A9cnico%20de%20N%C3%ADvel%20M%C3%A9dio&fase=Realiza%C3%A7%C3%A3o')")
+nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030204/250?cd_centro_resp=30303040101&nm_unidade=SENAI%20SOBRADINHO&nm_centro_resp=APREND.%20IND.%20TEC.%20NIVEL%20MEDIO%20PRESENCIAL&id_grupo=11&ds_grupo=Aprendizagem%20Industrial%20T%C3%A9cnico%20de%20N%C3%ADvel%20M%C3%A9dio&fase=Realiza%C3%A7%C3%A3o')")
 
 nav.switch_to.window(nav.window_handles[-1])
 
@@ -1083,7 +1092,7 @@ meses = [
 
 for i, (mes, campo_dado) in enumerate(meses):
 
-    aprendi_tec_presencial_ng_eva = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='5005'].indicador")))
+    aprendi_tec_presencial_ng_eva = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='5253'].indicador")))
     aprendi_tec_presencial_ng_eva.click()
 
    
@@ -1119,7 +1128,7 @@ meses = [
 
 for i, (mes, campo_dado) in enumerate(meses):
 
-    aprendi_tec_presencial_regimental_eva = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='5006'].indicador")))
+    aprendi_tec_presencial_regimental_eva = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='5254'].indicador")))
     aprendi_tec_presencial_regimental_eva.click()
 
    
@@ -1139,7 +1148,7 @@ from selenium import webdriver
 
 janela_atual = nav.current_window_handle
 
-nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030202/220?cd_centro_resp=30303040201&nm_unidade=SENAI%20GAMA&nm_centro_resp=TECNICO%20DE%20NIVEL%20MEDIO%20PRESENCIAL&id_grupo=4&ds_grupo=T%C3%A9cnico%20de%20N%C3%ADvel%20M%C3%A9dio&fase=Realiza%C3%A7%C3%A3o')")
+nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030204/243?cd_centro_resp=30303040201&nm_unidade=SENAI%20SOBRADINHO&nm_centro_resp=TECNICO%20DE%20NIVEL%20MEDIO%20PRESENCIAL&id_grupo=4&ds_grupo=T%C3%A9cnico%20de%20N%C3%ADvel%20M%C3%A9dio&fase=Realiza%C3%A7%C3%A3o')")
 
 nav.switch_to.window(nav.window_handles[-1])
 
@@ -1167,7 +1176,7 @@ meses = [
 
 for i, (mes, campo_dado) in enumerate(meses):
 
-    tec_presencial_ng_eva = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='5013'].indicador")))
+    tec_presencial_ng_eva = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='5185'].indicador")))
     tec_presencial_ng_eva.click()
 
    
@@ -1202,7 +1211,7 @@ meses = [
 
 for i, (mes, campo_dado) in enumerate(meses):
 
-    tec_presencial_regimental_eva = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='5014'].indicador")))
+    tec_presencial_regimental_eva = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='5186'].indicador")))
     tec_presencial_regimental_eva.click()
 
    
@@ -1223,7 +1232,7 @@ from selenium import webdriver
 
 janela_atual = nav.current_window_handle
 
-nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030202/262?cd_centro_resp=30303040401&nm_unidade=SENAI%20GAMA&nm_centro_resp=TECNICO%20DE%20NIVEL%20MEDIO%20SEMIPRESENCIAL&id_grupo=4&ds_grupo=T%C3%A9cnico%20de%20N%C3%ADvel%20M%C3%A9dio&fase=Realiza%C3%A7%C3%A3o')")
+nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030204/247?cd_centro_resp=30303040401&nm_unidade=SENAI%20SOBRADINHO&nm_centro_resp=TECNICO%20DE%20NIVEL%20MEDIO%20SEMIPRESENCIAL&id_grupo=4&ds_grupo=T%C3%A9cnico%20de%20N%C3%ADvel%20M%C3%A9dio&fase=Realiza%C3%A7%C3%A3o')")
 
 nav.switch_to.window(nav.window_handles[-1])
 
@@ -1251,7 +1260,7 @@ meses = [
 
 for i, (mes, campo_dado) in enumerate(meses):
 
-    tec_distancia_ng_eva = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='5333'].indicador")))
+    tec_distancia_ng_eva = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='5225'].indicador")))
     tec_distancia_ng_eva.click()
 
    
@@ -1287,7 +1296,7 @@ meses = [
 
 for i, (mes, campo_dado) in enumerate(meses):
 
-    tec_distancia_regimental_eva = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='5334'].indicador")))
+    tec_distancia_regimental_eva = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='5226'].indicador")))
     tec_distancia_regimental_eva.click()
 
    
@@ -1306,7 +1315,7 @@ for i, (mes, campo_dado) in enumerate(meses):
 
 janela_atual = nav.current_window_handle
 
-nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030202/263?cd_centro_resp=30303040501&nm_unidade=SENAI%20GAMA&nm_centro_resp=TECN%20DE%20NIV%20MED%20ITINERARIOS%20PRESENCIAL&id_grupo=4&ds_grupo=T%C3%A9cnico%20de%20N%C3%ADvel%20M%C3%A9dio&fase=Realiza%C3%A7%C3%A3o')")
+nav.execute_script("window.open('http://sn-iis-02/SIGECON20/Metas/MetasTipo/309/2024/0902030204/251?cd_centro_resp=30303040501&nm_unidade=SENAI%20SOBRADINHO&nm_centro_resp=TECN%20DE%20NIV%20MED%20ITINERARIOS%20PRESENCIAL&id_grupo=4&ds_grupo=T%C3%A9cnico%20de%20N%C3%ADvel%20M%C3%A9dio&fase=Realiza%C3%A7%C3%A3o')")
 
 nav.switch_to.window(nav.window_handles[-1])
 
@@ -1334,7 +1343,7 @@ meses = [
 
 for i, (mes, campo_dado) in enumerate(meses):
 
-    tec_iti_presencial_bolsa_eva = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='5344'].indicador")))
+    tec_iti_presencial_bolsa_eva = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='5483'].indicador")))
     tec_iti_presencial_bolsa_eva.click()
 
    
@@ -1369,7 +1378,7 @@ meses = [
 
 for i, (mes, campo_dado) in enumerate(meses):
 
-    tec_iti_presencial_regimental_eva = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='5340'].indicador")))
+    tec_iti_presencial_regimental_eva = WebDriverWait(nav, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, f"td:nth-child({4 + i}) > [id='5260'].indicador")))
     tec_iti_presencial_regimental_eva.click()
 
    
@@ -1383,3 +1392,5 @@ for i, (mes, campo_dado) in enumerate(meses):
     tec_iti_presencial_regimental_eva.send_keys(str(eva_tec_iti_presencial_regimental))
     tec_iti_presencial_regimental_eva.send_keys(Keys.ENTER)
 
+
+# SENAI sobUATINGA - 30303040501 - TECN DE NIV MED ITINERARIOS PRESENCIAL NAO GRATUITA

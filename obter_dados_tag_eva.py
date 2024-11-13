@@ -47,7 +47,7 @@ def obter_evadidos(unidade, modalidade, tipo_acao, chave_prefixo):
         for tipo_financiamento in ['1 Gratuidade Regimental', '2 Gratuidade Não Regimental', '3 Convênio', '9 Pago por Pessoa Fisica ou Empresa']:
             chave_resultado = f"{mes_atual}_{chave_prefixo}_{tipo_financiamento}"
             resultados_eva[chave_resultado] = evariculas_por_tipo.contar_evadidos(
-                unidade, modalidade, tipo_acao, '72024', mes_referencia, '2024', tipo_financiamento, '4 Evadida'
+                unidade, modalidade, tipo_acao, '92024', mes_referencia, '2024', tipo_financiamento, '4 Evadida'
             )
     
     return resultados_eva

@@ -3,6 +3,7 @@ from supabase import create_client, Client
 url = "https://rrlcjzoliigmswfbnzgz.supabase.co"
 key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJybGNqem9saWlnbXN3ZmJuemd6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjUzNzEwODQsImV4cCI6MjA0MDk0NzA4NH0.O9QG-fope78SqhveVEwDzwU37ZZjOMTf__m7zbsAY3w"
 
+
 supabase: Client = create_client(url, key)
 
 def obter_matriculas(unidade, modalidade, tipo_acao, chave_prefixo):
@@ -45,7 +46,7 @@ def obter_matriculas(unidade, modalidade, tipo_acao, chave_prefixo):
         for tipo_financiamento in ['1 Gratuidade Regimental', '2 Gratuidade Não Regimental', '3 Convênio', '9 Pago por Pessoa Fisica ou Empresa']:
             chave_resultado = f"{mes_atual}_{chave_prefixo}_{tipo_financiamento}"
             resultados_mat[chave_resultado] = matriculas_por_tipo.contar_matriculas(
-                unidade, modalidade, tipo_acao, '72024', mes_referencia, '2024', tipo_financiamento
+                unidade, modalidade, tipo_acao, '102024', mes_referencia, '2024', tipo_financiamento
             )
     
     return resultados_mat

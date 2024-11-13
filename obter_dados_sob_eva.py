@@ -54,43 +54,43 @@ def obter_evadidos(unidade, modalidade, tipo_acao, chave_prefixo):
 
 
 def obter_evadidos_iniciacao_presencial_gam():
-    return obter_evadidos('1117374 SENAI Gama', '5 Iniciação Profissional', '1 Presencial', 'inicia_presen_eva')
+    return obter_evadidos('5171003 SENAI Sobradinho', '5 Iniciação Profissional', '1 Presencial', 'inicia_presen_eva')
 
 def obter_evadidos_iniciacao_distancia_gam():
-    return obter_evadidos('1117374 SENAI Gama', '5 Iniciação Profissional', '2 A distância', 'inicia_distan_eva')
+    return obter_evadidos('5171003 SENAI Sobradinho', '5 Iniciação Profissional', '2 A distância', 'inicia_distan_eva')
 
 def obter_evadidos_aprendizagem_presencial_gam():
-    return obter_evadidos('1117374 SENAI Gama', '11 Aprendizagem Industrial básica', '1 Presencial', 'aprendi_presen_eva')
+    return obter_evadidos('5171003 SENAI Sobradinho', '11 Aprendizagem Industrial básica', '1 Presencial', 'aprendi_presen_eva')
 
 def obter_evadidos_qualificacao_presencial_gam():
-    return obter_evadidos('1117374 SENAI Gama', '21 Qualificação Profissional', '1 Presencial', 'qualifi_presen_eva')
+    return obter_evadidos('5171003 SENAI Sobradinho', '21 Qualificação Profissional', '1 Presencial', 'qualifi_presen_eva')
 
 def obter_evadidos_aprendizagem_distancia_gam():
-    return obter_evadidos('1117374 SENAI Gama', '11 Aprendizagem Industrial básica', '2 A distância', 'aprendi_distan_eva')
+    return obter_evadidos('5171003 SENAI Sobradinho', '11 Aprendizagem Industrial básica', '2 A distância', 'aprendi_distan_eva')
 
 def obter_evadidos_qualificacao_distancia_gam():
-    return obter_evadidos('1117374 SENAI Gama', '21 Qualificação Profissional', '2 A distância', 'qualifi_distan_eva')
+    return obter_evadidos('5171003 SENAI Sobradinho', '21 Qualificação Profissional', '2 A distância', 'qualifi_distan_eva')
 
 def obter_evadidos_aperfeicoamento_presencial_gam():
-    return obter_evadidos('1117374 SENAI Gama', '58 Aperfeiçoamento/Especialização Profissional', '1 Presencial', 'aperfei_presen_eva')
+    return obter_evadidos('5171003 SENAI Sobradinho', '58 Aperfeiçoamento/Especialização Profissional', '1 Presencial', 'aperfei_presen_eva')
 
 def obter_evadidos_aperfeicoamento_distancia_gam():
-    return obter_evadidos('1117374 SENAI Gama', '58 Aperfeiçoamento/Especialização Profissional', '2 A distância', 'aperfei_distan_eva')
+    return obter_evadidos('5171003 SENAI Sobradinho', '58 Aperfeiçoamento/Especialização Profissional', '2 A distância', 'aperfei_distan_eva')
 
 def obter_evadidos_qualificacao_itine_presencial_gam():
-    return obter_evadidos('1117374 SENAI Gama', '22 Qualificação Profissional - Itinerário V Ensino Médio', '1 Presencial', 'qualifi_iti_presen_eva')
+    return obter_evadidos('5171003 SENAI Sobradinho', '22 Qualificação Profissional - Itinerário V Ensino Médio', '1 Presencial', 'qualifi_iti_presen_eva')
 
 def obter_evadidos_aprendizagem_tecnica_presencial_gam():
-    return obter_evadidos('1117374 SENAI Gama', '15 Aprendizagem Industrial Técnica de Nível Médio', '1 Presencial', 'aprendi_tec_presen_eva')
+    return obter_evadidos('5171003 SENAI Sobradinho', '15 Aprendizagem Industrial Técnica de Nível Médio', '1 Presencial', 'aprendi_tec_presen_eva')
 
 def obter_evadidos_tecnico_presencial_gam():
-    return obter_evadidos('1117374 SENAI Gama', '31 Técnico de Nível Médio', '1 Presencial', 'tecni_presen_eva')
+    return obter_evadidos('5171003 SENAI Sobradinho', '31 Técnico de Nível Médio', '1 Presencial', 'tecni_presen_eva')
 
 def obter_evadidos_tecnico_distancia_gam():
-    return obter_evadidos('1117374 SENAI Gama', '31 Técnico de Nível Médio', '2 A distância', 'tecni_distan_eva')
+    return obter_evadidos('5171003 SENAI Sobradinho', '31 Técnico de Nível Médio', '2 A distância', 'tecni_distan_eva')
 
 def obter_evadidos_tecnico_iti_presencial_gam():
-    return obter_evadidos('1117374 SENAI Gama', '32 Técnico de Nível Médio - Itinerário V Ensino Médio', '1 Presencial', 'tecni_iti_presen_eva')
+    return obter_evadidos('5171003 SENAI Sobradinho', '32 Técnico de Nível Médio - Itinerário V Ensino Médio', '1 Presencial', 'tecni_iti_presen_eva')
 
 funcoes_eva = {
     

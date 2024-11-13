@@ -47,7 +47,7 @@ def obter_concluintes(unidade, modalidade, tipo_acao, chave_prefixo):
         for tipo_financiamento in ['1 Gratuidade Regimental', '2 Gratuidade Não Regimental', '3 Convênio', '9 Pago por Pessoa Fisica ou Empresa']:
             chave_resultado = f"{mes_atual}_{chave_prefixo}_{tipo_financiamento}"
             resultados_con[chave_resultado] = conriculas_por_tipo.contar_concluintes(
-                unidade, modalidade, tipo_acao, '72024', mes_referencia, '2024', tipo_financiamento, '2 Concluída'
+                unidade, modalidade, tipo_acao, '92024', mes_referencia, '2024', tipo_financiamento, '2 Concluída'
             )
     
     return resultados_con

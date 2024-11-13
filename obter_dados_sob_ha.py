@@ -63,7 +63,7 @@ def obter_horas(unidade, modalidade, tipo_acao, chave_prefixo):
             resultados_ha[chave_resultado] = hora_por_tipo.somar_horas(
                 unidade, modalidade, tipo_acao, mes_rela, tipo_financiamento)
 
-    #ajusta as horas subtraindo as horas dos meses anteriores e gravando na variavel
+    #justa as horas subtraindo as horas dos meses anteriores e gravando na variavel
     for idx, (mes_atual, mes_rela) in enumerate(meses.items()):
         if idx == 0:
             continue
@@ -88,62 +88,63 @@ def obter_horas(unidade, modalidade, tipo_acao, chave_prefixo):
 
     return resultados_ha
 
-def obter_hora_iniciacao_presencial_tag():
-    return obter_horas('1117376 SENAI Taguatinga', '5 Iniciação Profissional', '1 Presencial', 'inicia_presen')
 
-def obter_hora_iniciacao_distancia_tag():
-    return obter_horas('1117376 SENAI Taguatinga', '5 Iniciação Profissional', '2 A distância', 'inicia_distan')
+def obter_hora_iniciacao_presencial_gam():
+    return obter_horas('5171003 SENAI Sobradinho', '5 Iniciação Profissional', '1 Presencial', 'inicia_presen')
 
-def obter_hora_aprendizagem_presencial_tag():
-    return obter_horas('1117376 SENAI Taguatinga', '11 Aprendizagem Industrial básica', '1 Presencial', 'aprendi_presen')
+def obter_hora_iniciacao_distancia_gam():
+    return obter_horas('5171003 SENAI Sobradinho', '5 Iniciação Profissional', '2 A distância', 'inicia_distan')
 
-def obter_hora_qualificacao_presencial_tag():
-    return obter_horas('1117376 SENAI Taguatinga', '21 Qualificação Profissional', '1 Presencial', 'qualifi_presen')
+def obter_hora_aprendizagem_presencial_gam():
+    return obter_horas('5171003 SENAI Sobradinho', '11 Aprendizagem Industrial básica', '1 Presencial', 'aprendi_presen')
 
-def obter_hora_aprendizagem_distancia_tag():
-    return obter_horas('1117376 SENAI Taguatinga', '11 Aprendizagem Industrial básica', '2 A distância', 'aprendi_distan')
+def obter_hora_qualificacao_presencial_gam():
+    return obter_horas('5171003 SENAI Sobradinho', '21 Qualificação Profissional', '1 Presencial', 'qualifi_presen')
 
-def obter_hora_qualificacao_distancia_tag():
-    return obter_horas('1117376 SENAI Taguatinga', '21 Qualificação Profissional', '2 A distância', 'qualifi_distan')
+def obter_hora_aprendizagem_distancia_gam():
+    return obter_horas('5171003 SENAI Sobradinho', '11 Aprendizagem Industrial básica', '2 A distância', 'aprendi_distan')
 
-def obter_hora_aperfeicoamento_presencial_tag():
-    return obter_horas('1117376 SENAI Taguatinga', '58 Aperfeiçoamento/Especialização Profissional', '1 Presencial', 'aperfei_presen')
+def obter_hora_qualificacao_distancia_gam():
+    return obter_horas('5171003 SENAI Sobradinho', '21 Qualificação Profissional', '2 A distância', 'qualifi_distan')
 
-def obter_hora_aperfeicoamento_distancia_tag():
-    return obter_horas('1117376 SENAI Taguatinga', '58 Aperfeiçoamento/Especialização Profissional', '2 A distância', 'aperfei_distan')
+def obter_hora_aperfeicoamento_presencial_gam():
+    return obter_horas('5171003 SENAI Sobradinho', '58 Aperfeiçoamento/Especialização Profissional', '1 Presencial', 'aperfei_presen')
 
-def obter_hora_qualificacao_iti_presencial_tag():
-    return obter_horas('1117376 SENAI Taguatinga', '22 Qualificação Profissional - Itinerário V Ensino Médio', '1 Presencial', 'qualifi_iti_presen')
+def obter_hora_aperfeicoamento_distancia_gam():
+    return obter_horas('5171003 SENAI Sobradinho', '58 Aperfeiçoamento/Especialização Profissional', '2 A distância', 'aperfei_distan')
 
-def obter_hora_aprendizagem_tec_presencial_tag():
-    return obter_horas('1117376 SENAI Taguatinga', '15 Aprendizagem Industrial Técnica de Nível Médio', '1 Presencial', 'aprendi_tec_presen')
+def obter_hora_qualificacao_iti_presencial_gam():
+    return obter_horas('5171003 SENAI Sobradinho', '22 Qualificação Profissional - Itinerário V Ensino Médio', '1 Presencial', 'qualifi_iti_presen')
 
-def obter_hora_tecnico_presencial_tag():
-    return obter_horas('1117376 SENAI Taguatinga', '31 Técnico de Nível Médio', '1 Presencial', 'tecni_presen')
+def obter_hora_aprendizagem_tec_presencial_gam():
+    return obter_horas('5171003 SENAI Sobradinho', '15 Aprendizagem Industrial Técnica de Nível Médio', '1 Presencial', 'aprendi_tec_presen')
 
-def obter_hora_tecnico_distancia_tag():
-    return obter_horas('1117376 SENAI Taguatinga', '31 Técnico de Nível Médio', '2 A distância', 'tecni_distan')
+def obter_hora_tecnico_presencial_gam():
+    return obter_horas('5171003 SENAI Sobradinho', '31 Técnico de Nível Médio', '1 Presencial', 'tecni_presen')
 
-def obter_hora_tecnico_iti_presencial_tag():
-    return obter_horas('1117376 SENAI Taguatinga', '32 Técnico de Nível Médio - Itinerário V Ensino Médio', '1 Presencial', 'tecni_iti_presen')
+def obter_hora_tecnico_distancia_gam():
+    return obter_horas('5171003 SENAI Sobradinho', '31 Técnico de Nível Médio', '2 A distância', 'tecni_distan')
+
+def obter_hora_tecnico_iti_presencial_gam():
+    return obter_horas('5171003 SENAI Sobradinho', '32 Técnico de Nível Médio - Itinerário V Ensino Médio', '1 Presencial', 'tecni_iti_presen')
 
 
 funcoes_ha = {
 
     'horas': {
-        'iniciacao_presencial': obter_hora_iniciacao_presencial_tag,
-        'iniciacao_distancia': obter_hora_iniciacao_distancia_tag,
-        'aprendizagem_presencial': obter_hora_aprendizagem_presencial_tag,
-        'qualificacao_presencial': obter_hora_qualificacao_presencial_tag,
-        'aprendizagem_distancia': obter_hora_aprendizagem_distancia_tag,
-        'qualificacao_distancia': obter_hora_qualificacao_distancia_tag,
-        'aperfeicoamento_presencial': obter_hora_aperfeicoamento_presencial_tag,
-        'aperfeicoamento_distancia': obter_hora_aperfeicoamento_distancia_tag,
-        'qualificacao_iti_presencial': obter_hora_qualificacao_iti_presencial_tag,
-        'aprendizagem_tec_presencial': obter_hora_aprendizagem_tec_presencial_tag,
-        'tecnico_nm_presencial': obter_hora_tecnico_presencial_tag,
-        'tecnico_nm_distancia': obter_hora_tecnico_distancia_tag,
-        'tecnico_nm_iti_presencial': obter_hora_tecnico_iti_presencial_tag
+        'iniciacao_presencial': obter_hora_iniciacao_presencial_gam,
+        'iniciacao_distancia': obter_hora_iniciacao_distancia_gam,
+        'aprendizagem_presencial': obter_hora_aprendizagem_presencial_gam,
+        'qualificacao_presencial': obter_hora_qualificacao_presencial_gam,
+        'aprendizagem_distancia': obter_hora_aprendizagem_distancia_gam,
+        'qualificacao_distancia': obter_hora_qualificacao_distancia_gam,
+        'aperfeicoamento_presencial': obter_hora_aperfeicoamento_presencial_gam,
+        'aperfeicoamento_distancia': obter_hora_aperfeicoamento_distancia_gam,
+        'qualificacao_iti_presencial': obter_hora_qualificacao_iti_presencial_gam,
+        'aprendizagem_tec_presencial': obter_hora_aprendizagem_tec_presencial_gam,
+        'tecnico_nm_presencial': obter_hora_tecnico_presencial_gam,
+        'tecnico_nm_distancia': obter_hora_tecnico_distancia_gam,
+        'tecnico_nm_iti_presencial': obter_hora_tecnico_iti_presencial_gam
     },
 }
 
