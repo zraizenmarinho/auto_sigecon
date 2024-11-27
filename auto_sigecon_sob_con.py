@@ -83,7 +83,7 @@ e_usuario.send_keys(usuario)
 # Elemento Senha
 e_senha = WebDriverWait(nav, 5).until(
     EC.visibility_of_element_located((By.XPATH, '//*[@id="Password"]')))
-senha = "Vitoria2625!"
+senha = Vi*******
 e_senha.send_keys(senha)
 
 # Elemento Ano
