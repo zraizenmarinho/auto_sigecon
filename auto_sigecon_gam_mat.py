@@ -100,7 +100,7 @@ e_usuario.send_keys(usuario)
 
 # Elemento Senha
 e_senha = esperar_elemento(nav, (By.XPATH, '//*[@id="Password"]'))
-senha = "Vitoria2625!"
+senha = Vi*******
 e_senha.send_keys(senha)
 
 # Elemento Ano
